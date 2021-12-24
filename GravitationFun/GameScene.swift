@@ -66,9 +66,7 @@ class GameScene: SKScene {
     if let node = shapeNodes.last {
       let position = node.position
       let length = sqrt(pow(pos.x - position.x, 2) + pow(pos.y - position.y, 2))
-      print("lenth: \(length)")
       let ratio = min(length/100, 1)
-      print("ratio: \(ratio)")
       let color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.8, alpha: 1)
       node.color = color
 
@@ -114,22 +112,60 @@ class GameScene: SKScene {
       emitterCopy.particleColor = node.color
       node.addChild(emitterCopy)
     }
+
+    removeUseless()
+  }
+
+  func removeUseless() {
+    let nodesWithoutPhysics = shapeNodes.filter { $0.physicsBody == nil }
+    for node in nodesWithoutPhysics {
+      node.removeFromParent()
+      shapeNodes.removeAll(where: { $0 == node })
+    }
+
+    if let velocityNode = velocityNode {
+      velocityNode.removeFromParent()
+    }
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+    guard touches.count == 1 else {
+      removeUseless()
+      return
+    }
+    if let touch = touches.first {
+      self.touchDown(atPoint: touch.location(in: self))
+    }
   }
 
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+    guard touches.count == 1 else {
+      removeUseless()
+      return
+    }
+    if let touch = touches.first {
+      self.touchMoved(toPoint: touch.location(in: self))
+    }
   }
 
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    guard touches.count == 1 else {
+      removeUseless()
+      return
+    }
+    if let touch = touches.first {
+      self.touchUp(atPoint: touch.location(in: self))
+    }
   }
 
   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    guard touches.count == 1 else {
+      removeUseless()
+      return
+    }
+    if let touch = touches.first {
+      self.touchUp(atPoint: touch.location(in: self))
+    }
   }
 
 
