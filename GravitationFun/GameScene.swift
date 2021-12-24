@@ -14,19 +14,6 @@ class GameScene: SKScene {
 
   override func didMove(to view: SKView) {
 
-//    // Create shape node to use during mouse interaction
-//    let w = (self.size.width + self.size.height) * 0.05
-//    self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-//
-//    if let spinnyNode = self.spinnyNode {
-//      spinnyNode.lineWidth = 2.5
-//
-//      spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-//      spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-//                                        SKAction.fadeOut(withDuration: 0.5),
-//                                        SKAction.removeFromParent()]))
-//    }
-
     physicsWorld.contactDelegate = self
 
     let centerNode = SKShapeNode(circleOfRadius: 10)
@@ -43,11 +30,6 @@ class GameScene: SKScene {
 
 
   func touchDown(atPoint pos : CGPoint) {
-//    if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//      n.position = pos
-//      n.strokeColor = SKColor.green
-//      self.addChild(n)
-//    }
 
     let shapeNode = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
     shapeNode.position = pos
@@ -57,11 +39,6 @@ class GameScene: SKScene {
   }
 
   func touchMoved(toPoint pos : CGPoint) {
-//    if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//      n.position = pos
-//      n.strokeColor = SKColor.blue
-//      self.addChild(n)
-//    }
 
     if let node = shapeNodes.last {
       let position = node.position
@@ -86,11 +63,6 @@ class GameScene: SKScene {
   }
 
   func touchUp(atPoint pos : CGPoint) {
-//    if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//      n.position = pos
-//      n.strokeColor = SKColor.red
-//      self.addChild(n)
-//    }
 
     if let velocityNode = velocityNode {
       velocityNode.removeFromParent()
@@ -176,9 +148,6 @@ class GameScene: SKScene {
 
 extension GameScene: SKPhysicsContactDelegate {
   func didBegin(_ contact: SKPhysicsContact) {
-//    let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-//    if collision == PhysicsCategory.center | PhysicsCategory.bullet {
-//    }
 
     if contact.bodyA.categoryBitMask == PhysicsCategory.satellite {
       if let node = contact.bodyA.node {
