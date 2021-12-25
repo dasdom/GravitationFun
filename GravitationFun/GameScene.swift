@@ -7,10 +7,11 @@ import GameplayKit
 
 class GameScene: SKScene {
 
-  var shapeNodes: [SKSpriteNode] = []
+  var satelliteNodes: [SKSpriteNode] = []
   var velocityNode: SKShapeNode?
   var centerNode: SKShapeNode?
   var emitter: SKEmitterNode?
+  var gravityNode: SKFieldNode?
 
   override func didMove(to view: SKView) {
 
@@ -26,6 +27,11 @@ class GameScene: SKScene {
 
     emitter = SKEmitterNode(fileNamed: "trail")
     emitter?.targetNode = self
+
+    let gravityNode = SKFieldNode.radialGravityField()
+    gravityNode.falloff = 1.0
+    addChild(gravityNode)
+    self.gravityNode = gravityNode
   }
 
 
@@ -34,13 +40,13 @@ class GameScene: SKScene {
     let shapeNode = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
     shapeNode.position = pos
     shapeNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-    shapeNodes.append(shapeNode)
+    satelliteNodes.append(shapeNode)
     addChild(shapeNode)
   }
 
   func touchMoved(toPoint pos : CGPoint) {
 
-    if let node = shapeNodes.last {
+    if let node = satelliteNodes.last {
       let position = node.position
       let length = sqrt(pow(pos.x - position.x, 2) + pow(pos.y - position.y, 2))
       let ratio = min(length/100, 1)
@@ -68,7 +74,7 @@ class GameScene: SKScene {
       velocityNode.removeFromParent()
     }
 
-    if let node = shapeNodes.last {
+    if let node = satelliteNodes.last {
       node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10), center: position)
       node.physicsBody?.friction = 0
       node.physicsBody?.restitution = 0
@@ -89,10 +95,10 @@ class GameScene: SKScene {
   }
 
   func removeUseless() {
-    let nodesWithoutPhysics = shapeNodes.filter { $0.physicsBody == nil }
+    let nodesWithoutPhysics = satelliteNodes.filter { $0.physicsBody == nil }
     for node in nodesWithoutPhysics {
       node.removeFromParent()
-      shapeNodes.removeAll(where: { $0 == node })
+      satelliteNodes.removeAll(where: { $0 == node })
     }
 
     if let velocityNode = velocityNode {
@@ -140,9 +146,24 @@ class GameScene: SKScene {
     }
   }
 
-
   override func update(_ currentTime: TimeInterval) {
     // Called before each frame is rendered
+  }
+
+  func setEmitter(enabled: Bool) {
+    for node in satelliteNodes {
+      if enabled {
+        guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
+
+        emitterCopy.particleColor = node.color
+        node.addChild(emitterCopy)
+      } else {
+        let allEmitter = node.children.filter { $0 is SKEmitterNode }
+        for emitter in allEmitter {
+          emitter.removeFromParent()
+        }
+      }
+    }
   }
 }
 
@@ -151,12 +172,12 @@ extension GameScene: SKPhysicsContactDelegate {
 
     if contact.bodyA.categoryBitMask == PhysicsCategory.satellite {
       if let node = contact.bodyA.node {
-        shapeNodes.removeAll { $0 == node }
+        satelliteNodes.removeAll { $0 == node }
         node.removeFromParent()
       }
     } else if contact.bodyB.categoryBitMask == PhysicsCategory.satellite {
       if let node = contact.bodyB.node {
-        shapeNodes.removeAll { $0 == node }
+        satelliteNodes.removeAll { $0 == node }
         node.removeFromParent()
       }
     }
