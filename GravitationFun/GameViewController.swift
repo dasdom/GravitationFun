@@ -8,11 +8,9 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
-  @IBOutlet weak var stepper: UIStepper!
   var gameScene: GameScene?
-  @IBOutlet weak var cutoffLabel: UILabel!
-  @IBOutlet weak var leadingSettingsConstraint: NSLayoutConstraint!
-  @IBOutlet weak var settingsView: UIView!
+  var leadingSettingsConstraint: NSLayoutConstraint?
+  var settingsView: SettingsView?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,14 +28,34 @@ class GameViewController: UIViewController {
       }
 
       view.ignoresSiblingOrder = true
+      view.preferredFramesPerSecond = UIScreen.main.maximumFramesPerSecond
 
       view.showsFPS = true
       view.showsNodeCount = true
     }
 
-    stepper.value = 1.0
+    let settingsView = SettingsView()
+    settingsView.translatesAutoresizingMaskIntoConstraints = false
+    settingsView.cutOffStepper.value = 1.0
+    settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
+    settingsView.cutOffStepper.addTarget(self, action: #selector(stepperChanged(_:)), for: .valueChanged)
+    settingsView.trailsSwitch.addTarget(self, action: #selector(toggleTrails(_:)), for: .valueChanged)
+    settingsView.clearButton.addTarget(self , action: #selector(clear(_:)), for: .touchUpInside)
+    if let fieldNode = gameScene?.gravityNode {
+      settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
+    }
 
-    leadingSettingsConstraint.constant = 0
+    view.addSubview(settingsView)
+
+    let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+
+    NSLayoutConstraint.activate([
+      settingsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      leadingSettingsConstraint
+    ])
+
+    self.settingsView = settingsView
+    self.leadingSettingsConstraint = leadingSettingsConstraint
   }
 
   override var shouldAutorotate: Bool {
@@ -52,13 +70,18 @@ class GameViewController: UIViewController {
     }
   }
 
-  @IBAction func stepperChanged(_ sender: UIStepper) {
-    cutoffLabel.text = String(format: "%.1lf", sender.value)
+  @objc func stepperChanged(_ sender: UIStepper) {
+    settingsView?.cutOffValueLabel.text = String(format: "%.1lf", sender.value)
     gameScene?.gravityNode?.falloff = Float(sender.value)
   }
 
-  @IBAction func toggleSettings(_ sender: UIButton) {
+  @objc func toggleSettings(_ sender: UIButton) {
     let image: UIImage?
+
+    guard let leadingSettingsConstraint = leadingSettingsConstraint else {
+      return
+    }
+
     if leadingSettingsConstraint.constant > 1 {
       leadingSettingsConstraint.constant = 0
       image = UIImage(systemName: "chevron.right")
@@ -77,8 +100,12 @@ class GameViewController: UIViewController {
     }
   }
 
-  @IBAction func toggleTrails(_ sender: UISwitch) {
+  @objc func toggleTrails(_ sender: UISwitch) {
     gameScene?.setEmitter(enabled: sender.isOn)
+  }
+
+  @objc func clear(_ sender: UIButton) {
+    gameScene?.clear()
   }
 
   override var prefersStatusBarHidden: Bool {

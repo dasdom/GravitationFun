@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F24FEA822775A9DD0043FD8B /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */; };
 		F2B6164A2775C93200BCE6C4 /* trail.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2B616492775C93200BCE6C4 /* trail.sks */; };
+		F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */; };
 		F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */; };
 		F2BD5C5D2773C4DC00136C85 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2BD5C5C2773C4DC00136C85 /* GameScene.sks */; };
 		F2BD5C5F2773C4DC00136C85 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2BD5C5E2773C4DC00136C85 /* Actions.sks */; };
@@ -23,6 +24,7 @@
 		F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		F2B616492775C93200BCE6C4 /* trail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail.sks; sourceTree = "<group>"; };
 		F2B6164B2777998200BCE6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F2BD5C572773C4DC00136C85 /* GravitationFun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GravitationFun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2BD5C5C2773C4DC00136C85 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				F2B616492775C93200BCE6C4 /* trail.sks */,
 				F2BD5C602773C4DC00136C85 /* GameScene.swift */,
 				F2BD5C622773C4DC00136C85 /* GameViewController.swift */,
+				F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */,
 				F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */,
 				F2BD5C642773C4DC00136C85 /* Main.storyboard */,
 				F2BD5C672773C4DE00136C85 /* Assets.xcassets */,
@@ -108,6 +111,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1310;
+				ORGANIZATIONNAME = dasdom;
 				TargetAttributes = {
 					F2BD5C562773C4DC00136C85 = {
 						CreatedOnToolsVersion = 13.1;
@@ -153,6 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */,
 				F2BD5C612773C4DC00136C85 /* GameScene.swift in Sources */,
 				F24FEA822775A9DD0043FD8B /* PhysicsCategory.swift in Sources */,
 				F2BD5C632773C4DC00136C85 /* GameViewController.swift in Sources */,

@@ -171,6 +171,12 @@ class GameScene: SKScene {
       }
     }
   }
+
+  func clear() {
+    for node in satelliteNodes {
+      node.removeFromParent()
+    }
+  }
 }
 
 extension GameScene: SKPhysicsContactDelegate {
