@@ -12,6 +12,10 @@ class SettingsView: UIView {
 
   let trailsKeyLabel: UILabel
   let trailsSwitch: UISwitch
+
+  let soundKeyLabel: UILabel
+  let soundSwitch: UISwitch
+
   let clearButton: UIButton
 
   let showHideButton: UIButton
@@ -41,6 +45,13 @@ class SettingsView: UIView {
     trailsSwitch = UISwitch()
     trailsSwitch.isOn = true
 
+    soundKeyLabel = UILabel()
+    soundKeyLabel.text = "Sound"
+    soundKeyLabel.textColor = .white
+
+    soundSwitch = UISwitch()
+    soundSwitch.isOn = true
+
     clearButton = UIButton(type: .system)
     clearButton.configuration = UIButton.Configuration.filled()
     clearButton.setTitle("Clear", for: .normal)
@@ -57,7 +68,9 @@ class SettingsView: UIView {
 
     let trailsStackView = UIStackView(arrangedSubviews: [trailsKeyLabel, trailsSwitch])
 
-    let settingsStackView = UIStackView(arrangedSubviews: [cutOffStackView, trailsStackView, clearButton])
+    let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
+
+    let settingsStackView = UIStackView(arrangedSubviews: [cutOffStackView, trailsStackView, soundStackView, clearButton])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 10
 

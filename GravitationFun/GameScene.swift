@@ -13,6 +13,7 @@ class GameScene: SKScene {
   var emitter: SKEmitterNode?
   var gravityNode: SKFieldNode?
   private var showTrails = true
+  private var musicAudioNode: SKAudioNode?
 
   override func didMove(to view: SKView) {
 
@@ -33,6 +34,8 @@ class GameScene: SKScene {
     gravityNode.falloff = 1.0
     addChild(gravityNode)
     self.gravityNode = gravityNode
+
+    setSound(enabled: true)
   }
 
 
@@ -50,8 +53,8 @@ class GameScene: SKScene {
     if let node = satelliteNodes.last {
       let position = node.position
       let length = sqrt(pow(pos.x - position.x, 2) + pow(pos.y - position.y, 2))
-      let ratio = min(length/100, 1)
-      let color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.8, alpha: 1)
+      let ratio = min(length/150, 1)
+      let color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.9, alpha: 1)
       node.color = color
 
       if let velocityNode = velocityNode {
@@ -169,6 +172,20 @@ class GameScene: SKScene {
           emitter.removeFromParent()
         }
       }
+    }
+  }
+
+  func setSound(enabled: Bool) {
+    if enabled {
+      let musicAudioNode = SKAudioNode(fileNamed: "gravity.m4a")
+      musicAudioNode.autoplayLooped = true
+      musicAudioNode.isPositional = false
+      musicAudioNode.run(SKAction.changeVolume(to: 0.5, duration: 0))
+      addChild(musicAudioNode)
+      self.musicAudioNode = musicAudioNode
+    } else {
+      self.musicAudioNode?.removeFromParent()
+      self.musicAudioNode = nil
     }
   }
 
