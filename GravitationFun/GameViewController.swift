@@ -106,7 +106,7 @@ class GameViewController: UIViewController {
   }
 
   @objc func toggleSound(_ sender: UISwitch) {
-    gameScene?.setSound(enabled: sender.isOn)
+    gameScene?.soundEnabled = sender.isOn
   }
 
   @objc func clear(_ sender: UIButton) {

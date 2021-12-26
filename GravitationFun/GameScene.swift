@@ -14,6 +14,15 @@ class GameScene: SKScene {
   var gravityNode: SKFieldNode?
   private var showTrails = true
   private var musicAudioNode: SKAudioNode?
+  var soundEnabled = true {
+    didSet {
+      if soundEnabled, satelliteNodes.count > 0 {
+        setSound(enabled: true)
+      } else if false == soundEnabled {
+        setSound(enabled: false)
+      }
+    }
+  }
 
   override func didMove(to view: SKView) {
 
@@ -34,18 +43,17 @@ class GameScene: SKScene {
     gravityNode.falloff = 1.0
     addChild(gravityNode)
     self.gravityNode = gravityNode
-
-    setSound(enabled: true)
   }
 
 
   func touchDown(atPoint pos : CGPoint) {
 
-    let shapeNode = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
-    shapeNode.position = pos
-    shapeNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-    satelliteNodes.append(shapeNode)
-    addChild(shapeNode)
+    let spriteNode = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
+    spriteNode.position = pos
+    spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+    spriteNode.zPosition = 2
+    satelliteNodes.append(spriteNode)
+    addChild(spriteNode)
   }
 
   func touchMoved(toPoint pos : CGPoint) {
@@ -95,6 +103,10 @@ class GameScene: SKScene {
         emitterCopy.particleColor = node.color
         node.addChild(emitterCopy)
       }
+    }
+
+    if satelliteNodes.count == 1, soundEnabled {
+      setSound(enabled: true)
     }
 
     removeUseless()
@@ -193,6 +205,8 @@ class GameScene: SKScene {
     for node in satelliteNodes {
       node.removeFromParent()
     }
+    satelliteNodes.removeAll()
+    setSound(enabled: false)
   }
 }
 
@@ -209,6 +223,10 @@ extension GameScene: SKPhysicsContactDelegate {
         satelliteNodes.removeAll { $0 == node }
         node.removeFromParent()
       }
+    }
+
+    if satelliteNodes.count == 0 {
+      setSound(enabled: false)
     }
   }
 }
