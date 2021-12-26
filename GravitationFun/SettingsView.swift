@@ -20,19 +20,23 @@ class SettingsView: UIView {
 
     cutOffKeyLabel = UILabel()
     cutOffKeyLabel.text = "Gravity falloff:"
+    cutOffKeyLabel.textColor = .white
 
     cutOffValueLabel = UILabel()
     cutOffValueLabel.text = "-"
     cutOffValueLabel.textAlignment = .right
+    cutOffValueLabel.textColor = .white
 
     cutOffStepper = UIStepper()
     cutOffStepper.minimumValue = 0.1
     cutOffStepper.maximumValue = 3.0
     cutOffStepper.stepValue = 0.1
     cutOffStepper.value = 1.0
+    cutOffStepper.backgroundColor = .gray
 
     trailsKeyLabel = UILabel()
     trailsKeyLabel.text = "Trails"
+    trailsKeyLabel.textColor = .white
 
     trailsSwitch = UISwitch()
     trailsSwitch.isOn = true
@@ -46,7 +50,7 @@ class SettingsView: UIView {
 
     super.init(frame: frame)
 
-    backgroundColor = .systemBackground
+    backgroundColor = .init(white: 0.1, alpha: 1)
 
     let cutOffStackView = UIStackView(arrangedSubviews: [cutOffKeyLabel, cutOffValueLabel, cutOffStepper])
     cutOffStackView.spacing = 20
