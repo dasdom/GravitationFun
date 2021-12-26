@@ -12,6 +12,7 @@ class GameScene: SKScene {
   var centerNode: SKShapeNode?
   var emitter: SKEmitterNode?
   var gravityNode: SKFieldNode?
+  private var showTrails = true
 
   override func didMove(to view: SKView) {
 
@@ -85,10 +86,12 @@ class GameScene: SKScene {
       let position = node.position
       node.physicsBody?.velocity = CGVector(dx: position.x - pos.x, dy: position.y - pos.y)
 
-      guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
+      if showTrails {
+        guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
 
-      emitterCopy.particleColor = node.color
-      node.addChild(emitterCopy)
+        emitterCopy.particleColor = node.color
+        node.addChild(emitterCopy)
+      }
     }
 
     removeUseless()
@@ -151,6 +154,9 @@ class GameScene: SKScene {
   }
 
   func setEmitter(enabled: Bool) {
+
+    showTrails = enabled
+
     for node in satelliteNodes {
       if enabled {
         guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
