@@ -48,10 +48,7 @@ class GameScene: SKScene {
 
   func touchDown(atPoint pos : CGPoint) {
 
-    let spriteNode = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
-    spriteNode.position = pos
-    spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-    spriteNode.zPosition = 2
+    let spriteNode = Satellite(position: pos)
     satelliteNodes.append(spriteNode)
     addChild(spriteNode)
   }
@@ -86,22 +83,13 @@ class GameScene: SKScene {
       velocityNode.removeFromParent()
     }
 
-    if let node = satelliteNodes.last {
-      node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10), center: position)
-      node.physicsBody?.friction = 0
-      node.physicsBody?.restitution = 0
-      node.physicsBody?.linearDamping = 0
-      node.physicsBody?.angularDamping = 0
-      node.physicsBody?.categoryBitMask = PhysicsCategory.satellite
-      node.physicsBody?.contactTestBitMask = PhysicsCategory.center
+    if let node = satelliteNodes.last as? Satellite {
       let position = node.position
-      node.physicsBody?.velocity = CGVector(dx: position.x - pos.x, dy: position.y - pos.y)
+      let velocity = CGVector(dx: position.x - pos.x, dy: position.y - pos.y)
+      node.addPhysicsBody(with: velocity)
 
       if showTrails {
-        guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
-
-        emitterCopy.particleColor = node.color
-        node.addChild(emitterCopy)
+        node.addEmitter(emitter: emitter)
       }
     }
 
@@ -173,11 +161,8 @@ class GameScene: SKScene {
     showTrails = enabled
 
     for node in satelliteNodes {
-      if enabled {
-        guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
-
-        emitterCopy.particleColor = node.color
-        node.addChild(emitterCopy)
+      if enabled, let node = node as? Satellite {
+        node.addEmitter(emitter: emitter)
       } else {
         let allEmitter = node.children.filter { $0 is SKEmitterNode }
         for emitter in allEmitter {
@@ -199,6 +184,15 @@ class GameScene: SKScene {
       self.musicAudioNode?.removeFromParent()
       self.musicAudioNode = nil
     }
+  }
+
+  func random() {
+    let satellites = Satellite.random(sceneSize: size, emitter: emitter)
+    for satellite in satellites {
+      addChild(satellite)
+    }
+    self.satelliteNodes.append(contentsOf: satellites)
+    setSound(enabled: true)
   }
 
   func clear() {

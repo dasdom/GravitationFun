@@ -16,6 +16,8 @@ class SettingsView: UIView {
   let soundKeyLabel: UILabel
   let soundSwitch: UISwitch
 
+  let randomButton: UIButton
+
   let clearButton: UIButton
 
   let showHideButton: UIButton
@@ -56,6 +58,10 @@ class SettingsView: UIView {
     soundSwitch = UISwitch()
     soundSwitch.isOn = true
 
+    randomButton = UIButton(type: .system)
+    randomButton.configuration = UIButton.Configuration.filled()
+    randomButton.setTitle("Random", for: .normal)
+
     clearButton = UIButton(type: .system)
     clearButton.configuration = UIButton.Configuration.filled()
     clearButton.setTitle("Clear", for: .normal)
@@ -74,7 +80,7 @@ class SettingsView: UIView {
 
     let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
 
-    let settingsStackView = UIStackView(arrangedSubviews: [cutOffStackView, trailsStackView, soundStackView, clearButton])
+    let settingsStackView = UIStackView(arrangedSubviews: [cutOffStackView, trailsStackView, soundStackView, randomButton, clearButton])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 10
 

@@ -41,7 +41,8 @@ class GameViewController: UIViewController {
     settingsView.cutOffStepper.addTarget(self, action: #selector(stepperChanged(_:)), for: .valueChanged)
     settingsView.trailsSwitch.addTarget(self, action: #selector(toggleTrails(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
-    settingsView.clearButton.addTarget(self , action: #selector(clear(_:)), for: .touchUpInside)
+    settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
+    settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
     if let fieldNode = gameScene?.gravityNode {
       settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
     }
@@ -107,6 +108,10 @@ class GameViewController: UIViewController {
 
   @objc func toggleSound(_ sender: UISwitch) {
     gameScene?.soundEnabled = sender.isOn
+  }
+
+  @objc func random(_ sender: UIButton) {
+    gameScene?.random()
   }
 
   @objc func clear(_ sender: UIButton) {
