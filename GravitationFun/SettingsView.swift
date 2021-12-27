@@ -25,11 +25,13 @@ class SettingsView: UIView {
     cutOffKeyLabel = UILabel()
     cutOffKeyLabel.text = "Gravity falloff:"
     cutOffKeyLabel.textColor = .white
+    cutOffKeyLabel.font = .systemFont(ofSize: 13)
 
     cutOffValueLabel = UILabel()
     cutOffValueLabel.text = "-"
     cutOffValueLabel.textAlignment = .right
     cutOffValueLabel.textColor = .white
+    cutOffValueLabel.font = .systemFont(ofSize: 13)
 
     cutOffStepper = UIStepper()
     cutOffStepper.minimumValue = 0.1
@@ -41,6 +43,7 @@ class SettingsView: UIView {
     trailsKeyLabel = UILabel()
     trailsKeyLabel.text = "Trails"
     trailsKeyLabel.textColor = .white
+    trailsKeyLabel.font = .systemFont(ofSize: 13)
 
     trailsSwitch = UISwitch()
     trailsSwitch.isOn = true
@@ -48,6 +51,7 @@ class SettingsView: UIView {
     soundKeyLabel = UILabel()
     soundKeyLabel.text = "Sound"
     soundKeyLabel.textColor = .white
+    soundKeyLabel.font = .systemFont(ofSize: 13)
 
     soundSwitch = UISwitch()
     soundSwitch.isOn = true
@@ -88,7 +92,7 @@ class SettingsView: UIView {
 
       showHideButton.widthAnchor.constraint(equalToConstant: 30),
 
-      cutOffValueLabel.widthAnchor.constraint(equalToConstant: 30),
+      cutOffValueLabel.widthAnchor.constraint(equalToConstant: 20),
     ])
   }
 
