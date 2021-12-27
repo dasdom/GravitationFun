@@ -88,7 +88,7 @@ class SettingsView: UIView {
 
       showHideButton.widthAnchor.constraint(equalToConstant: 30),
 
-      cutOffValueLabel.widthAnchor.constraint(equalToConstant: 50),
+      cutOffValueLabel.widthAnchor.constraint(equalToConstant: 30),
     ])
   }
 
