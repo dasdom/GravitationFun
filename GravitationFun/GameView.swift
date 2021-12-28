@@ -75,6 +75,8 @@ class GameView: UIView {
 
       fastForwardButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
       fastForwardButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+      fastForwardButton.widthAnchor.constraint(equalToConstant: 44),
+      fastForwardButton.heightAnchor.constraint(equalTo: fastForwardButton.widthAnchor),
     ])
 
     self.leadingSettingsConstraint = leadingSettingsConstraint

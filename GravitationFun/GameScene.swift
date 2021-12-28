@@ -30,6 +30,9 @@ class GameScene: SKScene {
     physicsWorld.contactDelegate = self
 
     let centerNode = SKShapeNode(circleOfRadius: 10)
+    centerNode.lineWidth = 0.5
+    centerNode.glowWidth = 0.5
+    centerNode.fillColor = .black
     centerNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
     centerNode.physicsBody?.isDynamic = false
     centerNode.physicsBody?.categoryBitMask = PhysicsCategory.center
@@ -173,8 +176,8 @@ class GameScene: SKScene {
   }
 
   func setSound(enabled: Bool) {
-    if enabled {
-      if let musicAudioNode = musicAudioNode {
+    if enabled, soundEnabled {
+      if let musicAudioNode = musicAudioNode, musicAudioNode.parent == nil {
         musicAudioNode.autoplayLooped = true
         musicAudioNode.isPositional = false
         musicAudioNode.run(SKAction.changeVolume(to: 0.5, duration: 0))
