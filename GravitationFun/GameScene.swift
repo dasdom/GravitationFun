@@ -165,7 +165,7 @@ class GameScene: SKScene {
   }
 
   func zoom(to zoomValue: CGFloat) {
-    let zoomInAction = SKAction.scale(to: zoomValue, duration: 0.3)
+    let zoomInAction = SKAction.scale(to: 1-(zoomValue-1), duration: 0.3)
     camera?.run(zoomInAction)
   }
 

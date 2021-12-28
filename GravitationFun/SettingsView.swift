@@ -59,12 +59,12 @@ class SettingsView: UIView {
 
     zoomStepper = UIStepper()
     zoomStepper.minimumValue = 0.25
-    zoomStepper.maximumValue = 3
+    zoomStepper.maximumValue = 1.25
     zoomStepper.stepValue = 0.25
     zoomStepper.value = 1.0
     zoomStepper.backgroundColor = .gray
-    zoomStepper.setDecrementImage(UIImage(systemName: "plus.magnifyingglass"), for: .normal)
-    zoomStepper.setIncrementImage(UIImage(systemName: "minus.magnifyingglass"), for: .normal)
+    zoomStepper.setDecrementImage(UIImage(systemName: "minus.magnifyingglass"), for: .normal)
+    zoomStepper.setIncrementImage(UIImage(systemName: "plus.magnifyingglass"), for: .normal)
     zoomStepper.tintColor = .black
 
     trailsKeyLabel = UILabel()
