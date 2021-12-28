@@ -48,6 +48,9 @@ class GameScene: SKScene {
     let cameraNode = SKCameraNode()
     addChild(cameraNode)
     camera = cameraNode
+
+    let musicAudioNode = SKAudioNode(fileNamed: "gravity.m4a")
+    self.musicAudioNode = musicAudioNode
   }
 
   func touchDown(_ touch: UITouch) {
@@ -171,15 +174,14 @@ class GameScene: SKScene {
 
   func setSound(enabled: Bool) {
     if enabled {
-      let musicAudioNode = SKAudioNode(fileNamed: "gravity.m4a")
-      musicAudioNode.autoplayLooped = true
-      musicAudioNode.isPositional = false
-      musicAudioNode.run(SKAction.changeVolume(to: 0.5, duration: 0))
-      addChild(musicAudioNode)
-      self.musicAudioNode = musicAudioNode
+      if let musicAudioNode = musicAudioNode {
+        musicAudioNode.autoplayLooped = true
+        musicAudioNode.isPositional = false
+        musicAudioNode.run(SKAction.changeVolume(to: 0.5, duration: 0))
+        addChild(musicAudioNode)
+      }
     } else {
       self.musicAudioNode?.removeFromParent()
-      self.musicAudioNode = nil
     }
   }
 
