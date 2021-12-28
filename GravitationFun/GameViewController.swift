@@ -38,13 +38,18 @@ class GameViewController: UIViewController {
     settingsView.translatesAutoresizingMaskIntoConstraints = false
     settingsView.cutOffStepper.value = 1.0
     settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
-    settingsView.cutOffStepper.addTarget(self, action: #selector(stepperChanged(_:)), for: .valueChanged)
+    settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
+    settingsView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
     settingsView.trailsSwitch.addTarget(self, action: #selector(toggleTrails(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
     settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
     if let fieldNode = gameScene?.gravityNode {
       settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
+    }
+
+    if let cameraNode = gameScene?.camera {
+      settingsView.zoomValueLabel.text = String(format: "%ld", Int(cameraNode.xScale * 100)) + "%"
     }
 
     view.addSubview(settingsView)
@@ -72,9 +77,14 @@ class GameViewController: UIViewController {
     }
   }
 
-  @objc func stepperChanged(_ sender: UIStepper) {
+  @objc func falloffChanged(_ sender: UIStepper) {
     settingsView?.cutOffValueLabel.text = String(format: "%.1lf", sender.value)
     gameScene?.gravityNode?.falloff = Float(sender.value)
+  }
+
+  @objc func zoomChanged(_ sender: UIStepper) {
+    settingsView?.zoomValueLabel.text = String(format: "%ld", Int(sender.value * 100)) + "%"
+    gameScene?.zoom(to: sender.value)
   }
 
   @objc func toggleSettings(_ sender: UIButton) {

@@ -10,6 +10,10 @@ class SettingsView: UIView {
   let cutOffValueLabel: UILabel
   let cutOffStepper: UIStepper
 
+  let zoomKeyLabel: UILabel
+  let zoomValueLabel: UILabel
+  let zoomStepper: UIStepper
+
   let trailsKeyLabel: UILabel
   let trailsSwitch: UISwitch
 
@@ -41,6 +45,27 @@ class SettingsView: UIView {
     cutOffStepper.stepValue = 0.1
     cutOffStepper.value = 1.0
     cutOffStepper.backgroundColor = .gray
+
+    zoomKeyLabel = UILabel()
+    zoomKeyLabel.text = "Zoom:"
+    zoomKeyLabel.textColor = .white
+    zoomKeyLabel.font = .systemFont(ofSize: 13)
+
+    zoomValueLabel = UILabel()
+    zoomValueLabel.text = "-"
+    zoomValueLabel.textAlignment = .right
+    zoomValueLabel.textColor = .white
+    zoomValueLabel.font = .systemFont(ofSize: 13)
+
+    zoomStepper = UIStepper()
+    zoomStepper.minimumValue = 0.25
+    zoomStepper.maximumValue = 3
+    zoomStepper.stepValue = 0.25
+    zoomStepper.value = 1.0
+    zoomStepper.backgroundColor = .gray
+    zoomStepper.setDecrementImage(UIImage(systemName: "plus.magnifyingglass"), for: .normal)
+    zoomStepper.setIncrementImage(UIImage(systemName: "minus.magnifyingglass"), for: .normal)
+    zoomStepper.tintColor = .black
 
     trailsKeyLabel = UILabel()
     trailsKeyLabel.text = "Trails"
@@ -76,11 +101,14 @@ class SettingsView: UIView {
     let cutOffStackView = UIStackView(arrangedSubviews: [cutOffKeyLabel, cutOffValueLabel, cutOffStepper])
     cutOffStackView.spacing = 20
 
+    let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomValueLabel, zoomStepper])
+    zoomStackView.spacing = 20
+
     let trailsStackView = UIStackView(arrangedSubviews: [trailsKeyLabel, trailsSwitch])
 
     let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
 
-    let settingsStackView = UIStackView(arrangedSubviews: [cutOffStackView, trailsStackView, soundStackView, randomButton, clearButton])
+    let settingsStackView = UIStackView(arrangedSubviews: [cutOffStackView, zoomStackView, trailsStackView, soundStackView, randomButton, clearButton])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 10
 

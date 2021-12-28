@@ -8,10 +8,11 @@ import GameplayKit
 class GameScene: SKScene {
 
   var satelliteNodes: [SKSpriteNode] = []
-  var velocityNode: SKShapeNode?
   var centerNode: SKShapeNode?
   var emitter: SKEmitterNode?
   var gravityNode: SKFieldNode?
+  var touchedNodes: [UITouch:Satellite] = [:]
+  var velocityNodes: [UITouch:SKShapeNode] = [:]
   private var showTrails = true
   private var musicAudioNode: SKAudioNode?
   var soundEnabled = true {
@@ -43,26 +44,33 @@ class GameScene: SKScene {
     gravityNode.falloff = 1.0
     addChild(gravityNode)
     self.gravityNode = gravityNode
+
+    let cameraNode = SKCameraNode()
+    addChild(cameraNode)
+    camera = cameraNode
   }
 
+  func touchDown(_ touch: UITouch) {
 
-  func touchDown(atPoint pos : CGPoint) {
-
-    let spriteNode = Satellite(position: pos)
-    satelliteNodes.append(spriteNode)
-    addChild(spriteNode)
+    let pos = touch.location(in: self)
+    let node = Satellite(position: pos)
+    satelliteNodes.append(node)
+    addChild(node)
+    touchedNodes[touch] = node
   }
 
-  func touchMoved(toPoint pos : CGPoint) {
+  func touchMoved(_ touch: UITouch) {
 
-    if let node = satelliteNodes.last {
+    let pos = touch.location(in: self)
+
+    if let node = touchedNodes[touch] {
       let position = node.position
       let length = sqrt(pow(pos.x - position.x, 2) + pow(pos.y - position.y, 2))
       let ratio = min(length/150, 1)
       let color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.9, alpha: 1)
       node.color = color
 
-      if let velocityNode = velocityNode {
+      if let velocityNode = velocityNodes[touch] {
         velocityNode.removeFromParent()
       }
 
@@ -73,17 +81,21 @@ class GameScene: SKScene {
       velocityNode.strokeColor = .white
       velocityNode.lineWidth = 2
       insertChild(velocityNode, at: 0)
-      self.velocityNode = velocityNode
+      velocityNodes[touch] = velocityNode
     }
   }
 
-  func touchUp(atPoint pos : CGPoint) {
+  func touchUp(_ touch: UITouch) {
 
-    if let velocityNode = velocityNode {
+    let pos = touch.location(in: self)
+
+    if let velocityNode = velocityNodes[touch] {
       velocityNode.removeFromParent()
     }
 
-    if let node = satelliteNodes.last as? Satellite {
+    velocityNodes.removeValue(forKey: touch)
+
+    if let node = touchedNodes[touch] {
       let position = node.position
       let velocity = CGVector(dx: position.x - pos.x, dy: position.y - pos.y)
       node.addPhysicsBody(with: velocity)
@@ -97,7 +109,7 @@ class GameScene: SKScene {
       setSound(enabled: true)
     }
 
-    removeUseless()
+    touchedNodes.removeValue(forKey: touch)
   }
 
   func removeUseless() {
@@ -106,49 +118,29 @@ class GameScene: SKScene {
       node.removeFromParent()
       satelliteNodes.removeAll(where: { $0 == node })
     }
-
-    if let velocityNode = velocityNode {
-      velocityNode.removeFromParent()
-    }
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard touches.count == 1 else {
-      removeUseless()
-      return
-    }
-    if let touch = touches.first {
-      self.touchDown(atPoint: touch.location(in: self))
+    for touch in touches {
+      touchDown(touch)
     }
   }
 
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard touches.count == 1 else {
-      removeUseless()
-      return
-    }
-    if let touch = touches.first {
-      self.touchMoved(toPoint: touch.location(in: self))
+    for touch in touches {
+      touchMoved(touch)
     }
   }
 
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard touches.count == 1 else {
-      removeUseless()
-      return
-    }
-    if let touch = touches.first {
-      self.touchUp(atPoint: touch.location(in: self))
+    for touch in touches {
+      touchUp(touch)
     }
   }
 
   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard touches.count == 1 else {
-      removeUseless()
-      return
-    }
-    if let touch = touches.first {
-      self.touchUp(atPoint: touch.location(in: self))
+    for touch in touches {
+      touchUp(touch)
     }
   }
 
@@ -170,6 +162,11 @@ class GameScene: SKScene {
         }
       }
     }
+  }
+
+  func zoom(to zoomValue: CGFloat) {
+    let zoomInAction = SKAction.scale(to: zoomValue, duration: 0.3)
+    camera?.run(zoomInAction)
   }
 
   func setSound(enabled: Bool) {
