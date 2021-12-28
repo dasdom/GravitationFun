@@ -13,6 +13,7 @@ class GameView: UIView {
   let zoomStepper: UIStepper
   let zoomLabel: UILabel
   let zoomStackView: UIStackView
+  let fastForwardButton: UIButton
 
   override init(frame: CGRect) {
 
@@ -44,6 +45,11 @@ class GameView: UIView {
     zoomStackView.axis = .vertical
     zoomStackView.isHidden = true
 
+    fastForwardButton = UIButton(type: .system)
+    fastForwardButton.translatesAutoresizingMaskIntoConstraints = false
+    fastForwardButton.setImage(UIImage(systemName: "forward"), for: .normal)
+    fastForwardButton.tintColor = .white
+
     super.init(frame: frame)
 
     skView.ignoresSiblingOrder = true
@@ -55,6 +61,7 @@ class GameView: UIView {
     addSubview(skView)
     addSubview(settingsView)
     addSubview(zoomStackView)
+    addSubview(fastForwardButton)
 
     let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: leadingAnchor)
 
@@ -64,6 +71,9 @@ class GameView: UIView {
 
       zoomStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
       zoomStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+
+      fastForwardButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+      fastForwardButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
     ])
 
     self.leadingSettingsConstraint = leadingSettingsConstraint

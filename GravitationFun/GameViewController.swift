@@ -15,16 +15,22 @@ class GameViewController: UIViewController {
 
   override func loadView() {
     let contentView = GameView(frame: UIScreen.main.bounds)
+
     let settingsView = contentView.settingsView
     settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
     settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
     settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
-    contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
     settingsView.trailsSwitch.addTarget(self, action: #selector(toggleTrails(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
     settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
+
+    contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
+    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown(_:)), for: .touchDown)
+    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpInside)
+    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpOutside)
+
     view = contentView
   }
 
@@ -73,6 +79,14 @@ class GameViewController: UIViewController {
   @objc func zoomChanged(_ sender: UIStepper) {
     contentView.zoomLabel.text = String(format: "%ld", Int(sender.value * 100)) + "%"
     gameScene?.zoom(to: sender.value)
+  }
+
+  @objc func fastForwardTouchDown(_ sender: UIButton) {
+    contentView.skView.scene?.physicsWorld.speed = 4
+  }
+
+  @objc func fastForwardTouchUp(_ sender: UIButton) {
+    contentView.skView.scene?.physicsWorld.speed = 1
   }
 
   @objc func toggleSettings(_ sender: UIButton) {
