@@ -19,6 +19,7 @@ class GameView: UIView {
 
     skView = SKView(frame: frame)
     skView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    skView.isMultipleTouchEnabled = true
 
     settingsView = SettingsView()
     settingsView.translatesAutoresizingMaskIntoConstraints = false
