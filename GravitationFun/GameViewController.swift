@@ -9,60 +9,48 @@ import GameplayKit
 class GameViewController: UIViewController {
 
   var gameScene: GameScene?
-  var leadingSettingsConstraint: NSLayoutConstraint?
-  var settingsView: SettingsView?
+  var contentView: GameView {
+    return view as! GameView
+  }
+
+  override func loadView() {
+    let contentView = GameView(frame: UIScreen.main.bounds)
+    let settingsView = contentView.settingsView
+    settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
+    settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
+    settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
+    contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
+    settingsView.trailsSwitch.addTarget(self, action: #selector(toggleTrails(_:)), for: .valueChanged)
+    settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
+    settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
+    settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
+    settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
+    view = contentView
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    if let view = self.view as! SKView? {
-      // Load the SKScene from 'GameScene.sks'
-      if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
-        // Set the scale mode to scale to fit the window
-        scene.scaleMode = .aspectFill
+    let view = self.contentView.skView
+    // Load the SKScene from 'GameScene.sks'
+    if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
+      // Set the scale mode to scale to fit the window
+      scene.scaleMode = .aspectFill
 
-        gameScene = scene
+      gameScene = scene
 
-        // Present the scene
-        view.presentScene(scene)
-      }
-
-      view.ignoresSiblingOrder = true
-      view.preferredFramesPerSecond = UIScreen.main.maximumFramesPerSecond
-
-      view.showsFPS = true
-      view.showsNodeCount = true
+      // Present the scene
+      view.presentScene(scene)
     }
 
-    let settingsView = SettingsView()
-    settingsView.translatesAutoresizingMaskIntoConstraints = false
-    settingsView.cutOffStepper.value = 1.0
-    settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
-    settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
-    settingsView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
-    settingsView.trailsSwitch.addTarget(self, action: #selector(toggleTrails(_:)), for: .valueChanged)
-    settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
-    settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
-    settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
     if let fieldNode = gameScene?.gravityNode {
-      settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
+      contentView.settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
     }
 
     if let cameraNode = gameScene?.camera {
-      settingsView.zoomValueLabel.text = String(format: "%ld", Int(cameraNode.xScale * 100)) + "%"
+      contentView.zoomLabel.text = String(format: "%ld", Int(cameraNode.xScale * 100)) + "%"
     }
 
-    view.addSubview(settingsView)
-
-    let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-
-    NSLayoutConstraint.activate([
-      settingsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      leadingSettingsConstraint
-    ])
-
-    self.settingsView = settingsView
-    self.leadingSettingsConstraint = leadingSettingsConstraint
   }
 
   override var shouldAutorotate: Bool {
@@ -78,19 +66,19 @@ class GameViewController: UIViewController {
   }
 
   @objc func falloffChanged(_ sender: UIStepper) {
-    settingsView?.cutOffValueLabel.text = String(format: "%.1lf", sender.value)
+    contentView.settingsView.cutOffValueLabel.text = String(format: "%.1lf", sender.value)
     gameScene?.gravityNode?.falloff = Float(sender.value)
   }
 
   @objc func zoomChanged(_ sender: UIStepper) {
-    settingsView?.zoomValueLabel.text = String(format: "%ld", Int(sender.value * 100)) + "%"
+    contentView.zoomLabel.text = String(format: "%ld", Int(sender.value * 100)) + "%"
     gameScene?.zoom(to: sender.value)
   }
 
   @objc func toggleSettings(_ sender: UIButton) {
     let image: UIImage?
 
-    guard let leadingSettingsConstraint = leadingSettingsConstraint else {
+    guard let leadingSettingsConstraint = contentView.leadingSettingsConstraint else {
       return
     }
 
@@ -98,7 +86,7 @@ class GameViewController: UIViewController {
       leadingSettingsConstraint.constant = 0
       image = UIImage(systemName: "chevron.right")
     } else {
-      if let convertedOrigin = sender.superview?.convert(sender.frame.origin, to: settingsView) {
+      if let convertedOrigin = sender.superview?.convert(sender.frame.origin, to: contentView.settingsView) {
         leadingSettingsConstraint.constant = convertedOrigin.x
         image = UIImage(systemName: "chevron.left")
       } else {
@@ -110,6 +98,10 @@ class GameViewController: UIViewController {
     } completion: { finished in
       sender.setImage(image, for: .normal)
     }
+  }
+
+  @objc func toggleZoomButtons(_ sender: UISwitch) {
+    contentView.zoomStackView.isHidden = false == sender.isOn
   }
 
   @objc func toggleTrails(_ sender: UISwitch) {
@@ -124,11 +116,46 @@ class GameViewController: UIViewController {
     gameScene?.random()
   }
 
+  @objc func shareImage(_ sender: UIButton) {
+    guard let scene = gameScene else {
+      return
+    }
+    guard let image = getScreenshot(scene: scene) else {
+      return
+    }
+    let settingsView = contentView.settingsView
+    let activity = UIActivityViewController(activityItems: [image, "#GravityApp"], applicationActivities: nil)
+    //    activity.completionWithItemsHandler = { _, _, _, _ in
+    //      SKStoreReviewController.requestReview()
+    //    }
+    activity.popoverPresentationController?.sourceView = settingsView.shareImageButton
+    self.present(activity, animated: true)
+  }
+
   @objc func clear(_ sender: UIButton) {
     gameScene?.clear()
   }
 
   override var prefersStatusBarHidden: Bool {
     return true
+  }
+
+  func getScreenshot(scene: SKScene) -> UIImage? {
+    guard let view = scene.view else {
+      return nil
+    }
+
+//    let snapshotView = view.snapshotView(afterScreenUpdates: true)
+    let bounds = view.bounds
+
+    UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+
+    view.drawHierarchy(in: bounds, afterScreenUpdates: true)
+
+    let screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
+
+    UIGraphicsEndImageContext()
+
+    return screenshotImage
   }
 }

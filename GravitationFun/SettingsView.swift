@@ -11,14 +11,15 @@ class SettingsView: UIView {
   let cutOffStepper: UIStepper
 
   let zoomKeyLabel: UILabel
-  let zoomValueLabel: UILabel
-  let zoomStepper: UIStepper
+  let zoomSwitch: UISwitch
 
   let trailsKeyLabel: UILabel
   let trailsSwitch: UISwitch
 
   let soundKeyLabel: UILabel
   let soundSwitch: UISwitch
+
+  let shareImageButton: UIButton
 
   let randomButton: UIButton
 
@@ -47,25 +48,22 @@ class SettingsView: UIView {
     cutOffStepper.backgroundColor = .gray
 
     zoomKeyLabel = UILabel()
-    zoomKeyLabel.text = "Zoom:"
+    zoomKeyLabel.text = "Zoom buttons"
     zoomKeyLabel.textColor = .white
     zoomKeyLabel.font = .systemFont(ofSize: 13)
 
-    zoomValueLabel = UILabel()
-    zoomValueLabel.text = "-"
-    zoomValueLabel.textAlignment = .right
-    zoomValueLabel.textColor = .white
-    zoomValueLabel.font = .systemFont(ofSize: 13)
+    zoomSwitch = UISwitch()
+    zoomSwitch.isOn = false
 
-    zoomStepper = UIStepper()
-    zoomStepper.minimumValue = 0.25
-    zoomStepper.maximumValue = 1.25
-    zoomStepper.stepValue = 0.25
-    zoomStepper.value = 1.0
-    zoomStepper.backgroundColor = .gray
-    zoomStepper.setDecrementImage(UIImage(systemName: "minus.magnifyingglass"), for: .normal)
-    zoomStepper.setIncrementImage(UIImage(systemName: "plus.magnifyingglass"), for: .normal)
-    zoomStepper.tintColor = .black
+//    zoomStepper = UIStepper()
+//    zoomStepper.minimumValue = 0.25
+//    zoomStepper.maximumValue = 1.25
+//    zoomStepper.stepValue = 0.25
+//    zoomStepper.value = 1.0
+//    zoomStepper.backgroundColor = .gray
+//    zoomStepper.setDecrementImage(UIImage(systemName: "minus.magnifyingglass"), for: .normal)
+//    zoomStepper.setIncrementImage(UIImage(systemName: "plus.magnifyingglass"), for: .normal)
+//    zoomStepper.tintColor = .black
 
     trailsKeyLabel = UILabel()
     trailsKeyLabel.text = "Trails"
@@ -85,11 +83,15 @@ class SettingsView: UIView {
 
     randomButton = UIButton(type: .system)
     randomButton.configuration = UIButton.Configuration.filled()
-    randomButton.setTitle("Random", for: .normal)
+    randomButton.setImage(UIImage(systemName: "dice"), for: .normal)
 
     clearButton = UIButton(type: .system)
     clearButton.configuration = UIButton.Configuration.filled()
-    clearButton.setTitle("Clear", for: .normal)
+    clearButton.setImage(UIImage(systemName: "trash"), for: .normal)
+
+    shareImageButton = UIButton(type: .system)
+    shareImageButton.configuration = UIButton.Configuration.filled()
+    shareImageButton.setImage(UIImage(systemName: "camera"), for: .normal)
 
     showHideButton = UIButton(type: .system)
     showHideButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
@@ -101,14 +103,18 @@ class SettingsView: UIView {
     let cutOffStackView = UIStackView(arrangedSubviews: [cutOffKeyLabel, cutOffValueLabel, cutOffStepper])
     cutOffStackView.spacing = 20
 
-    let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomValueLabel, zoomStepper])
+    let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomSwitch])
     zoomStackView.spacing = 20
 
     let trailsStackView = UIStackView(arrangedSubviews: [trailsKeyLabel, trailsSwitch])
 
     let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
 
-    let settingsStackView = UIStackView(arrangedSubviews: [cutOffStackView, zoomStackView, trailsStackView, soundStackView, randomButton, clearButton])
+    let buttonStackView = UIStackView(arrangedSubviews: [clearButton, randomButton, shareImageButton])
+    buttonStackView.spacing = 5
+    buttonStackView.distribution = .fillEqually
+
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, trailsStackView, soundStackView, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 10
 

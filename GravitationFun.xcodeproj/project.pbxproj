@@ -10,6 +10,7 @@
 		F24FEA822775A9DD0043FD8B /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */; };
 		F27203712778F6F300D35E89 /* gravity.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F27203702778F68000D35E89 /* gravity.m4a */; };
 		F27A6200277A5F280075ED64 /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A61FF277A5F280075ED64 /* Satellite.swift */; };
+		F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E3B277B0F7C00EA5825 /* GameView.swift */; };
 		F2B6164A2775C93200BCE6C4 /* trail.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2B616492775C93200BCE6C4 /* trail.sks */; };
 		F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */; };
 		F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */; };
@@ -25,10 +26,11 @@
 		F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		F27203702778F68000D35E89 /* gravity.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gravity.m4a; sourceTree = "<group>"; };
 		F27A61FF277A5F280075ED64 /* Satellite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
+		F2A21E3B277B0F7C00EA5825 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		F2B616492775C93200BCE6C4 /* trail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail.sks; sourceTree = "<group>"; };
 		F2B6164B2777998200BCE6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		F2BD5C572773C4DC00136C85 /* GravitationFun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GravitationFun.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2BD5C572773C4DC00136C85 /* Gravity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2BD5C5C2773C4DC00136C85 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		F2BD5C602773C4DC00136C85 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -60,7 +62,7 @@
 		F2BD5C582773C4DC00136C85 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F2BD5C572773C4DC00136C85 /* GravitationFun.app */,
+				F2BD5C572773C4DC00136C85 /* Gravity.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,6 +77,7 @@
 				F2BD5C602773C4DC00136C85 /* GameScene.swift */,
 				F27A61FF277A5F280075ED64 /* Satellite.swift */,
 				F2BD5C622773C4DC00136C85 /* GameViewController.swift */,
+				F2A21E3B277B0F7C00EA5825 /* GameView.swift */,
 				F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */,
 				F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */,
 				F2BD5C642773C4DC00136C85 /* Main.storyboard */,
@@ -102,7 +105,7 @@
 			);
 			name = GravitationFun;
 			productName = GravitationFun;
-			productReference = F2BD5C572773C4DC00136C85 /* GravitationFun.app */;
+			productReference = F2BD5C572773C4DC00136C85 /* Gravity.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -166,6 +169,7 @@
 				F2BD5C632773C4DC00136C85 /* GameViewController.swift in Sources */,
 				F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */,
 				F27A6200277A5F280075ED64 /* Satellite.swift in Sources */,
+				F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +335,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.GravitationFun;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Gravity;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -362,7 +366,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.GravitationFun;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Gravity;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
