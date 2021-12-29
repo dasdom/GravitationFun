@@ -98,7 +98,7 @@ class SettingsView: UIView {
 
     shareImageButton = UIButton(type: .system)
     shareImageButton.configuration = UIButton.Configuration.filled()
-    shareImageButton.setImage(UIImage(systemName: "camera"), for: .normal)
+    shareImageButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
 
     showHideButton = UIButton(type: .system)
     showHideButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)

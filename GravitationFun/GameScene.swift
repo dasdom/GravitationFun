@@ -108,7 +108,7 @@ class GameScene: SKScene {
       node.addPhysicsBody(with: velocity)
 
       if showTrails {
-        node.addEmitter(emitter: emitter)
+        node.addEmitter(emitter: emitter, type: satelliteType)
       }
     }
 
@@ -161,7 +161,7 @@ class GameScene: SKScene {
 
     for node in satelliteNodes {
       if enabled, let node = node as? Satellite {
-        node.addEmitter(emitter: emitter)
+        node.addEmitter(emitter: emitter, type: satelliteType)
       } else {
         let allEmitter = node.children.filter { $0 is SKEmitterNode }
         for emitter in allEmitter {

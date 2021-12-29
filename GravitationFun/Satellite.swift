@@ -32,7 +32,7 @@ class Satellite: SKSpriteNode {
       let velocity = CGVector(dx: randomXVelocity, dy: randomYVelocity)
       satellite.addPhysicsBody(with: velocity)
 
-      satellite.addEmitter(emitter: emitter)
+      satellite.addEmitter(emitter: emitter, type: type)
 
       satellites.append(satellite)
     }
@@ -69,11 +69,25 @@ class Satellite: SKSpriteNode {
     physicsBody?.velocity = velecity
   }
 
-  func addEmitter(emitter: SKEmitterNode?) {
-    guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
+  func addEmitter(emitter: SKEmitterNode?, type: SatelliteType) {
+    guard let emitterCopy = emitter?.copy() as? SKEmitterNode else {
+      return
+    }
 
     emitterCopy.particleColor = color
-    emitterCopy.position = CGPoint(x: 0, y: -10)
     addChild(emitterCopy)
+
+    if type == .rectangle {
+      emitterCopy.position = CGPoint(x: 0, y: -10)
+
+      guard let emitterCopy2 = emitter?.copy() as? SKEmitterNode else {
+        return
+      }
+
+      emitterCopy2.particleColor = color
+      addChild(emitterCopy2)
+
+      emitterCopy2.position = CGPoint(x: 0, y: 10)
+    }
   }
 }
