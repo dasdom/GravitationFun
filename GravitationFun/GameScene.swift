@@ -13,6 +13,7 @@ class GameScene: SKScene {
   var gravityNode: SKFieldNode?
   var touchedNodes: [UITouch:Satellite] = [:]
   var velocityNodes: [UITouch:SKShapeNode] = [:]
+  var satelliteType: SatelliteType = .box
   private var showTrails = true
   private var musicAudioNode: SKAudioNode?
   var soundEnabled = true {
@@ -59,7 +60,7 @@ class GameScene: SKScene {
   func touchDown(_ touch: UITouch) {
 
     let pos = touch.location(in: self)
-    let node = Satellite(position: pos)
+    let node = Satellite(position: pos, type: satelliteType)
     satelliteNodes.append(node)
     addChild(node)
     touchedNodes[touch] = node
@@ -189,7 +190,7 @@ class GameScene: SKScene {
   }
 
   func random() {
-    let satellites = Satellite.random(sceneSize: size, emitter: emitter)
+    let satellites = Satellite.random(sceneSize: size, emitter: emitter, type: satelliteType)
     for satellite in satellites {
       addChild(satellite)
     }

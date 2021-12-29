@@ -25,6 +25,7 @@ class GameViewController: UIViewController {
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
     settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
+    settingsView.typControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown(_:)), for: .touchDown)
@@ -124,6 +125,14 @@ class GameViewController: UIViewController {
 
   @objc func toggleSound(_ sender: UISwitch) {
     gameScene?.soundEnabled = sender.isOn
+  }
+
+  @objc func changeType(_ sender: UISegmentedControl) {
+    guard let type = SatelliteType(rawValue: sender.selectedSegmentIndex) else {
+      gameScene?.satelliteType = .box
+      return
+    }
+    gameScene?.satelliteType = type
   }
 
   @objc func random(_ sender: UIButton) {

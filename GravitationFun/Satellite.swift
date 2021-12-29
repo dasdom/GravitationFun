@@ -4,9 +4,14 @@
 
 import SpriteKit
 
+enum SatelliteType: Int {
+  case box
+  case rectangle
+}
+
 class Satellite: SKSpriteNode {
 
-  class func random(amount: Int = 10, sceneSize: CGSize, emitter: SKEmitterNode?) -> [Satellite] {
+  class func random(amount: Int = 10, sceneSize: CGSize, emitter: SKEmitterNode?, type: SatelliteType) -> [Satellite] {
     var satellites: [Satellite] = []
     let left = Bool.random()
     for _ in 0..<amount {
@@ -18,7 +23,7 @@ class Satellite: SKSpriteNode {
       }
       let position = CGPoint(x: randomX, y: 0)
 
-      let satellite = Satellite(position: position)
+      let satellite = Satellite(position: position, type: type)
       let randomXVelocity = CGFloat.random(in: -20...20)
       let length = sqrt(pow(randomXVelocity, 2) + pow(randomYVelocity, 2))
       let ratio = min(length/150, 1)
@@ -34,8 +39,17 @@ class Satellite: SKSpriteNode {
     return satellites
   }
 
-  init(position: CGPoint) {
-    super.init(texture: nil, color: .white, size: CGSize(width: 10, height: 10))
+  init(position: CGPoint, type: SatelliteType) {
+
+    let size: CGSize
+    switch type {
+      case .box:
+        size = CGSize(width: 10, height: 10)
+      case .rectangle:
+        size = CGSize(width: 5, height: 20)
+    }
+
+    super.init(texture: nil, color: .white, size: size)
 
     self.position = position
     anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -59,6 +73,7 @@ class Satellite: SKSpriteNode {
     guard let emitterCopy = emitter?.copy() as? SKEmitterNode else { fatalError() }
 
     emitterCopy.particleColor = color
+    emitterCopy.position = CGPoint(x: 0, y: -10)
     addChild(emitterCopy)
   }
 }

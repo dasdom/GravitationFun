@@ -19,6 +19,8 @@ class SettingsView: UIView {
   let soundKeyLabel: UILabel
   let soundSwitch: UISwitch
 
+  let typControl: UISegmentedControl
+
   let shareImageButton: UIButton
 
   let randomButton: UIButton
@@ -81,6 +83,11 @@ class SettingsView: UIView {
     soundSwitch = UISwitch()
     soundSwitch.isOn = true
 
+    typControl = UISegmentedControl(items: [UIImage(systemName: "square")!, UIImage(systemName: "rectangle")!])
+    typControl.backgroundColor = .gray
+    typControl.selectedSegmentTintColor = .white
+    typControl.selectedSegmentIndex = 0
+
     randomButton = UIButton(type: .system)
     randomButton.configuration = UIButton.Configuration.filled()
     randomButton.setImage(UIImage(systemName: "dice"), for: .normal)
@@ -114,7 +121,7 @@ class SettingsView: UIView {
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, trailsStackView, soundStackView, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, trailsStackView, soundStackView, typControl, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 10
 
