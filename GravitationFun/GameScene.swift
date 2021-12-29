@@ -5,6 +5,12 @@
 import SpriteKit
 import GameplayKit
 
+enum TrailLength: Int {
+  case none
+  case short
+  case long
+}
+
 class GameScene: SKScene {
 
   var satelliteNodes: [SKSpriteNode] = []
@@ -14,6 +20,7 @@ class GameScene: SKScene {
   var touchedNodes: [UITouch:Satellite] = [:]
   var velocityNodes: [UITouch:SKShapeNode] = [:]
   var satelliteType: SatelliteType = .box
+  var trailLength: TrailLength = .long
   private var showTrails = true
   private var musicAudioNode: SKAudioNode?
   var soundEnabled = true {
@@ -155,6 +162,24 @@ class GameScene: SKScene {
     // Called before each frame is rendered
   }
 
+  func setTrailLength(to length: TrailLength) {
+
+    trailLength = length
+
+    setEmitter(enabled: false)
+
+    switch length {
+      case .none:
+        break
+      case .short:
+        emitter?.particleLifetime = 1
+        setEmitter(enabled: true)
+      case .long:
+        emitter?.particleLifetime = 10
+        setEmitter(enabled: true)
+    }
+  }
+
   func setEmitter(enabled: Bool) {
 
     showTrails = enabled
@@ -190,8 +215,11 @@ class GameScene: SKScene {
   }
 
   func random() {
-    let satellites = Satellite.random(sceneSize: size, emitter: emitter, type: satelliteType)
+    let satellites = Satellite.random(sceneSize: size, type: satelliteType)
     for satellite in satellites {
+      if trailLength != .none {
+        satellite.addEmitter(emitter: emitter, type: satelliteType)
+      }
       addChild(satellite)
     }
     self.satelliteNodes.append(contentsOf: satellites)

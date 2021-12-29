@@ -20,12 +20,12 @@ class GameViewController: UIViewController {
     settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
     settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
     settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
-    settingsView.trailsSwitch.addTarget(self, action: #selector(toggleTrails(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
     settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
     settingsView.typControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
+    settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown(_:)), for: .touchDown)
@@ -119,8 +119,11 @@ class GameViewController: UIViewController {
     contentView.zoomStackView.isHidden = false == sender.isOn
   }
 
-  @objc func toggleTrails(_ sender: UISwitch) {
-    gameScene?.setEmitter(enabled: sender.isOn)
+  @objc func changeTrailLength(_ sender: UISegmentedControl) {
+    guard let length = TrailLength(rawValue: sender.selectedSegmentIndex) else {
+      return
+    }
+    gameScene?.setTrailLength(to: length)
   }
 
   @objc func toggleSound(_ sender: UISwitch) {

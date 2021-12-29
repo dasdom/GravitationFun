@@ -11,7 +11,7 @@ enum SatelliteType: Int {
 
 class Satellite: SKSpriteNode {
 
-  class func random(amount: Int = 10, sceneSize: CGSize, emitter: SKEmitterNode?, type: SatelliteType) -> [Satellite] {
+  class func random(amount: Int = 10, sceneSize: CGSize, type: SatelliteType) -> [Satellite] {
     var satellites: [Satellite] = []
     let left = Bool.random()
     for _ in 0..<amount {
@@ -31,8 +31,6 @@ class Satellite: SKSpriteNode {
       satellite.color = color
       let velocity = CGVector(dx: randomXVelocity, dy: randomYVelocity)
       satellite.addPhysicsBody(with: velocity)
-
-      satellite.addEmitter(emitter: emitter, type: type)
 
       satellites.append(satellite)
     }

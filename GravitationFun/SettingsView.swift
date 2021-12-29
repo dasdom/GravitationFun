@@ -13,8 +13,8 @@ class SettingsView: UIView {
   let zoomKeyLabel: UILabel
   let zoomSwitch: UISwitch
 
-  let trailsKeyLabel: UILabel
-  let trailsSwitch: UISwitch
+  let trailKeyLabel: UILabel
+  let trailLengthControl: UISegmentedControl
 
   let soundKeyLabel: UILabel
   let soundSwitch: UISwitch
@@ -57,23 +57,15 @@ class SettingsView: UIView {
     zoomSwitch = UISwitch()
     zoomSwitch.isOn = false
 
-//    zoomStepper = UIStepper()
-//    zoomStepper.minimumValue = 0.25
-//    zoomStepper.maximumValue = 1.25
-//    zoomStepper.stepValue = 0.25
-//    zoomStepper.value = 1.0
-//    zoomStepper.backgroundColor = .gray
-//    zoomStepper.setDecrementImage(UIImage(systemName: "minus.magnifyingglass"), for: .normal)
-//    zoomStepper.setIncrementImage(UIImage(systemName: "plus.magnifyingglass"), for: .normal)
-//    zoomStepper.tintColor = .black
+    trailKeyLabel = UILabel()
+    trailKeyLabel.text = "Trail length"
+    trailKeyLabel.textColor = .white
+    trailKeyLabel.font = .systemFont(ofSize: 13)
 
-    trailsKeyLabel = UILabel()
-    trailsKeyLabel.text = "Trails"
-    trailsKeyLabel.textColor = .white
-    trailsKeyLabel.font = .systemFont(ofSize: 13)
-
-    trailsSwitch = UISwitch()
-    trailsSwitch.isOn = true
+    trailLengthControl = UISegmentedControl(items: ["none", "short", "long"])
+    trailLengthControl.backgroundColor = .gray
+    trailLengthControl.selectedSegmentTintColor = .white
+    trailLengthControl.selectedSegmentIndex = 2
 
     soundKeyLabel = UILabel()
     soundKeyLabel.text = "Sound"
@@ -113,7 +105,8 @@ class SettingsView: UIView {
     let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomSwitch])
     zoomStackView.spacing = 20
 
-    let trailsStackView = UIStackView(arrangedSubviews: [trailsKeyLabel, trailsSwitch])
+    let trailsStackView = UIStackView(arrangedSubviews: [trailKeyLabel, trailLengthControl])
+    trailsStackView.axis = .vertical
 
     let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
 
@@ -123,7 +116,7 @@ class SettingsView: UIView {
 
     let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, trailsStackView, soundStackView, typControl, buttonStackView])
     settingsStackView.axis = .vertical
-    settingsStackView.spacing = 10
+    settingsStackView.spacing = 20
 
     let stackView = UIStackView(arrangedSubviews: [settingsStackView, showHideButton])
     stackView.translatesAutoresizingMaskIntoConstraints = false
