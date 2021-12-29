@@ -138,7 +138,7 @@ class GameViewController: UIViewController {
       return
     }
     let settingsView = contentView.settingsView
-    let activity = UIActivityViewController(activityItems: [image, "#GravityApp"], applicationActivities: nil)
+    let activity = UIActivityViewController(activityItems: [image, "#GravityZenApp"], applicationActivities: nil)
     //    activity.completionWithItemsHandler = { _, _, _, _ in
     //      SKStoreReviewController.requestReview()
     //    }
