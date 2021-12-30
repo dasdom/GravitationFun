@@ -10,6 +10,9 @@ class SettingsView: UIView {
   let cutOffValueLabel: UILabel
   let cutOffStepper: UIStepper
 
+  let starsKeyLabel: UILabel
+  let starsSwitch: UISwitch
+
   let zoomKeyLabel: UILabel
   let zoomSwitch: UISwitch
 
@@ -48,6 +51,14 @@ class SettingsView: UIView {
     cutOffStepper.stepValue = 0.1
     cutOffStepper.value = 1.0
     cutOffStepper.backgroundColor = .gray
+
+    starsKeyLabel = UILabel()
+    starsKeyLabel.text = "Stars"
+    starsKeyLabel.textColor = .white
+    starsKeyLabel.font = .systemFont(ofSize: 13)
+
+    starsSwitch = UISwitch()
+    starsSwitch.isOn = true
 
     zoomKeyLabel = UILabel()
     zoomKeyLabel.text = "Zoom buttons"
@@ -105,6 +116,9 @@ class SettingsView: UIView {
     let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomSwitch])
     zoomStackView.spacing = 20
 
+    let starsStackView = UIStackView(arrangedSubviews: [starsKeyLabel, starsSwitch])
+    starsStackView.spacing = 20
+
     let trailsStackView = UIStackView(arrangedSubviews: [trailKeyLabel, trailLengthControl])
     trailsStackView.axis = .vertical
 
@@ -114,7 +128,7 @@ class SettingsView: UIView {
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, trailsStackView, soundStackView, typControl, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, trailsStackView, soundStackView, typControl, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 

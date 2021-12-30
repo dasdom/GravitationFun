@@ -29,7 +29,8 @@ class Satellite: SKSpriteNode {
       let randomXVelocity = CGFloat.random(in: -20...20)
       let length = sqrt(pow(randomXVelocity, 2) + pow(randomYVelocity, 2))
       let ratio = min(length/150, 1)
-      let color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.9, alpha: 1)
+      let color = UIColor(hue: ratio, saturation: 1, brightness: 0.9, alpha: 1)
+//      let color = UIColor(white: ratio, alpha: 1.0)
       satellite.color = color
       let velocity = CGVector(dx: randomXVelocity, dy: randomYVelocity)
       satellite.addPhysicsBody(with: velocity)
@@ -71,25 +72,34 @@ class Satellite: SKSpriteNode {
     physicsBody?.velocity = velecity
   }
 
-  func addEmitter(emitter: SKEmitterNode?) {
-    guard let emitterCopy = emitter?.copy() as? SKEmitterNode else {
-      return
-    }
+  func addEmitter(emitterBox: SKEmitterNode?, emitterRectangle: SKEmitterNode?) {
 
-    emitterCopy.particleColor = color
-    addChild(emitterCopy)
+    switch type {
+      case .box:
+        guard let emitterCopy = emitterBox?.copy() as? SKEmitterNode else {
+          return
+        }
 
-    if type == .rectangle {
-      emitterCopy.position = CGPoint(x: 0, y: -10)
+        emitterCopy.particleColor = color
+        addChild(emitterCopy)
 
-      guard let emitterCopy2 = emitter?.copy() as? SKEmitterNode else {
-        return
-      }
+      case .rectangle:
+        guard let emitterCopy = emitterRectangle?.copy() as? SKEmitterNode else {
+          return
+        }
 
-      emitterCopy2.particleColor = color
-      addChild(emitterCopy2)
+        emitterCopy.particleColor = color
+        emitterCopy.position = CGPoint(x: 0, y: -10)
+        addChild(emitterCopy)
 
-      emitterCopy2.position = CGPoint(x: 0, y: 10)
+        guard let emitterCopy2 = emitterRectangle?.copy() as? SKEmitterNode else {
+          return
+        }
+
+        emitterCopy2.particleColor = color
+        addChild(emitterCopy2)
+
+        emitterCopy2.position = CGPoint(x: 0, y: 10)
     }
   }
 }

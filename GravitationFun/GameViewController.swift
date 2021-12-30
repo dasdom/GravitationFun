@@ -20,6 +20,7 @@ class GameViewController: UIViewController {
     settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
     settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
     settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
+    settingsView.starsSwitch.addTarget(self, action: #selector(toggleStars(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
@@ -83,11 +84,17 @@ class GameViewController: UIViewController {
   }
 
   @objc func fastForwardTouchDown(_ sender: UIButton) {
-    contentView.skView.scene?.physicsWorld.speed = 4
+    gameScene?.physicsWorld.speed = 4
+    gameScene?.setTrailLength(to: .none)
   }
 
   @objc func fastForwardTouchUp(_ sender: UIButton) {
-    contentView.skView.scene?.physicsWorld.speed = 1
+    gameScene?.physicsWorld.speed = 1
+    let selectedTrailLengthIndex = contentView.settingsView.trailLengthControl.selectedSegmentIndex
+    guard let length = TrailLength(rawValue: selectedTrailLengthIndex) else {
+      return
+    }
+    gameScene?.setTrailLength(to: length)
   }
 
   @objc func toggleSettings(_ sender: UIButton) {
@@ -113,6 +120,10 @@ class GameViewController: UIViewController {
     } completion: { finished in
       sender.setImage(image, for: .normal)
     }
+  }
+
+  @objc func toggleStars(_ sender: UISwitch) {
+    gameScene?.setStars(enabled: sender.isOn)
   }
 
   @objc func toggleZoomButtons(_ sender: UISwitch) {

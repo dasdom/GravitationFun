@@ -15,7 +15,9 @@ class GameScene: SKScene {
 
   var satelliteNodes: [SKSpriteNode] = []
   var centerNode: SKShapeNode?
-  var emitter: SKEmitterNode?
+  var emitterBox: SKEmitterNode?
+  var emitterRectangle: SKEmitterNode?
+  var backgroundEmitter: SKEmitterNode?
   var gravityNode: SKFieldNode?
   var touchedNodes: [UITouch:Satellite] = [:]
   var velocityNodes: [UITouch:SKShapeNode] = [:]
@@ -35,11 +37,19 @@ class GameScene: SKScene {
 
   override func didMove(to view: SKView) {
 
+//    Background.add(200, starsTo: self)
+
     physicsWorld.contactDelegate = self
 
-    let centerNode = SKShapeNode(circleOfRadius: 10)
-    centerNode.lineWidth = 0.5
-    centerNode.glowWidth = 0.5
+    backgroundEmitter = SKEmitterNode(fileNamed: "background")
+    backgroundEmitter?.particlePositionRange = CGVector(dx: size.width*1.5, dy: size.height*1.5)
+    backgroundEmitter?.particleLifetime = CGFloat.greatestFiniteMagnitude
+    if let backgroundEmitter = backgroundEmitter {
+      addChild(backgroundEmitter)
+    }
+
+    let centerNode = SKShapeNode(circleOfRadius: 5)
+    centerNode.lineWidth = 0.1
     centerNode.fillColor = .black
     centerNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
     centerNode.physicsBody?.isDynamic = false
@@ -48,11 +58,14 @@ class GameScene: SKScene {
     addChild(centerNode)
     self.centerNode = centerNode
 
-    emitter = SKEmitterNode(fileNamed: "trail")
-    emitter?.targetNode = self
+    emitterBox = SKEmitterNode(fileNamed: "trail_box")
+    emitterBox?.targetNode = self
+
+    emitterRectangle = SKEmitterNode(fileNamed: "trail_rectangle")
+    emitterRectangle?.targetNode = self
 
     let gravityNode = SKFieldNode.radialGravityField()
-    gravityNode.falloff = 1.0
+    gravityNode.falloff = 1.2
     addChild(gravityNode)
     self.gravityNode = gravityNode
 
@@ -62,6 +75,8 @@ class GameScene: SKScene {
 
     let musicAudioNode = SKAudioNode(fileNamed: "gravity.m4a")
     self.musicAudioNode = musicAudioNode
+
+    backgroundColor = .black
   }
 
   func touchDown(_ touch: UITouch) {
@@ -115,7 +130,7 @@ class GameScene: SKScene {
       node.addPhysicsBody(with: velocity)
 
       if showTrails {
-        node.addEmitter(emitter: emitter)
+        node.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)
       }
     }
 
@@ -172,10 +187,12 @@ class GameScene: SKScene {
       case .none:
         break
       case .short:
-        emitter?.particleLifetime = 1
+        emitterBox?.particleLifetime = 1
+        emitterRectangle?.particleLifetime = 1
         setEmitter(enabled: true)
       case .long:
-        emitter?.particleLifetime = 10
+        emitterBox?.particleLifetime = 10
+        emitterRectangle?.particleLifetime = 10
         setEmitter(enabled: true)
     }
   }
@@ -186,12 +203,22 @@ class GameScene: SKScene {
 
     for node in satelliteNodes {
       if enabled, let node = node as? Satellite {
-        node.addEmitter(emitter: emitter)
+        node.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)
       } else {
         let allEmitter = node.children.filter { $0 is SKEmitterNode }
         for emitter in allEmitter {
           emitter.removeFromParent()
         }
+      }
+    }
+  }
+
+  func setStars(enabled: Bool) {
+    if let backgroundEmitter = backgroundEmitter {
+      if enabled, backgroundEmitter.parent == nil {
+        insertChild(backgroundEmitter, at: 0)
+      } else {
+        backgroundEmitter.removeFromParent()
       }
     }
   }
@@ -218,7 +245,7 @@ class GameScene: SKScene {
     let satellites = Satellite.random(sceneSize: size, type: satelliteType)
     for satellite in satellites {
       if trailLength != .none {
-        satellite.addEmitter(emitter: emitter)
+        satellite.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)
       }
       addChild(satellite)
     }

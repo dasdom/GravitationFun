@@ -11,7 +11,10 @@
 		F27203712778F6F300D35E89 /* gravity.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F27203702778F68000D35E89 /* gravity.m4a */; };
 		F27A6200277A5F280075ED64 /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A61FF277A5F280075ED64 /* Satellite.swift */; };
 		F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E3B277B0F7C00EA5825 /* GameView.swift */; };
-		F2B6164A2775C93200BCE6C4 /* trail.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2B616492775C93200BCE6C4 /* trail.sks */; };
+		F2A21E42277E297100EA5825 /* trail_rectangle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E41277E27B200EA5825 /* trail_rectangle.sks */; };
+		F2A21E44277E301300EA5825 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E43277E301300EA5825 /* Background.swift */; };
+		F2A21E46277E51E200EA5825 /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E45277E51E200EA5825 /* background.sks */; };
+		F2B6164A2775C93200BCE6C4 /* trail_box.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2B616492775C93200BCE6C4 /* trail_box.sks */; };
 		F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */; };
 		F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */; };
 		F2BD5C5D2773C4DC00136C85 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2BD5C5C2773C4DC00136C85 /* GameScene.sks */; };
@@ -27,7 +30,10 @@
 		F27203702778F68000D35E89 /* gravity.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gravity.m4a; sourceTree = "<group>"; };
 		F27A61FF277A5F280075ED64 /* Satellite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
 		F2A21E3B277B0F7C00EA5825 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		F2B616492775C93200BCE6C4 /* trail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail.sks; sourceTree = "<group>"; };
+		F2A21E41277E27B200EA5825 /* trail_rectangle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_rectangle.sks; sourceTree = "<group>"; };
+		F2A21E43277E301300EA5825 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		F2A21E45277E51E200EA5825 /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
+		F2B616492775C93200BCE6C4 /* trail_box.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_box.sks; sourceTree = "<group>"; };
 		F2B6164B2777998200BCE6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F2BD5C572773C4DC00136C85 /* Gravity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,9 +79,12 @@
 				F2B6164B2777998200BCE6C4 /* Info.plist */,
 				F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */,
 				F2BD5C5C2773C4DC00136C85 /* GameScene.sks */,
-				F2B616492775C93200BCE6C4 /* trail.sks */,
+				F2B616492775C93200BCE6C4 /* trail_box.sks */,
+				F2A21E41277E27B200EA5825 /* trail_rectangle.sks */,
+				F2A21E45277E51E200EA5825 /* background.sks */,
 				F2BD5C602773C4DC00136C85 /* GameScene.swift */,
 				F27A61FF277A5F280075ED64 /* Satellite.swift */,
+				F2A21E43277E301300EA5825 /* Background.swift */,
 				F2BD5C622773C4DC00136C85 /* GameViewController.swift */,
 				F2A21E3B277B0F7C00EA5825 /* GameView.swift */,
 				F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */,
@@ -150,9 +159,11 @@
 				F27203712778F6F300D35E89 /* gravity.m4a in Resources */,
 				F2BD5C662773C4DC00136C85 /* Main.storyboard in Resources */,
 				F2BD5C5D2773C4DC00136C85 /* GameScene.sks in Resources */,
-				F2B6164A2775C93200BCE6C4 /* trail.sks in Resources */,
+				F2B6164A2775C93200BCE6C4 /* trail_box.sks in Resources */,
 				F2BD5C682773C4DE00136C85 /* Assets.xcassets in Resources */,
+				F2A21E46277E51E200EA5825 /* background.sks in Resources */,
 				F2BD5C6B2773C4DE00136C85 /* LaunchScreen.storyboard in Resources */,
+				F2A21E42277E297100EA5825 /* trail_rectangle.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +177,7 @@
 				F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */,
 				F2BD5C612773C4DC00136C85 /* GameScene.swift in Sources */,
 				F24FEA822775A9DD0043FD8B /* PhysicsCategory.swift in Sources */,
+				F2A21E44277E301300EA5825 /* Background.swift in Sources */,
 				F2BD5C632773C4DC00136C85 /* GameViewController.swift in Sources */,
 				F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */,
 				F27A6200277A5F280075ED64 /* Satellite.swift in Sources */,
