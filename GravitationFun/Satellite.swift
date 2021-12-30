@@ -11,6 +11,8 @@ enum SatelliteType: Int {
 
 class Satellite: SKSpriteNode {
 
+  let type: SatelliteType
+
   class func random(amount: Int = 10, sceneSize: CGSize, type: SatelliteType) -> [Satellite] {
     var satellites: [Satellite] = []
     let left = Bool.random()
@@ -47,6 +49,8 @@ class Satellite: SKSpriteNode {
         size = CGSize(width: 5, height: 20)
     }
 
+    self.type = type
+
     super.init(texture: nil, color: .white, size: size)
 
     self.position = position
@@ -67,7 +71,7 @@ class Satellite: SKSpriteNode {
     physicsBody?.velocity = velecity
   }
 
-  func addEmitter(emitter: SKEmitterNode?, type: SatelliteType) {
+  func addEmitter(emitter: SKEmitterNode?) {
     guard let emitterCopy = emitter?.copy() as? SKEmitterNode else {
       return
     }

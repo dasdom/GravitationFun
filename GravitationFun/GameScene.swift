@@ -115,7 +115,7 @@ class GameScene: SKScene {
       node.addPhysicsBody(with: velocity)
 
       if showTrails {
-        node.addEmitter(emitter: emitter, type: satelliteType)
+        node.addEmitter(emitter: emitter)
       }
     }
 
@@ -186,7 +186,7 @@ class GameScene: SKScene {
 
     for node in satelliteNodes {
       if enabled, let node = node as? Satellite {
-        node.addEmitter(emitter: emitter, type: satelliteType)
+        node.addEmitter(emitter: emitter)
       } else {
         let allEmitter = node.children.filter { $0 is SKEmitterNode }
         for emitter in allEmitter {
@@ -218,7 +218,7 @@ class GameScene: SKScene {
     let satellites = Satellite.random(sceneSize: size, type: satelliteType)
     for satellite in satellites {
       if trailLength != .none {
-        satellite.addEmitter(emitter: emitter, type: satelliteType)
+        satellite.addEmitter(emitter: emitter)
       }
       addChild(satellite)
     }
