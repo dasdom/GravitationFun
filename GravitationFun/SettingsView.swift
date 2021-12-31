@@ -67,6 +67,7 @@ class SettingsView: UIView {
 
     zoomSwitch = UISwitch()
     zoomSwitch.isOn = false
+    zoomSwitch.accessibilityLabel = "Show zoom buttons"
 
     trailKeyLabel = UILabel()
     trailKeyLabel.text = "Trail length"

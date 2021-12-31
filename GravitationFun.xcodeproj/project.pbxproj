@@ -14,6 +14,7 @@
 		F2A21E42277E297100EA5825 /* trail_rectangle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E41277E27B200EA5825 /* trail_rectangle.sks */; };
 		F2A21E44277E301300EA5825 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E43277E301300EA5825 /* Background.swift */; };
 		F2A21E46277E51E200EA5825 /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E45277E51E200EA5825 /* background.sks */; };
+		F2A21E50277F0F8D00EA5825 /* GravityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */; };
 		F2B6164A2775C93200BCE6C4 /* trail_box.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2B616492775C93200BCE6C4 /* trail_box.sks */; };
 		F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */; };
 		F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */; };
@@ -25,6 +26,16 @@
 		F2BD5C6B2773C4DE00136C85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2BD5C692773C4DE00136C85 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F2A21E53277F0F8D00EA5825 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2BD5C4F2773C4DC00136C85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2BD5C562773C4DC00136C85;
+			remoteInfo = GravitationFun;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		F27203702778F68000D35E89 /* gravity.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gravity.m4a; sourceTree = "<group>"; };
@@ -33,6 +44,8 @@
 		F2A21E41277E27B200EA5825 /* trail_rectangle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_rectangle.sks; sourceTree = "<group>"; };
 		F2A21E43277E301300EA5825 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		F2A21E45277E51E200EA5825 /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
+		F2A21E4D277F0F8D00EA5825 /* GravityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GravityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityUITests.swift; sourceTree = "<group>"; };
 		F2B616492775C93200BCE6C4 /* trail_box.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_box.sks; sourceTree = "<group>"; };
 		F2B6164B2777998200BCE6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -47,6 +60,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F2A21E4A277F0F8D00EA5825 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2BD5C542773C4DC00136C85 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -57,10 +77,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2A21E4E277F0F8D00EA5825 /* GravityUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */,
+			);
+			path = GravityUITests;
+			sourceTree = "<group>";
+		};
 		F2BD5C4E2773C4DC00136C85 = {
 			isa = PBXGroup;
 			children = (
 				F2BD5C592773C4DC00136C85 /* GravitationFun */,
+				F2A21E4E277F0F8D00EA5825 /* GravityUITests */,
 				F2BD5C582773C4DC00136C85 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				F2BD5C572773C4DC00136C85 /* Gravity.app */,
+				F2A21E4D277F0F8D00EA5825 /* GravityUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,6 +130,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F2A21E4C277F0F8D00EA5825 /* GravityUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2A21E57277F0F8D00EA5825 /* Build configuration list for PBXNativeTarget "GravityUITests" */;
+			buildPhases = (
+				F2A21E49277F0F8D00EA5825 /* Sources */,
+				F2A21E4A277F0F8D00EA5825 /* Frameworks */,
+				F2A21E4B277F0F8D00EA5825 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2A21E54277F0F8D00EA5825 /* PBXTargetDependency */,
+			);
+			name = GravityUITests;
+			productName = GravityUITests;
+			productReference = F2A21E4D277F0F8D00EA5825 /* GravityUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F2BD5C562773C4DC00136C85 /* GravitationFun */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2BD5C6E2773C4DE00136C85 /* Build configuration list for PBXNativeTarget "GravitationFun" */;
@@ -128,6 +176,10 @@
 				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = dasdom;
 				TargetAttributes = {
+					F2A21E4C277F0F8D00EA5825 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = F2BD5C562773C4DC00136C85;
+					};
 					F2BD5C562773C4DC00136C85 = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -147,11 +199,19 @@
 			projectRoot = "";
 			targets = (
 				F2BD5C562773C4DC00136C85 /* GravitationFun */,
+				F2A21E4C277F0F8D00EA5825 /* GravityUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F2A21E4B277F0F8D00EA5825 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2BD5C552773C4DC00136C85 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,6 +230,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F2A21E49277F0F8D00EA5825 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2A21E50277F0F8D00EA5825 /* GravityUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2BD5C532773C4DC00136C85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +254,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F2A21E54277F0F8D00EA5825 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2BD5C562773C4DC00136C85 /* GravitationFun */;
+			targetProxy = F2A21E53277F0F8D00EA5825 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F2BD5C642773C4DC00136C85 /* Main.storyboard */ = {
@@ -207,6 +283,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F2A21E55277F0F8D00EA5825 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.GravityUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GravitationFun;
+			};
+			name = Debug;
+		};
+		F2A21E56277F0F8D00EA5825 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.GravityUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GravitationFun;
+			};
+			name = Release;
+		};
 		F2BD5C6C2773C4DE00136C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -392,6 +512,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F2A21E57277F0F8D00EA5825 /* Build configuration list for PBXNativeTarget "GravityUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2A21E55277F0F8D00EA5825 /* Debug */,
+				F2A21E56277F0F8D00EA5825 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F2BD5C522773C4DC00136C85 /* Build configuration list for PBXProject "GravitationFun" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
