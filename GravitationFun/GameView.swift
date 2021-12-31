@@ -83,4 +83,42 @@ class GameView: UIView {
   }
 
   required init?(coder: NSCoder) { fatalError() }
+
+  func toggleSettings() {
+    let image: UIImage?
+
+    guard let leadingSettingsConstraint = leadingSettingsConstraint else {
+      return
+    }
+
+    let button = settingsView.showHideButton
+    if leadingSettingsConstraint.constant > 1 {
+      leadingSettingsConstraint.constant = 0
+      image = UIImage(systemName: "chevron.right")
+    } else {
+      if let convertedOrigin = button.superview?.convert(button.frame.origin, to: settingsView) {
+        leadingSettingsConstraint.constant = convertedOrigin.x
+        image = UIImage(systemName: "chevron.left")
+      } else {
+        image = nil
+      }
+    }
+    UIView.animate(withDuration: 0.3) {
+      self.layoutIfNeeded()
+    } completion: { finished in
+      button.setImage(image, for: .normal)
+    }
+  }
+
+  func hideSettingsIfNeeded() {
+    guard let leadingSettingsConstraint = leadingSettingsConstraint else {
+      return
+    }
+
+    if leadingSettingsConstraint.constant > 1 {
+      toggleSettings()
+    }
+  }
 }
+
+

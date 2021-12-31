@@ -5,10 +5,14 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import Combine
+
+let closeSettingsNotificationName = Notification.Name(rawValue: "closeSettingsNotification")
 
 class GameViewController: UIViewController {
 
   var gameScene: GameScene?
+  var token: AnyCancellable?
   var contentView: GameView {
     return view as! GameView
   }
@@ -59,6 +63,16 @@ class GameViewController: UIViewController {
       contentView.zoomLabel.text = String(format: "%ld", Int(cameraNode.xScale * 100)) + "%"
     }
 
+    token = NotificationCenter.default
+      .publisher(for: closeSettingsNotificationName, object: nil)
+      .sink { [weak self] _ in
+        self?.contentView.hideSettingsIfNeeded()
+    }
+  }
+
+  deinit {
+    token?.cancel()
+    token = nil
   }
 
   override var shouldAutorotate: Bool {
@@ -98,28 +112,7 @@ class GameViewController: UIViewController {
   }
 
   @objc func toggleSettings(_ sender: UIButton) {
-    let image: UIImage?
-
-    guard let leadingSettingsConstraint = contentView.leadingSettingsConstraint else {
-      return
-    }
-
-    if leadingSettingsConstraint.constant > 1 {
-      leadingSettingsConstraint.constant = 0
-      image = UIImage(systemName: "chevron.right")
-    } else {
-      if let convertedOrigin = sender.superview?.convert(sender.frame.origin, to: contentView.settingsView) {
-        leadingSettingsConstraint.constant = convertedOrigin.x
-        image = UIImage(systemName: "chevron.left")
-      } else {
-        image = nil
-      }
-    }
-    UIView.animate(withDuration: 0.3) {
-      self.view.layoutIfNeeded()
-    } completion: { finished in
-      sender.setImage(image, for: .normal)
-    }
+    contentView.toggleSettings()
   }
 
   @objc func toggleStars(_ sender: UISwitch) {

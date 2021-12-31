@@ -150,6 +150,7 @@ class GameScene: SKScene {
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    NotificationCenter.default.post(name: closeSettingsNotificationName, object: nil)
     for touch in touches {
       touchDown(touch)
     }
