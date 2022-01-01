@@ -12,8 +12,9 @@ enum SatelliteType: Int {
 class Satellite: SKSpriteNode {
 
   let type: SatelliteType
+  var colorRatio: CGFloat = 0
 
-  class func random(amount: Int = 10, sceneSize: CGSize, type: SatelliteType) -> [Satellite] {
+  class func random(amount: Int = 10, sceneSize: CGSize, type: SatelliteType, colorSetting: ColorSetting) -> [Satellite] {
     var satellites: [Satellite] = []
     let left = Bool.random()
     for _ in 0..<amount {
@@ -28,10 +29,8 @@ class Satellite: SKSpriteNode {
       let satellite = Satellite(position: position, type: type)
       let randomXVelocity = CGFloat.random(in: -20...20)
       let length = sqrt(pow(randomXVelocity, 2) + pow(randomYVelocity, 2))
-      let ratio = min(length/150, 1)
-      let color = UIColor(hue: ratio, saturation: 1, brightness: 0.9, alpha: 1)
-//      let color = UIColor(white: ratio, alpha: 1.0)
-      satellite.color = color
+      satellite.colorRatio = min(length/150, 1)
+      satellite.updateColor(for: colorSetting)
       let velocity = CGVector(dx: randomXVelocity, dy: randomYVelocity)
       satellite.addPhysicsBody(with: velocity)
 
@@ -61,10 +60,23 @@ class Satellite: SKSpriteNode {
 
   required init?(coder aDecoder: NSCoder) { fatalError() }
 
-  func addColor(forMovedPosition movePosition: CGPoint) {
+  func addColor(forMovedPosition movePosition: CGPoint, colorSetting: ColorSetting) {
     let length = sqrt(pow(movePosition.x - position.x, 2) + pow(movePosition.y - position.y, 2))
-    let ratio = min(length/150, 1)
-    color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.9, alpha: 1)
+    colorRatio = min(length/150, 1)
+    updateColor(for: colorSetting)
+  }
+
+  func updateColor(for colorSetting: ColorSetting) {
+    switch colorSetting {
+      case .multiColor:
+        color = UIColor(hue: colorRatio, saturation: 0.8, brightness: 0.9, alpha: 1)
+      case .blackAndWhite:
+        color = UIColor(white: colorRatio, alpha: 1)
+    }
+    let emitters = children.filter({ $0 is SKEmitterNode }) as! [SKEmitterNode]
+    for emitter in emitters {
+      emitter.particleColor = color
+    }
   }
 
   func addPhysicsBody(with velecity: CGVector) {

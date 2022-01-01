@@ -5,26 +5,9 @@
 import SpriteKit
 import GameplayKit
 
-enum TrailLength: Int {
-  case none
-  case short
-  case long
-
-  func lifetime() -> CGFloat {
-    switch self {
-      case .none:
-        return 0
-      case .short:
-        return 1
-      case .long:
-        return 10
-    }
-  }
-}
-
 class GameScene: SKScene {
 
-  var satelliteNodes: [SKSpriteNode] = []
+  var satelliteNodes: [Satellite] = []
   var emitterBox: SKEmitterNode?
   var emitterRectangle: SKEmitterNode?
   var explosionEmitter: SKEmitterNode?
@@ -36,6 +19,13 @@ class GameScene: SKScene {
   var trailLength: TrailLength = .long
   private var showTrails = true
   private var musicAudioNode: SKAudioNode?
+  var colorSetting: ColorSetting = .multiColor {
+    didSet {
+      for node in satelliteNodes {
+        node.updateColor(for: colorSetting)
+      }
+    }
+  }
   var soundEnabled = true {
     didSet {
       if soundEnabled, satelliteNodes.count > 0 {
@@ -104,7 +94,7 @@ class GameScene: SKScene {
     let movePosition = touch.location(in: self)
 
     if let node = touchedNodes[touch] {
-      node.addColor(forMovedPosition: movePosition)
+      node.addColor(forMovedPosition: movePosition, colorSetting: colorSetting)
 
       if let velocityNode = velocityNodes[touch] {
         velocityNode.removeFromParent()
@@ -194,7 +184,7 @@ class GameScene: SKScene {
     showTrails = enabled
 
     for node in satelliteNodes {
-      if enabled, let node = node as? Satellite {
+      if enabled {
         node.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)
       } else {
         let allEmitter = node.children.filter { $0 is SKEmitterNode }
@@ -233,8 +223,12 @@ class GameScene: SKScene {
     }
   }
 
+  func setColorSetting(_ setting: ColorSetting) {
+    colorSetting = setting
+  }
+
   func random() {
-    let satellites = Satellite.random(sceneSize: size, type: satelliteType)
+    let satellites = Satellite.random(sceneSize: size, type: satelliteType, colorSetting: colorSetting)
     for satellite in satellites {
       if trailLength != .none {
         satellite.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)

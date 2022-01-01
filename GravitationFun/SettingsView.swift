@@ -16,13 +16,15 @@ class SettingsView: UIView {
   let zoomKeyLabel: UILabel
   let zoomSwitch: UISwitch
 
-  let trailKeyLabel: UILabel
-  let trailLengthControl: UISegmentedControl
-
   let soundKeyLabel: UILabel
   let soundSwitch: UISwitch
 
-  let typControl: UISegmentedControl
+  let trailKeyLabel: UILabel
+  let trailLengthControl: UISegmentedControl
+
+  let colorControl: UISegmentedControl
+
+  let typeControl: UISegmentedControl
 
   let shareImageButton: UIButton
 
@@ -69,6 +71,14 @@ class SettingsView: UIView {
     zoomSwitch.isOn = false
     zoomSwitch.accessibilityLabel = "Show zoom buttons"
 
+    soundKeyLabel = UILabel()
+    soundKeyLabel.text = "Sound"
+    soundKeyLabel.textColor = .white
+    soundKeyLabel.font = .systemFont(ofSize: 13)
+    
+    soundSwitch = UISwitch()
+    soundSwitch.isOn = true
+
     trailKeyLabel = UILabel()
     trailKeyLabel.text = "Trail length"
     trailKeyLabel.textColor = .white
@@ -79,18 +89,16 @@ class SettingsView: UIView {
     trailLengthControl.selectedSegmentTintColor = .white
     trailLengthControl.selectedSegmentIndex = 2
 
-    soundKeyLabel = UILabel()
-    soundKeyLabel.text = "Sound"
-    soundKeyLabel.textColor = .white
-    soundKeyLabel.font = .systemFont(ofSize: 13)
+    colorControl = UISegmentedControl(items: [UIImage(systemName: "paintpalette")!.withRenderingMode(.alwaysOriginal), UIImage(systemName: "paintpalette")!])
+    colorControl.backgroundColor = .gray
+    colorControl.selectedSegmentTintColor = .white
+    colorControl.selectedSegmentIndex = 0
 
-    soundSwitch = UISwitch()
-    soundSwitch.isOn = true
-
-    typControl = UISegmentedControl(items: [UIImage(systemName: "square")!, UIImage(systemName: "rectangle")!])
-    typControl.backgroundColor = .gray
-    typControl.selectedSegmentTintColor = .white
-    typControl.selectedSegmentIndex = 0
+    typeControl = UISegmentedControl(items: [UIImage(systemName: "square")!, UIImage(systemName: "rectangle")!])
+    typeControl.backgroundColor = .gray
+    typeControl.selectedSegmentTintColor = .white
+    typeControl.selectedSegmentIndex = 0
+    typeControl.tintColor = .red
 
     randomButton = UIButton(type: .system)
     randomButton.configuration = UIButton.Configuration.filled()
@@ -109,7 +117,7 @@ class SettingsView: UIView {
 
     super.init(frame: frame)
 
-    backgroundColor = .init(white: 0.1, alpha: 1)
+    backgroundColor = .clear
 
     let cutOffStackView = UIStackView(arrangedSubviews: [cutOffKeyLabel, cutOffValueLabel, cutOffStepper])
     cutOffStackView.spacing = 20
@@ -129,7 +137,7 @@ class SettingsView: UIView {
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, trailsStackView, soundStackView, typControl, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, trailsStackView, colorControl, typeControl, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 

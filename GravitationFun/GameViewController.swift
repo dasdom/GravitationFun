@@ -6,6 +6,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 import Combine
+import StoreKit
 
 let closeSettingsNotificationName = Notification.Name(rawValue: "closeSettingsNotification")
 
@@ -29,7 +30,8 @@ class GameViewController: UIViewController {
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
     settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
-    settingsView.typControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
+    settingsView.colorControl.addTarget(self, action: #selector(changeColor(_:)), for: .valueChanged)
+    settingsView.typeControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
     settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
@@ -144,6 +146,13 @@ class GameViewController: UIViewController {
     gameScene?.satelliteType = type
   }
 
+  @objc func changeColor(_ sender: UISegmentedControl) {
+    guard let colorSetting = ColorSetting(rawValue: sender.selectedSegmentIndex) else {
+      return
+    }
+    gameScene?.colorSetting = colorSetting
+  }
+
   @objc func random(_ sender: UIButton) {
     gameScene?.random()
   }
@@ -157,9 +166,9 @@ class GameViewController: UIViewController {
     }
     let settingsView = contentView.settingsView
     let activity = UIActivityViewController(activityItems: [image, "#GravityZenApp"], applicationActivities: nil)
-    //    activity.completionWithItemsHandler = { _, _, _, _ in
-    //      SKStoreReviewController.requestReview()
-    //    }
+    activity.completionWithItemsHandler = { _, _, _, _ in
+      SKStoreReviewController.requestReview()
+    }
     activity.popoverPresentationController?.sourceView = settingsView.shareImageButton
     self.present(activity, animated: true)
   }
