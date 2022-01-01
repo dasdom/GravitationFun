@@ -45,15 +45,17 @@ class GameViewController: UIViewController {
 
     let view = self.contentView.skView
     // Load the SKScene from 'GameScene.sks'
-    if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
+//    if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
       // Set the scale mode to scale to fit the window
+
+    let scene = GameScene()
       scene.scaleMode = .aspectFill
 
       gameScene = scene
 
       // Present the scene
       view.presentScene(scene)
-    }
+//    }
 
     if let fieldNode = gameScene?.gravityNode {
       contentView.settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"

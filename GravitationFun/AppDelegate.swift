@@ -13,6 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     application.isIdleTimerDisabled = true
 
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.rootViewController = GameViewController()
+    window?.makeKeyAndVisible()
+
     return true
   }
 }

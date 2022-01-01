@@ -34,6 +34,15 @@ class GameScene: SKScene {
     }
   }
 
+  override init() {
+    super.init(size: CGSize(width: 750, height: 1334))
+
+    anchorPoint = CGPoint(x: 0.5, y: 0.5)
+    physicsWorld.gravity = .zero
+  }
+
+  required init?(coder aDecoder: NSCoder) { fatalError() }
+
   override func didMove(to view: SKView) {
 
     physicsWorld.contactDelegate = self
@@ -87,7 +96,7 @@ class GameScene: SKScene {
         velocityNode.removeFromParent()
       }
 
-      let velocityNode = NodeFactory.velocity(from: position, to: movePosition)
+      let velocityNode = NodeFactory.velocity(from: node.position, to: movePosition)
       insertChild(velocityNode, at: 0)
       velocityNodes[touch] = velocityNode
     }
