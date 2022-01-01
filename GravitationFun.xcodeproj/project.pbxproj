@@ -12,9 +12,9 @@
 		F27A6200277A5F280075ED64 /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A61FF277A5F280075ED64 /* Satellite.swift */; };
 		F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E3B277B0F7C00EA5825 /* GameView.swift */; };
 		F2A21E42277E297100EA5825 /* trail_rectangle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E41277E27B200EA5825 /* trail_rectangle.sks */; };
-		F2A21E44277E301300EA5825 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E43277E301300EA5825 /* Background.swift */; };
 		F2A21E46277E51E200EA5825 /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E45277E51E200EA5825 /* background.sks */; };
 		F2A21E50277F0F8D00EA5825 /* GravityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */; };
+		F2A21E5D2780300100EA5825 /* NodeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E5C2780300100EA5825 /* NodeFactory.swift */; };
 		F2B6164A2775C93200BCE6C4 /* trail_box.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2B616492775C93200BCE6C4 /* trail_box.sks */; };
 		F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */; };
 		F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */; };
@@ -42,10 +42,10 @@
 		F27A61FF277A5F280075ED64 /* Satellite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
 		F2A21E3B277B0F7C00EA5825 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		F2A21E41277E27B200EA5825 /* trail_rectangle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_rectangle.sks; sourceTree = "<group>"; };
-		F2A21E43277E301300EA5825 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		F2A21E45277E51E200EA5825 /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
 		F2A21E4D277F0F8D00EA5825 /* GravityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GravityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityUITests.swift; sourceTree = "<group>"; };
+		F2A21E5C2780300100EA5825 /* NodeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeFactory.swift; sourceTree = "<group>"; };
 		F2B616492775C93200BCE6C4 /* trail_box.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_box.sks; sourceTree = "<group>"; };
 		F2B6164B2777998200BCE6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -113,8 +113,8 @@
 				F2A21E41277E27B200EA5825 /* trail_rectangle.sks */,
 				F2A21E45277E51E200EA5825 /* background.sks */,
 				F2BD5C602773C4DC00136C85 /* GameScene.swift */,
+				F2A21E5C2780300100EA5825 /* NodeFactory.swift */,
 				F27A61FF277A5F280075ED64 /* Satellite.swift */,
-				F2A21E43277E301300EA5825 /* Background.swift */,
 				F2BD5C622773C4DC00136C85 /* GameViewController.swift */,
 				F2A21E3B277B0F7C00EA5825 /* GameView.swift */,
 				F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */,
@@ -244,8 +244,8 @@
 			files = (
 				F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */,
 				F2BD5C612773C4DC00136C85 /* GameScene.swift in Sources */,
+				F2A21E5D2780300100EA5825 /* NodeFactory.swift in Sources */,
 				F24FEA822775A9DD0043FD8B /* PhysicsCategory.swift in Sources */,
-				F2A21E44277E301300EA5825 /* Background.swift in Sources */,
 				F2BD5C632773C4DC00136C85 /* GameViewController.swift in Sources */,
 				F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */,
 				F27A6200277A5F280075ED64 /* Satellite.swift in Sources */,

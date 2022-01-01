@@ -61,6 +61,12 @@ class Satellite: SKSpriteNode {
 
   required init?(coder aDecoder: NSCoder) { fatalError() }
 
+  func addColor(forMovedPosition movePosition: CGPoint) {
+    let length = sqrt(pow(movePosition.x - position.x, 2) + pow(movePosition.y - position.y, 2))
+    let ratio = min(length/150, 1)
+    color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.9, alpha: 1)
+  }
+
   func addPhysicsBody(with velecity: CGVector) {
     self.physicsBody = SKPhysicsBody(rectangleOf: size)
     physicsBody?.friction = 0

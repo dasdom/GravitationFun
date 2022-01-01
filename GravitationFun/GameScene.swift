@@ -14,7 +14,6 @@ enum TrailLength: Int {
 class GameScene: SKScene {
 
   var satelliteNodes: [SKSpriteNode] = []
-  var centerNode: SKShapeNode?
   var emitterBox: SKEmitterNode?
   var emitterRectangle: SKEmitterNode?
   var backgroundEmitter: SKEmitterNode?
@@ -37,26 +36,15 @@ class GameScene: SKScene {
 
   override func didMove(to view: SKView) {
 
-//    Background.add(200, starsTo: self)
-
     physicsWorld.contactDelegate = self
 
-    backgroundEmitter = SKEmitterNode(fileNamed: "background")
-    backgroundEmitter?.particlePositionRange = CGVector(dx: size.width*1.5, dy: size.height*1.5)
-    backgroundEmitter?.particleLifetime = CGFloat.greatestFiniteMagnitude
+    backgroundEmitter = NodeFactory.backgroundEmitter(size: size)
     if let backgroundEmitter = backgroundEmitter {
       addChild(backgroundEmitter)
     }
 
-    let centerNode = SKShapeNode(circleOfRadius: 5)
-    centerNode.lineWidth = 0.1
-    centerNode.fillColor = .black
-    centerNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
-    centerNode.physicsBody?.isDynamic = false
-    centerNode.physicsBody?.categoryBitMask = PhysicsCategory.center
-    centerNode.physicsBody?.contactTestBitMask = PhysicsCategory.satellite
+    let centerNode = NodeFactory.center()
     addChild(centerNode)
-    self.centerNode = centerNode
 
     emitterBox = SKEmitterNode(fileNamed: "trail_box")
     emitterBox?.targetNode = self
@@ -90,25 +78,16 @@ class GameScene: SKScene {
 
   func touchMoved(_ touch: UITouch) {
 
-    let pos = touch.location(in: self)
+    let movePosition = touch.location(in: self)
 
     if let node = touchedNodes[touch] {
-      let position = node.position
-      let length = sqrt(pow(pos.x - position.x, 2) + pow(pos.y - position.y, 2))
-      let ratio = min(length/150, 1)
-      let color = UIColor(hue: ratio, saturation: 0.8, brightness: 0.9, alpha: 1)
-      node.color = color
+      node.addColor(forMovedPosition: movePosition)
 
       if let velocityNode = velocityNodes[touch] {
         velocityNode.removeFromParent()
       }
 
-      let bezierPath = UIBezierPath()
-      bezierPath.move(to: position)
-      bezierPath.addLine(to: pos)
-      let velocityNode = SKShapeNode(path: bezierPath.cgPath)
-      velocityNode.strokeColor = .white
-      velocityNode.lineWidth = 2
+      let velocityNode = NodeFactory.velocity(from: position, to: movePosition)
       insertChild(velocityNode, at: 0)
       velocityNodes[touch] = velocityNode
     }
@@ -116,7 +95,7 @@ class GameScene: SKScene {
 
   func touchUp(_ touch: UITouch) {
 
-    let pos = touch.location(in: self)
+    let endPosition = touch.location(in: self)
 
     if let velocityNode = velocityNodes[touch] {
       velocityNode.removeFromParent()
@@ -126,7 +105,7 @@ class GameScene: SKScene {
 
     if let node = touchedNodes[touch] {
       let position = node.position
-      let velocity = CGVector(dx: position.x - pos.x, dy: position.y - pos.y)
+      let velocity = CGVector(dx: position.x - endPosition.x, dy: position.y - endPosition.y)
       node.addPhysicsBody(with: velocity)
 
       if showTrails {
@@ -139,14 +118,6 @@ class GameScene: SKScene {
     }
 
     touchedNodes.removeValue(forKey: touch)
-  }
-
-  func removeUseless() {
-    let nodesWithoutPhysics = satelliteNodes.filter { $0.physicsBody == nil }
-    for node in nodesWithoutPhysics {
-      node.removeFromParent()
-      satelliteNodes.removeAll(where: { $0 == node })
-    }
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
