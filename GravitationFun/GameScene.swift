@@ -9,6 +9,17 @@ enum TrailLength: Int {
   case none
   case short
   case long
+
+  func lifetime() -> CGFloat {
+    switch self {
+      case .none:
+        return 0
+      case .short:
+        return 1
+      case .long:
+        return 10
+    }
+  }
 }
 
 class GameScene: SKScene {
@@ -16,8 +27,9 @@ class GameScene: SKScene {
   var satelliteNodes: [SKSpriteNode] = []
   var emitterBox: SKEmitterNode?
   var emitterRectangle: SKEmitterNode?
+  var explosionEmitter: SKEmitterNode?
   var backgroundEmitter: SKEmitterNode?
-  var gravityNode: SKFieldNode?
+//  var gravityNode: SKFieldNode?
   var touchedNodes: [UITouch:Satellite] = [:]
   var velocityNodes: [UITouch:SKShapeNode] = [:]
   var satelliteType: SatelliteType = .box
@@ -61,10 +73,12 @@ class GameScene: SKScene {
     emitterRectangle = SKEmitterNode(fileNamed: "trail_rectangle")
     emitterRectangle?.targetNode = self
 
+    explosionEmitter = SKEmitterNode(fileNamed: "explosion")
+
     let gravityNode = SKFieldNode.radialGravityField()
     gravityNode.falloff = 1.2
     addChild(gravityNode)
-    self.gravityNode = gravityNode
+//    self.gravityNode = gravityNode
 
     let cameraNode = SKCameraNode()
     addChild(cameraNode)
@@ -164,16 +178,13 @@ class GameScene: SKScene {
 
     setEmitter(enabled: false)
 
+    emitterBox?.particleLifetime = length.lifetime()
+    emitterRectangle?.particleLifetime = length.lifetime()
+
     switch length {
       case .none:
         break
-      case .short:
-        emitterBox?.particleLifetime = 1
-        emitterRectangle?.particleLifetime = 1
-        setEmitter(enabled: true)
-      case .long:
-        emitterBox?.particleLifetime = 10
-        emitterRectangle?.particleLifetime = 10
+      case .short, .long:
         setEmitter(enabled: true)
     }
   }
@@ -247,19 +258,50 @@ extension GameScene: SKPhysicsContactDelegate {
   func didBegin(_ contact: SKPhysicsContact) {
 
     if contact.bodyA.categoryBitMask == PhysicsCategory.satellite {
-      if let node = contact.bodyA.node {
+      if let node = contact.bodyA.node as? Satellite {
         satelliteNodes.removeAll { $0 == node }
+        explosion(at: node.position)
+        moveEmitter(node: node)
         node.removeFromParent()
       }
     } else if contact.bodyB.categoryBitMask == PhysicsCategory.satellite {
-      if let node = contact.bodyB.node {
+      if let node = contact.bodyB.node as? Satellite {
         satelliteNodes.removeAll { $0 == node }
+        explosion(at: node.position)
+        moveEmitter(node: node)
         node.removeFromParent()
       }
     }
 
     if satelliteNodes.count == 0 {
       setSound(enabled: false)
+    }
+  }
+}
+
+extension GameScene {
+  func explosion(at position: CGPoint) {
+    let emitter = explosionEmitter?.copy() as? SKEmitterNode
+    emitter?.position = position
+    if let emitter = emitter {
+      addChild(emitter)
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        emitter.removeFromParent()
+      }
+    }
+  }
+
+  func moveEmitter(node: Satellite) {
+    let emitters = node.children.filter({ $0 is SKEmitterNode }) as! [SKEmitterNode]
+    for emitter in emitters {
+      emitter.removeFromParent()
+      emitter.position = node.position
+      emitter.numParticlesToEmit = 0
+      emitter.particleBirthRate = 0
+      addChild(emitter)
+      DispatchQueue.main.asyncAfter(deadline: .now() + trailLength.lifetime()) {
+        emitter.removeFromParent()
+      }
     }
   }
 }

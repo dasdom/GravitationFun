@@ -70,7 +70,7 @@ class Satellite: SKSpriteNode {
   func addPhysicsBody(with velecity: CGVector) {
     self.physicsBody = SKPhysicsBody(rectangleOf: size)
     physicsBody?.friction = 0
-    physicsBody?.restitution = 0
+//    physicsBody?.restitution = 0
     physicsBody?.linearDamping = 0
     physicsBody?.angularDamping = 0
     physicsBody?.categoryBitMask = PhysicsCategory.satellite

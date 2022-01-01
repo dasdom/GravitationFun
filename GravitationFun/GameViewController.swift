@@ -22,7 +22,7 @@ class GameViewController: UIViewController {
 
     let settingsView = contentView.settingsView
     settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
-    settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
+//    settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
     settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
     settingsView.starsSwitch.addTarget(self, action: #selector(toggleStars(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
@@ -57,9 +57,9 @@ class GameViewController: UIViewController {
       view.presentScene(scene)
 //    }
 
-    if let fieldNode = gameScene?.gravityNode {
-      contentView.settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
-    }
+//    if let fieldNode = gameScene?.gravityNode {
+//      contentView.settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
+//    }
 
     if let cameraNode = gameScene?.camera {
       contentView.zoomLabel.text = String(format: "%ld", Int(cameraNode.xScale * 100)) + "%"
@@ -89,10 +89,10 @@ class GameViewController: UIViewController {
     }
   }
 
-  @objc func falloffChanged(_ sender: UIStepper) {
-    contentView.settingsView.cutOffValueLabel.text = String(format: "%.1lf", sender.value)
-    gameScene?.gravityNode?.falloff = Float(sender.value)
-  }
+//  @objc func falloffChanged(_ sender: UIStepper) {
+//    contentView.settingsView.cutOffValueLabel.text = String(format: "%.1lf", sender.value)
+//    gameScene?.gravityNode?.falloff = Float(sender.value)
+//  }
 
   @objc func zoomChanged(_ sender: UIStepper) {
     contentView.zoomLabel.text = String(format: "%ld", Int(sender.value * 100)) + "%"

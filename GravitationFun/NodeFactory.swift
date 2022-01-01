@@ -5,12 +5,13 @@
 import Foundation
 import SpriteKit
 
-struct NodeFactory {
+enum NodeFactory {
   static func center() -> SKShapeNode {
-    let node = SKShapeNode(circleOfRadius: 5)
-    node.lineWidth = 0.1
+    let radius: CGFloat = 5
+    let node = SKShapeNode(circleOfRadius: radius)
+    node.lineWidth = 1
     node.fillColor = .black
-    node.physicsBody = SKPhysicsBody(circleOfRadius: 10)
+    node.physicsBody = SKPhysicsBody(circleOfRadius: radius)
     node.physicsBody?.isDynamic = false
     node.physicsBody?.categoryBitMask = PhysicsCategory.center
     node.physicsBody?.contactTestBitMask = PhysicsCategory.satellite
