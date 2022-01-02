@@ -38,6 +38,16 @@
                ReferencedContainer = "container:GravitationFun.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F2D6040B2781AAC9003958A2"
+               BuildableName = "GravityTests.xctest"
+               BlueprintName = "GravityTests"
+               ReferencedContainer = "container:GravitationFun.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

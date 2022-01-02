@@ -4,7 +4,7 @@
 
 import SpriteKit
 
-enum SatelliteType: Int {
+public enum SatelliteType: Int {
   case box
   case rectangle
 }
@@ -60,8 +60,8 @@ class Satellite: SKSpriteNode {
 
   required init?(coder aDecoder: NSCoder) { fatalError() }
 
-  func addColor(forMovedPosition movePosition: CGPoint, colorSetting: ColorSetting) {
-    let length = sqrt(pow(movePosition.x - position.x, 2) + pow(movePosition.y - position.y, 2))
+  func addColor(forInput input: CGPoint, colorSetting: ColorSetting) {
+    let length = sqrt(pow(input.x - position.x, 2) + pow(input.y - position.y, 2))
     colorRatio = min(length/150, 1)
     updateColor(for: colorSetting)
   }

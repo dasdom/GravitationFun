@@ -7,24 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F24FEA822775A9DD0043FD8B /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */; };
-		F27203712778F6F300D35E89 /* gravity.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F27203702778F68000D35E89 /* gravity.m4a */; };
-		F27A6200277A5F280075ED64 /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A61FF277A5F280075ED64 /* Satellite.swift */; };
 		F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E3B277B0F7C00EA5825 /* GameView.swift */; };
-		F2A21E42277E297100EA5825 /* trail_rectangle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E41277E27B200EA5825 /* trail_rectangle.sks */; };
-		F2A21E46277E51E200EA5825 /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2A21E45277E51E200EA5825 /* background.sks */; };
 		F2A21E50277F0F8D00EA5825 /* GravityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */; };
-		F2A21E5D2780300100EA5825 /* NodeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E5C2780300100EA5825 /* NodeFactory.swift */; };
-		F2B6164A2775C93200BCE6C4 /* trail_box.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2B616492775C93200BCE6C4 /* trail_box.sks */; };
 		F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */; };
 		F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */; };
 		F2BD5C612773C4DC00136C85 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C602773C4DC00136C85 /* GameScene.swift */; };
 		F2BD5C632773C4DC00136C85 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C622773C4DC00136C85 /* GameViewController.swift */; };
 		F2BD5C682773C4DE00136C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2BD5C672773C4DE00136C85 /* Assets.xcassets */; };
 		F2BD5C6B2773C4DE00136C85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2BD5C692773C4DE00136C85 /* LaunchScreen.storyboard */; };
-		F2D6040327809AF1003958A2 /* explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D6040227809AF1003958A2 /* explosion.sks */; };
-		F2D604052780EB23003958A2 /* TrailLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D604042780EB23003958A2 /* TrailLength.swift */; };
-		F2D604072780EB61003958A2 /* ColorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D604062780EB61003958A2 /* ColorSetting.swift */; };
+		F2D6040F2781AAC9003958A2 /* GravityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6040E2781AAC9003958A2 /* GravityTests.swift */; };
+		F2D604162781AB09003958A2 /* GameSceneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D604152781AB09003958A2 /* GameSceneTests.swift */; };
+		F2D6041A2781B597003958A2 /* GravityLogic in Frameworks */ = {isa = PBXBuildFile; productRef = F2D604192781B597003958A2 /* GravityLogic */; };
+		F2D6041C2781D885003958A2 /* gravity.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F2D6041B2781D75F003958A2 /* gravity.m4a */; };
+		F2D604212781D92E003958A2 /* trail_box.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D6041F2781D927003958A2 /* trail_box.sks */; };
+		F2D604222781D92E003958A2 /* trail_rectangle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D6041E2781D927003958A2 /* trail_rectangle.sks */; };
+		F2D604232781D92E003958A2 /* explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D604202781D927003958A2 /* explosion.sks */; };
+		F2D604242781D92E003958A2 /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D6041D2781D927003958A2 /* background.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,19 +33,19 @@
 			remoteGlobalIDString = F2BD5C562773C4DC00136C85;
 			remoteInfo = GravitationFun;
 		};
+		F2D604102781AAC9003958A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2BD5C4F2773C4DC00136C85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2BD5C562773C4DC00136C85;
+			remoteInfo = GravitationFun;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
-		F27203702778F68000D35E89 /* gravity.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gravity.m4a; sourceTree = "<group>"; };
-		F27A61FF277A5F280075ED64 /* Satellite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
 		F2A21E3B277B0F7C00EA5825 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		F2A21E41277E27B200EA5825 /* trail_rectangle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_rectangle.sks; sourceTree = "<group>"; };
-		F2A21E45277E51E200EA5825 /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
 		F2A21E4D277F0F8D00EA5825 /* GravityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GravityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityUITests.swift; sourceTree = "<group>"; };
-		F2A21E5C2780300100EA5825 /* NodeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeFactory.swift; sourceTree = "<group>"; };
-		F2B616492775C93200BCE6C4 /* trail_box.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_box.sks; sourceTree = "<group>"; };
 		F2B6164B2777998200BCE6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F2BD5C572773C4DC00136C85 /* Gravity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,9 +54,15 @@
 		F2BD5C622773C4DC00136C85 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F2BD5C672773C4DE00136C85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2BD5C6A2773C4DE00136C85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		F2D6040227809AF1003958A2 /* explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explosion.sks; sourceTree = "<group>"; };
-		F2D604042780EB23003958A2 /* TrailLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailLength.swift; sourceTree = "<group>"; };
-		F2D604062780EB61003958A2 /* ColorSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSetting.swift; sourceTree = "<group>"; };
+		F2D6040C2781AAC9003958A2 /* GravityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GravityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2D6040E2781AAC9003958A2 /* GravityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityTests.swift; sourceTree = "<group>"; };
+		F2D604152781AB09003958A2 /* GameSceneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneTests.swift; sourceTree = "<group>"; };
+		F2D604172781AEBF003958A2 /* GravityLogic */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GravityLogic; sourceTree = "<group>"; };
+		F2D6041B2781D75F003958A2 /* gravity.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gravity.m4a; sourceTree = "<group>"; };
+		F2D6041D2781D927003958A2 /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
+		F2D6041E2781D927003958A2 /* trail_rectangle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_rectangle.sks; sourceTree = "<group>"; };
+		F2D6041F2781D927003958A2 /* trail_box.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail_box.sks; sourceTree = "<group>"; };
+		F2D604202781D927003958A2 /* explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F2BD5C542773C4DC00136C85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2D6041A2781B597003958A2 /* GravityLogic in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2D604092781AAC9003958A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -90,9 +102,12 @@
 		F2BD5C4E2773C4DC00136C85 = {
 			isa = PBXGroup;
 			children = (
+				F2D604172781AEBF003958A2 /* GravityLogic */,
 				F2BD5C592773C4DC00136C85 /* GravitationFun */,
+				F2D6040D2781AAC9003958A2 /* GravityTests */,
 				F2A21E4E277F0F8D00EA5825 /* GravityUITests */,
 				F2BD5C582773C4DC00136C85 /* Products */,
+				F2D604182781B597003958A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +116,7 @@
 			children = (
 				F2BD5C572773C4DC00136C85 /* Gravity.app */,
 				F2A21E4D277F0F8D00EA5825 /* GravityUITests.xctest */,
+				F2D6040C2781AAC9003958A2 /* GravityTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,24 +126,35 @@
 			children = (
 				F2B6164B2777998200BCE6C4 /* Info.plist */,
 				F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */,
-				F2B616492775C93200BCE6C4 /* trail_box.sks */,
-				F2A21E41277E27B200EA5825 /* trail_rectangle.sks */,
-				F2A21E45277E51E200EA5825 /* background.sks */,
-				F2D6040227809AF1003958A2 /* explosion.sks */,
 				F2BD5C602773C4DC00136C85 /* GameScene.swift */,
-				F2D604062780EB61003958A2 /* ColorSetting.swift */,
-				F2D604042780EB23003958A2 /* TrailLength.swift */,
-				F2A21E5C2780300100EA5825 /* NodeFactory.swift */,
-				F27A61FF277A5F280075ED64 /* Satellite.swift */,
 				F2BD5C622773C4DC00136C85 /* GameViewController.swift */,
 				F2A21E3B277B0F7C00EA5825 /* GameView.swift */,
 				F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */,
-				F24FEA812775A9DD0043FD8B /* PhysicsCategory.swift */,
 				F2BD5C672773C4DE00136C85 /* Assets.xcassets */,
 				F2BD5C692773C4DE00136C85 /* LaunchScreen.storyboard */,
-				F27203702778F68000D35E89 /* gravity.m4a */,
+				F2D6041D2781D927003958A2 /* background.sks */,
+				F2D604202781D927003958A2 /* explosion.sks */,
+				F2D6041F2781D927003958A2 /* trail_box.sks */,
+				F2D6041E2781D927003958A2 /* trail_rectangle.sks */,
+				F2D6041B2781D75F003958A2 /* gravity.m4a */,
 			);
 			path = GravitationFun;
+			sourceTree = "<group>";
+		};
+		F2D6040D2781AAC9003958A2 /* GravityTests */ = {
+			isa = PBXGroup;
+			children = (
+				F2D6040E2781AAC9003958A2 /* GravityTests.swift */,
+				F2D604152781AB09003958A2 /* GameSceneTests.swift */,
+			);
+			path = GravityTests;
+			sourceTree = "<group>";
+		};
+		F2D604182781B597003958A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,9 +191,30 @@
 			dependencies = (
 			);
 			name = GravitationFun;
+			packageProductDependencies = (
+				F2D604192781B597003958A2 /* GravityLogic */,
+			);
 			productName = GravitationFun;
 			productReference = F2BD5C572773C4DC00136C85 /* Gravity.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F2D6040B2781AAC9003958A2 /* GravityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2D604122781AAC9003958A2 /* Build configuration list for PBXNativeTarget "GravityTests" */;
+			buildPhases = (
+				F2D604082781AAC9003958A2 /* Sources */,
+				F2D604092781AAC9003958A2 /* Frameworks */,
+				F2D6040A2781AAC9003958A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2D604112781AAC9003958A2 /* PBXTargetDependency */,
+			);
+			name = GravityTests;
+			productName = GravityTests;
+			productReference = F2D6040C2781AAC9003958A2 /* GravityTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -186,6 +234,10 @@
 					F2BD5C562773C4DC00136C85 = {
 						CreatedOnToolsVersion = 13.1;
 					};
+					F2D6040B2781AAC9003958A2 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = F2BD5C562773C4DC00136C85;
+					};
 				};
 			};
 			buildConfigurationList = F2BD5C522773C4DC00136C85 /* Build configuration list for PBXProject "GravitationFun" */;
@@ -202,6 +254,7 @@
 			projectRoot = "";
 			targets = (
 				F2BD5C562773C4DC00136C85 /* GravitationFun */,
+				F2D6040B2781AAC9003958A2 /* GravityTests */,
 				F2A21E4C277F0F8D00EA5825 /* GravityUITests */,
 			);
 		};
@@ -219,13 +272,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F27203712778F6F300D35E89 /* gravity.m4a in Resources */,
-				F2B6164A2775C93200BCE6C4 /* trail_box.sks in Resources */,
+				F2D604212781D92E003958A2 /* trail_box.sks in Resources */,
+				F2D604222781D92E003958A2 /* trail_rectangle.sks in Resources */,
+				F2D6041C2781D885003958A2 /* gravity.m4a in Resources */,
+				F2D604232781D92E003958A2 /* explosion.sks in Resources */,
 				F2BD5C682773C4DE00136C85 /* Assets.xcassets in Resources */,
-				F2A21E46277E51E200EA5825 /* background.sks in Resources */,
-				F2D6040327809AF1003958A2 /* explosion.sks in Resources */,
+				F2D604242781D92E003958A2 /* background.sks in Resources */,
 				F2BD5C6B2773C4DE00136C85 /* LaunchScreen.storyboard in Resources */,
-				F2A21E42277E297100EA5825 /* trail_rectangle.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2D6040A2781AAC9003958A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,16 +304,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2D604072780EB61003958A2 /* ColorSetting.swift in Sources */,
 				F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */,
 				F2BD5C612773C4DC00136C85 /* GameScene.swift in Sources */,
-				F2A21E5D2780300100EA5825 /* NodeFactory.swift in Sources */,
-				F24FEA822775A9DD0043FD8B /* PhysicsCategory.swift in Sources */,
 				F2BD5C632773C4DC00136C85 /* GameViewController.swift in Sources */,
 				F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */,
-				F2D604052780EB23003958A2 /* TrailLength.swift in Sources */,
-				F27A6200277A5F280075ED64 /* Satellite.swift in Sources */,
 				F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2D604082781AAC9003958A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2D604162781AB09003958A2 /* GameSceneTests.swift in Sources */,
+				F2D6040F2781AAC9003958A2 /* GravityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +328,11 @@
 			isa = PBXTargetDependency;
 			target = F2BD5C562773C4DC00136C85 /* GravitationFun */;
 			targetProxy = F2A21E53277F0F8D00EA5825 /* PBXContainerItemProxy */;
+		};
+		F2D604112781AAC9003958A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2BD5C562773C4DC00136C85 /* GravitationFun */;
+			targetProxy = F2D604102781AAC9003958A2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -503,6 +572,52 @@
 			};
 			name = Release;
 		};
+		F2D604132781AAC9003958A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.GravityTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gravity.app/Gravity";
+			};
+			name = Debug;
+		};
+		F2D604142781AAC9003958A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.dasdom.GravityTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gravity.app/Gravity";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -533,7 +648,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		F2D604122781AAC9003958A2 /* Build configuration list for PBXNativeTarget "GravityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2D604132781AAC9003958A2 /* Debug */,
+				F2D604142781AAC9003958A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F2D604192781B597003958A2 /* GravityLogic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GravityLogic;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F2BD5C4F2773C4DC00136C85 /* Project object */;
 }

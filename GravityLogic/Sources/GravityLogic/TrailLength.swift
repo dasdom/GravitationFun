@@ -4,12 +4,12 @@
 
 import UIKit
 
-enum TrailLength: Int {
+public enum TrailLength: Int {
   case none
   case short
   case long
 
-  func lifetime() -> CGFloat {
+  public func lifetime() -> CGFloat {
     switch self {
       case .none:
         return 0

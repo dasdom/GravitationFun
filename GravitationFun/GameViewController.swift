@@ -7,6 +7,7 @@ import SpriteKit
 import GameplayKit
 import Combine
 import StoreKit
+import GravityLogic
 
 let closeSettingsNotificationName = Notification.Name(rawValue: "closeSettingsNotification")
 
@@ -135,22 +136,21 @@ class GameViewController: UIViewController {
   }
 
   @objc func toggleSound(_ sender: UISwitch) {
-    gameScene?.soundEnabled = sender.isOn
+    gameScene?.setSound(enabled: sender.isOn)
   }
 
   @objc func changeType(_ sender: UISegmentedControl) {
     guard let type = SatelliteType(rawValue: sender.selectedSegmentIndex) else {
-      gameScene?.satelliteType = .box
       return
     }
-    gameScene?.satelliteType = type
+    gameScene?.setSatelliteType(type)
   }
 
   @objc func changeColor(_ sender: UISegmentedControl) {
     guard let colorSetting = ColorSetting(rawValue: sender.selectedSegmentIndex) else {
       return
     }
-    gameScene?.colorSetting = colorSetting
+    gameScene?.setColorSetting(colorSetting)
   }
 
   @objc func random(_ sender: UIButton) {

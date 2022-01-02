@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum ColorSetting: Int {
+public enum ColorSetting: Int {
   case multiColor
   case blackAndWhite
 }
