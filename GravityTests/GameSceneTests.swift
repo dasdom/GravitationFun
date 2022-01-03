@@ -22,8 +22,4 @@ class GameSceneTests: XCTestCase {
     sut = nil
   }
 
-  func test_shouldHaveBackgroundEmitter() {
-    let emitters = sut.children.filter({ $0 is SKEmitterNode })
-    XCTAssertGreaterThanOrEqual(emitters.count, 1)
-  }
 }

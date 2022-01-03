@@ -40,8 +40,8 @@ public class GravityModel {
 
   // MARK: - Setupg
   public init() {
-    emitterBox = SKEmitterNode(fileNamed: "trail_box")
-    emitterRectangle = SKEmitterNode(fileNamed: "trail_rectangle")
+    emitterBox = BoxEmitter()
+    emitterRectangle = RectangleEmitter()
     explosionEmitter = SKEmitterNode(fileNamed: "explosion")
   }
 
