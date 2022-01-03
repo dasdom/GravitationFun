@@ -110,8 +110,11 @@ class GameScene: SKScene {
   }
 
   func setSound(enabled: Bool) {
-    if enabled, let sound = model.sound() {
-      addChild(sound)
+    if enabled {
+      model.enableSound()
+      if let sound = model.sound() {
+        addChild(sound)
+      }
     } else {
       model.disableSound()
     }

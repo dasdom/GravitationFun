@@ -4,6 +4,11 @@
 
 import SpriteKit
 
+public enum SpawnMode {
+  case maual
+  case automatic
+}
+
 public class GravityModel {
   var satelliteNodes: [Satellite] = []
   var temporaryNodes: [Int:Satellite] = [:]
@@ -14,6 +19,7 @@ public class GravityModel {
   var explosionEmitter: SKEmitterNode?
   public var currentSatelliteType: SatelliteType = .box
   private var musicAudioNode: SKAudioNode?
+  var soundEnabled = true
   public var trailLength: TrailLength = .long {
     didSet {
       setEmitter(enabled: false)
@@ -36,7 +42,6 @@ public class GravityModel {
       }
     }
   }
-  var soundEnabled = true
 
   // MARK: - Setupg
   public init() {
@@ -98,8 +103,9 @@ public class GravityModel {
 
   public func sound() -> SKAudioNode? {
     guard let musicAudioNode = musicAudioNode,
-            musicAudioNode.parent == nil,
-          soundEnabled else {
+          musicAudioNode.parent == nil,
+          soundEnabled
+    else {
       return nil
     }
     musicAudioNode.autoplayLooped = true
@@ -108,8 +114,13 @@ public class GravityModel {
     return musicAudioNode
   }
 
+  public func enableSound() {
+    soundEnabled = true
+  }
+
   public func disableSound() {
     musicAudioNode?.removeFromParent()
+    soundEnabled = false
   }
 
   // MARK: - Velocity

@@ -20,7 +20,7 @@ class Satellite: SKSpriteNode {
     for _ in 0..<amount {
       let maxValue = sceneSize.width/2 - 10
       var randomX = CGFloat.random(in: 50..<maxValue)
-      let randomYVelocity = CGFloat.random(in: 20..<200)
+      let randomYVelocity = CGFloat.random(in: 50..<200)
       if left {
         randomX *= -1
       }
