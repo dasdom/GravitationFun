@@ -92,8 +92,11 @@ class GameScene: SKScene {
   }
 
   func setTrailLength(to length: TrailLength) {
-
     model.trailLength = length
+  }
+
+  func setSpawnMode(_ mode: SpawnMode) {
+    model.spawnMode = mode
   }
 
   func setStars(enabled: Bool) {

@@ -26,6 +26,8 @@ class SettingsView: UIView {
 
   let typeControl: UISegmentedControl
 
+  let spawnControl: UISegmentedControl
+
   let shareImageButton: UIButton
 
   let randomButton: UIButton
@@ -35,6 +37,8 @@ class SettingsView: UIView {
   let showHideButton: UIButton
 
   override init(frame: CGRect) {
+
+    let darkGray = UIColor(white: 0.3, alpha: 1)
 
     cutOffKeyLabel = UILabel()
     cutOffKeyLabel.text = "Gravity falloff:"
@@ -61,6 +65,7 @@ class SettingsView: UIView {
 
     starsSwitch = UISwitch()
     starsSwitch.isOn = true
+    starsSwitch.onTintColor = darkGray
 
     zoomKeyLabel = UILabel()
     zoomKeyLabel.text = "Zoom buttons"
@@ -70,6 +75,7 @@ class SettingsView: UIView {
     zoomSwitch = UISwitch()
     zoomSwitch.isOn = false
     zoomSwitch.accessibilityLabel = "Show zoom buttons"
+    zoomSwitch.onTintColor = darkGray
 
     soundKeyLabel = UILabel()
     soundKeyLabel.text = "Sound"
@@ -78,6 +84,7 @@ class SettingsView: UIView {
     
     soundSwitch = UISwitch()
     soundSwitch.isOn = true
+    soundSwitch.onTintColor = darkGray
 
     trailKeyLabel = UILabel()
     trailKeyLabel.text = "Trail length"
@@ -85,20 +92,29 @@ class SettingsView: UIView {
     trailKeyLabel.font = .systemFont(ofSize: 13)
 
     trailLengthControl = UISegmentedControl(items: ["none", "short", "long"])
-    trailLengthControl.backgroundColor = .gray
-    trailLengthControl.selectedSegmentTintColor = .white
+    trailLengthControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+    trailLengthControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+    trailLengthControl.selectedSegmentTintColor = darkGray
     trailLengthControl.selectedSegmentIndex = 2
 
     colorControl = UISegmentedControl(items: [UIImage(systemName: "paintpalette")!.withRenderingMode(.alwaysOriginal), UIImage(systemName: "paintpalette")!])
-    colorControl.backgroundColor = .gray
-    colorControl.selectedSegmentTintColor = .white
+    colorControl.selectedSegmentTintColor = darkGray
+    colorControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+    colorControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
     colorControl.selectedSegmentIndex = 0
 
     typeControl = UISegmentedControl(items: [UIImage(systemName: "square")!, UIImage(systemName: "rectangle")!])
-    typeControl.backgroundColor = .gray
-    typeControl.selectedSegmentTintColor = .white
+//    typeControl.backgroundColor = .gray
+    typeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+    typeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+    typeControl.selectedSegmentTintColor = darkGray
     typeControl.selectedSegmentIndex = 0
-    typeControl.tintColor = .red
+
+    spawnControl = UISegmentedControl(items: ["manual", "automatic"])
+    spawnControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+    spawnControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+    spawnControl.selectedSegmentTintColor = darkGray
+    spawnControl.selectedSegmentIndex = 0
 
     randomButton = UIButton(type: .system)
     randomButton.configuration = UIButton.Configuration.filled()
@@ -114,10 +130,12 @@ class SettingsView: UIView {
 
     showHideButton = UIButton(type: .system)
     showHideButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+    showHideButton.tintColor = .white
 
     super.init(frame: frame)
 
     backgroundColor = .clear
+    tintColor = darkGray
 
     let cutOffStackView = UIStackView(arrangedSubviews: [cutOffKeyLabel, cutOffValueLabel, cutOffStepper])
     cutOffStackView.spacing = 20
@@ -130,6 +148,7 @@ class SettingsView: UIView {
 
     let trailsStackView = UIStackView(arrangedSubviews: [trailKeyLabel, trailLengthControl])
     trailsStackView.axis = .vertical
+    trailsStackView.spacing = 5
 
     let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
 
@@ -137,7 +156,7 @@ class SettingsView: UIView {
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, trailsStackView, colorControl, typeControl, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, trailsStackView, colorControl, typeControl, spawnControl, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 

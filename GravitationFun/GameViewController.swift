@@ -34,6 +34,7 @@ class GameViewController: UIViewController {
     settingsView.colorControl.addTarget(self, action: #selector(changeColor(_:)), for: .valueChanged)
     settingsView.typeControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
     settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
+    settingsView.spawnControl.addTarget(self, action: #selector(changeSpawnMode(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown(_:)), for: .touchDown)
@@ -144,6 +145,13 @@ class GameViewController: UIViewController {
       return
     }
     gameScene?.setSatelliteType(type)
+  }
+
+  @objc func changeSpawnMode(_ sender: UISegmentedControl) {
+    guard let mode = SpawnMode(rawValue: sender.selectedSegmentIndex) else {
+      return
+    }
+    gameScene?.setSpawnMode(mode)
   }
 
   @objc func changeColor(_ sender: UISegmentedControl) {
