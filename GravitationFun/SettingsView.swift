@@ -165,7 +165,7 @@ class SettingsView: UIView {
 
     let stackView = UIStackView(arrangedSubviews: [settingsStackView, showHideStackView])
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.spacing = 20
+    stackView.spacing = 22
 
     addSubview(stackView)
 

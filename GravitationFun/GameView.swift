@@ -97,7 +97,7 @@ class GameView: UIView {
       image = UIImage(systemName: "chevron.right")
     } else {
       if let convertedOrigin = button.superview?.convert(button.frame.origin, to: settingsView) {
-        leadingSettingsConstraint.constant = convertedOrigin.x + 8
+        leadingSettingsConstraint.constant = convertedOrigin.x + 10
         image = UIImage(systemName: "chevron.left")
       } else {
         image = nil
@@ -115,7 +115,7 @@ class GameView: UIView {
       return
     }
 
-    if leadingSettingsConstraint.constant > 1 {
+    if leadingSettingsConstraint.constant > 21 {
       toggleSettings()
     }
   }
