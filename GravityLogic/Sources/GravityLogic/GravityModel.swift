@@ -115,7 +115,7 @@ public class GravityModel {
     explosion(at: satellite.position, inNode: target)
     satellite.removeFromParent()
 
-    if satelliteNodes.count < 5 {
+    if spawnMode == .automatic, satelliteNodes.count < 5 {
       for node in random(size: target.size).nodes {
         target.addChild(node)
       }

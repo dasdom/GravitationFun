@@ -152,6 +152,9 @@ class GameViewController: UIViewController {
       return
     }
     gameScene?.setSpawnMode(mode)
+    if mode == .automatic {
+      gameScene?.random()
+    }
   }
 
   @objc func changeColor(_ sender: UISegmentedControl) {

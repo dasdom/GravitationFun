@@ -160,19 +160,23 @@ class SettingsView: UIView {
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 
-    let stackView = UIStackView(arrangedSubviews: [settingsStackView, showHideButton])
+    let showHideStackView = UIStackView(arrangedSubviews: [showHideButton])
+    showHideStackView.alignment = .top
+
+    let stackView = UIStackView(arrangedSubviews: [settingsStackView, showHideStackView])
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.spacing = 20
 
     addSubview(stackView)
 
     NSLayoutConstraint.activate([
-      stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+      stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
       stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
       stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
       stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-      showHideButton.widthAnchor.constraint(equalToConstant: 30),
+      showHideButton.widthAnchor.constraint(equalToConstant: 44),
+      showHideButton.heightAnchor.constraint(equalToConstant: 44),
 
       cutOffValueLabel.widthAnchor.constraint(equalToConstant: 20),
     ])

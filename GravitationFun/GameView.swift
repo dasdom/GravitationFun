@@ -64,7 +64,7 @@ class GameView: UIView {
     addSubview(zoomStackView)
     addSubview(fastForwardButton)
 
-    let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: leadingAnchor)
+    let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
 
     NSLayoutConstraint.activate([
       settingsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -92,12 +92,12 @@ class GameView: UIView {
     }
 
     let button = settingsView.showHideButton
-    if leadingSettingsConstraint.constant > 1 {
-      leadingSettingsConstraint.constant = 0
+    if leadingSettingsConstraint.constant > 21 {
+      leadingSettingsConstraint.constant = 20
       image = UIImage(systemName: "chevron.right")
     } else {
       if let convertedOrigin = button.superview?.convert(button.frame.origin, to: settingsView) {
-        leadingSettingsConstraint.constant = convertedOrigin.x
+        leadingSettingsConstraint.constant = convertedOrigin.x + 8
         image = UIImage(systemName: "chevron.left")
       } else {
         image = nil
