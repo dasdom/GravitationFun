@@ -13,8 +13,8 @@ public class GravityModel {
   var satelliteNodes: [Satellite] = []
   var temporaryNodes: [Int:Satellite] = [:]
   var velocityNodes: [Int:SKShapeNode] = [:]
-  let emitterBox: SKEmitterNode
-  let emitterRectangle: SKEmitterNode
+  let emitterForBox: SKEmitterNode
+  let emitterForRectangle: SKEmitterNode
   var backgroundEmitter: SKEmitterNode?
   var explosionEmitter: SKEmitterNode?
   let gravityNode: SKFieldNode
@@ -41,8 +41,8 @@ public class GravityModel {
     didSet {
       setEmitter(enabled: false)
 
-      emitterBox.particleLifetime = trailLength.lifetime()
-      emitterRectangle.particleLifetime = trailLength.lifetime()
+      emitterForBox.particleLifetime = trailLength.lifetime()
+      emitterForRectangle.particleLifetime = trailLength.lifetime()
 
       switch trailLength {
         case .none:
@@ -62,15 +62,15 @@ public class GravityModel {
 
   // MARK: - Setupg
   public init() {
-    emitterBox = BoxEmitter()
-    emitterRectangle = RectangleEmitter()
-    explosionEmitter = SKEmitterNode(fileNamed: "explosion")
+    emitterForBox = BoxEmitter()
+    emitterForRectangle = RectangleEmitter()
+    explosionEmitter = ExplosionEmitter()
     gravityNode = SKFieldNode.radialGravityField()
   }
 
   public func setup(scene: SKScene) {
-    emitterBox.targetNode = scene
-    emitterRectangle.targetNode = scene
+    emitterForBox.targetNode = scene
+    emitterForRectangle.targetNode = scene
 
     backgroundEmitter = NodeFactory.backgroundEmitter(size: scene.size)
     if let backgroundEmitter = backgroundEmitter {
@@ -108,7 +108,7 @@ public class GravityModel {
     satelliteNodes.removeAll(where: { $0 == satellite })
 
     if satelliteNodes.count < 1 {
-      disableSound()
+      musicAudioNode?.removeFromParent()
     }
 
     moveEmittersIn(node: satellite, to: target)
@@ -181,7 +181,7 @@ public class GravityModel {
     satellite.addPhysicsBody(with: velocity)
 
     if trailLength != .none {
-      satellite.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)
+      satellite.addEmitter(emitterBox: emitterForBox, emitterRectangle: emitterForRectangle)
     }
   }
 
@@ -191,7 +191,7 @@ public class GravityModel {
 
     for node in satelliteNodes {
       if enabled {
-        node.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)
+        node.addEmitter(emitterBox: emitterForBox, emitterRectangle: emitterForRectangle)
       } else {
         let allEmitter = node.children.filter { $0 is SKEmitterNode }
         for emitter in allEmitter {
@@ -245,7 +245,7 @@ public class GravityModel {
     let satellites = Satellite.random(sceneSize: size, type: currentSatelliteType, colorSetting: colorSetting)
     for satellite in satellites {
       if trailLength != .none {
-        satellite.addEmitter(emitterBox: emitterBox, emitterRectangle: emitterRectangle)
+        satellite.addEmitter(emitterBox: emitterForBox, emitterRectangle: emitterForRectangle)
       }
       switch spawnMode {
         case .maual:
@@ -263,6 +263,6 @@ public class GravityModel {
       node.removeFromParent()
     }
     satelliteNodes.removeAll()
-    disableSound()
+    musicAudioNode?.removeFromParent()
   }
 }

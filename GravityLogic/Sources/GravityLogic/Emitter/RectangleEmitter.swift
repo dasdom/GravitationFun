@@ -5,7 +5,6 @@
 import SpriteKit
 
 class RectangleEmitter: SKEmitterNode {
-
   override init() {
     super.init()
 

@@ -18,7 +18,6 @@
 		F2D604162781AB09003958A2 /* GameSceneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D604152781AB09003958A2 /* GameSceneTests.swift */; };
 		F2D6041A2781B597003958A2 /* GravityLogic in Frameworks */ = {isa = PBXBuildFile; productRef = F2D604192781B597003958A2 /* GravityLogic */; };
 		F2D6041C2781D885003958A2 /* gravity.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F2D6041B2781D75F003958A2 /* gravity.m4a */; };
-		F2D604232781D92E003958A2 /* explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D604202781D927003958A2 /* explosion.sks */; };
 		F2D604242781D92E003958A2 /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D6041D2781D927003958A2 /* background.sks */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +55,6 @@
 		F2D604172781AEBF003958A2 /* GravityLogic */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GravityLogic; sourceTree = "<group>"; };
 		F2D6041B2781D75F003958A2 /* gravity.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gravity.m4a; sourceTree = "<group>"; };
 		F2D6041D2781D927003958A2 /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
-		F2D604202781D927003958A2 /* explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +125,6 @@
 				F2BD5C672773C4DE00136C85 /* Assets.xcassets */,
 				F2BD5C692773C4DE00136C85 /* LaunchScreen.storyboard */,
 				F2D6041D2781D927003958A2 /* background.sks */,
-				F2D604202781D927003958A2 /* explosion.sks */,
 				F2D6041B2781D75F003958A2 /* gravity.m4a */,
 			);
 			path = GravitationFun;
@@ -264,7 +261,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D6041C2781D885003958A2 /* gravity.m4a in Resources */,
-				F2D604232781D92E003958A2 /* explosion.sks in Resources */,
 				F2BD5C682773C4DE00136C85 /* Assets.xcassets in Resources */,
 				F2D604242781D92E003958A2 /* background.sks in Resources */,
 				F2BD5C6B2773C4DE00136C85 /* LaunchScreen.storyboard in Resources */,

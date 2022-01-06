@@ -18,10 +18,14 @@ class GravityModelTests: XCTestCase {
   }
 
   func test_loadsEmitterBox() {
-    XCTAssertNotNil(sut.emitterBox)
+    XCTAssertNotNil(sut.emitterForBox)
   }
 
   func test_loadEmitterRectangle() {
-    XCTAssertNotNil(sut.emitterRectangle)
+    XCTAssertNotNil(sut.emitterForRectangle)
+  }
+
+  func test_loadEmitterExplosion() {
+    XCTAssertNotNil(sut.explosionEmitter)
   }
 }
