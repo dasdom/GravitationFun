@@ -37,6 +37,14 @@ public class GravityModel {
       }
     }
   }
+  public var friction: Friction = .none {
+    didSet {
+      let linearDamping = friction.linearDamping
+      for node in satelliteNodes {
+        node.physicsBody?.linearDamping = linearDamping
+      }
+    }
+  }
   public var trailLength: TrailLength = .long {
     didSet {
       setEmitter(enabled: false)
@@ -179,6 +187,7 @@ public class GravityModel {
     let position = satellite.position
     let velocity = CGVector(dx: position.x - input.x, dy: position.y - input.y)
     satellite.addPhysicsBody(with: velocity)
+    satellite.physicsBody?.linearDamping = friction.linearDamping
 
     if trailLength != .none {
       satellite.addEmitter(emitterBox: emitterForBox, emitterRectangle: emitterForRectangle)
@@ -253,6 +262,7 @@ public class GravityModel {
         case .automatic:
           satellite.physicsBody?.linearDamping = 0.01
       }
+      satellite.physicsBody?.linearDamping = friction.linearDamping
     }
     self.satelliteNodes.append(contentsOf: satellites)
     return (nodes: satellites, sound: sound())

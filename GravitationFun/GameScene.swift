@@ -95,6 +95,10 @@ class GameScene: SKScene {
     model.trailLength = length
   }
 
+  func setFriction(to friction: Friction) {
+    model.friction = friction
+  }
+
   func setSpawnMode(_ mode: SpawnMode) {
     model.spawnMode = mode
   }

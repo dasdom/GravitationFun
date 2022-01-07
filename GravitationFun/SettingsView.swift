@@ -24,6 +24,9 @@ class SettingsView: UIView {
 
   let colorControl: UISegmentedControl
 
+  let frictionKeyLabel: UILabel
+  let frictionControl: UISegmentedControl
+
   let typeControl: UISegmentedControl
 
   let spawnControl: UISegmentedControl
@@ -97,11 +100,23 @@ class SettingsView: UIView {
     trailLengthControl.selectedSegmentTintColor = darkGray
     trailLengthControl.selectedSegmentIndex = 2
 
+    frictionKeyLabel = UILabel()
+    frictionKeyLabel.text = "Friction"
+    frictionKeyLabel.textColor = .white
+    frictionKeyLabel.font = .systemFont(ofSize: 13)
+
+    frictionControl = UISegmentedControl(items: ["none", "weak", "strong"])
+    frictionControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+    frictionControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+    frictionControl.selectedSegmentTintColor = darkGray
+    frictionControl.selectedSegmentIndex = 0
+
     colorControl = UISegmentedControl(items: [UIImage(systemName: "paintpalette")!.withRenderingMode(.alwaysOriginal), UIImage(systemName: "paintpalette")!])
     colorControl.selectedSegmentTintColor = darkGray
     colorControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
     colorControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
     colorControl.selectedSegmentIndex = 0
+
 
     typeControl = UISegmentedControl(items: [UIImage(systemName: "square")!, UIImage(systemName: "rectangle")!])
 //    typeControl.backgroundColor = .gray
@@ -146,17 +161,21 @@ class SettingsView: UIView {
     let starsStackView = UIStackView(arrangedSubviews: [starsKeyLabel, starsSwitch])
     starsStackView.spacing = 20
 
+    let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
+
     let trailsStackView = UIStackView(arrangedSubviews: [trailKeyLabel, trailLengthControl])
     trailsStackView.axis = .vertical
     trailsStackView.spacing = 5
 
-    let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
+    let frictionStackView = UIStackView(arrangedSubviews: [frictionKeyLabel, frictionControl])
+    frictionStackView.axis = .vertical
+    frictionStackView.spacing = 5
 
     let buttonStackView = UIStackView(arrangedSubviews: [clearButton, randomButton, shareImageButton])
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, trailsStackView, colorControl, typeControl, spawnControl, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, trailsStackView, frictionStackView, colorControl, typeControl, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 

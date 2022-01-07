@@ -34,6 +34,7 @@ class GameViewController: UIViewController {
     settingsView.colorControl.addTarget(self, action: #selector(changeColor(_:)), for: .valueChanged)
     settingsView.typeControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
     settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
+    settingsView.frictionControl.addTarget(self, action: #selector(changeFriction(_:)), for: .valueChanged)
     settingsView.spawnControl.addTarget(self, action: #selector(changeSpawnMode(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
@@ -134,6 +135,13 @@ class GameViewController: UIViewController {
       return
     }
     gameScene?.setTrailLength(to: length)
+  }
+
+  @objc func changeFriction(_ sender: UISegmentedControl) {
+    guard let friction = Friction(rawValue: sender.selectedSegmentIndex) else {
+      return
+    }
+    gameScene?.setFriction(to: friction)
   }
 
   @objc func toggleSound(_ sender: UISwitch) {
