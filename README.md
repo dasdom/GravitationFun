@@ -10,7 +10,7 @@ This is an iOS app build with SpriteKit. It shows a gravitationals field and let
 
 ## App Store
 
-[This app](https://apps.apple.com/us/app/gravity-zen/id1602081846) is in the App Store.
+This app is [in the App Store](https://apps.apple.com/us/app/gravity-zen/id1602081846).
 
 ## Licence
 
