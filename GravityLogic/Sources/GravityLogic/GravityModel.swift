@@ -11,6 +11,7 @@ public enum SpawnMode: Int {
 
 public class GravityModel {
   var satelliteNodes: [Satellite] = []
+//  var canon: SKSpriteNode
   var temporaryNodes: [Int:Satellite] = [:]
   var velocityNodes: [Int:SKShapeNode] = [:]
   let emitterForBox: SKEmitterNode
@@ -74,6 +75,7 @@ public class GravityModel {
     emitterForRectangle = RectangleEmitter()
     explosionEmitter = ExplosionEmitter()
     gravityNode = SKFieldNode.radialGravityField()
+//    canon = SKSpriteNode(color: .white, size: CGSize(width: 5, height: 20))
   }
 
   public func setup(scene: SKScene) {
@@ -89,6 +91,10 @@ public class GravityModel {
 
     gravityNode.falloff = 1.2
     scene.addChild(gravityNode)
+
+//    let size = scene.size
+//    canon.position = CGPoint(x: 0, y: -floor(size.height/2)+30)
+//    scene.addChild(canon)
   }
 
   public func addSound(node: SKAudioNode) {
@@ -246,6 +252,19 @@ public class GravityModel {
 
   public func disableStars() {
     backgroundEmitter?.removeFromParent()
+  }
+
+  // MARK: - Projectile
+
+  public func projectile(size: CGSize) -> SKNode {
+    let projectile = SKSpriteNode(color: .white, size: CGSize(width: 5, height: 5))
+    projectile.position = CGPoint(x: 0, y: -floor(size.height/2)+30)
+    projectile.physicsBody = SKPhysicsBody(rectangleOf: projectile.size)
+    projectile.physicsBody?.velocity = CGVector(dx: 0, dy: 500)
+    projectile.physicsBody?.affectedByGravity = false
+    projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
+    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.center | PhysicsCategory.satellite
+    return projectile
   }
 
   // MARK: - Misc

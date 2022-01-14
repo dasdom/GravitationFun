@@ -149,6 +149,11 @@ class GameScene: SKScene {
   func clear() {
     model.clear()
   }
+
+  func fire() {
+    let projectile = model.projectile(size: size)
+    addChild(projectile)
+  }
 }
 
 extension GameScene: SKPhysicsContactDelegate {
@@ -161,6 +166,15 @@ extension GameScene: SKPhysicsContactDelegate {
     } else if contact.bodyB.categoryBitMask == PhysicsCategory.satellite {
       if let node = contact.bodyB.node {
         model.remove(node, moveEmitterTo: self)
+      }
+    }
+    if contact.bodyA.categoryBitMask == PhysicsCategory.projectile {
+      if let node = contact.bodyA.node {
+        node.removeFromParent()
+      }
+    } else if contact.bodyB.categoryBitMask == PhysicsCategory.projectile {
+      if let node = contact.bodyB.node {
+        node.removeFromParent()
       }
     }
   }

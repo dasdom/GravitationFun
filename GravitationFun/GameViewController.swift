@@ -36,11 +36,14 @@ class GameViewController: UIViewController {
     settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
     settingsView.frictionControl.addTarget(self, action: #selector(changeFriction(_:)), for: .valueChanged)
     settingsView.spawnControl.addTarget(self, action: #selector(changeSpawnMode(_:)), for: .valueChanged)
+    settingsView.canonSwitch.addTarget(self, action: #selector(toggleFireButton(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown(_:)), for: .touchDown)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpInside)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpOutside)
+
+    contentView.fireButton.addTarget(self, action: #selector(fire(_:)), for: .touchUpInside)
 
     view = contentView
   }
@@ -127,7 +130,7 @@ class GameViewController: UIViewController {
   }
 
   @objc func toggleZoomButtons(_ sender: UISwitch) {
-    contentView.zoomStackView.isHidden = false == sender.isOn
+    contentView.zoomStackView.isHidden = !sender.isOn
   }
 
   @objc func changeTrailLength(_ sender: UISegmentedControl) {
@@ -165,6 +168,13 @@ class GameViewController: UIViewController {
     }
   }
 
+  @objc func toggleFireButton(_ sender: UISwitch) {
+    contentView.fireButton.isHidden = !sender.isOn
+    if false == contentView.zoomStackView.isHidden {
+      contentView.zoomStackView.isHidden = sender.isOn
+    }
+  }
+
   @objc func changeColor(_ sender: UISegmentedControl) {
     guard let colorSetting = ColorSetting(rawValue: sender.selectedSegmentIndex) else {
       return
@@ -194,6 +204,10 @@ class GameViewController: UIViewController {
 
   @objc func clear(_ sender: UIButton) {
     gameScene?.clear()
+  }
+
+  @objc func fire(_ sender: UIButton) {
+    gameScene?.fire()
   }
 
   override var prefersStatusBarHidden: Bool {

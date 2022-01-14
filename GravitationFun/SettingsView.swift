@@ -16,6 +16,9 @@ class SettingsView: UIView {
   let zoomKeyLabel: UILabel
   let zoomSwitch: UISwitch
 
+  let canonKeyLabel: UILabel
+  let canonSwitch: UISwitch
+
   let soundKeyLabel: UILabel
   let soundSwitch: UISwitch
 
@@ -79,6 +82,16 @@ class SettingsView: UIView {
     zoomSwitch.isOn = false
     zoomSwitch.accessibilityLabel = "Show zoom buttons"
     zoomSwitch.onTintColor = darkGray
+
+    canonKeyLabel = UILabel()
+    canonKeyLabel.text = "Canon"
+    canonKeyLabel.textColor = .white
+    canonKeyLabel.font = .systemFont(ofSize: 13)
+
+    canonSwitch = UISwitch()
+    canonSwitch.isOn = false
+    canonSwitch.accessibilityLabel = "Show zoom buttons"
+    canonSwitch.onTintColor = darkGray
 
     soundKeyLabel = UILabel()
     soundKeyLabel.text = "Sound"
@@ -158,6 +171,9 @@ class SettingsView: UIView {
     let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomSwitch])
     zoomStackView.spacing = 20
 
+    let canonStackView = UIStackView(arrangedSubviews: [canonKeyLabel, canonSwitch])
+    canonStackView.spacing = 20
+
     let starsStackView = UIStackView(arrangedSubviews: [starsKeyLabel, starsSwitch])
     starsStackView.spacing = 20
 
@@ -175,7 +191,7 @@ class SettingsView: UIView {
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, trailsStackView, frictionStackView, colorControl, typeControl, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, canonStackView, soundStackView, trailsStackView, frictionStackView, colorControl, typeControl, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 

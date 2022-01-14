@@ -14,6 +14,7 @@ class GameView: UIView {
   let zoomLabel: UILabel
   let zoomStackView: UIStackView
   let fastForwardButton: UIButton
+  let fireButton: UIButton
 
   override init(frame: CGRect) {
 
@@ -51,6 +52,13 @@ class GameView: UIView {
     fastForwardButton.setImage(UIImage(systemName: "forward"), for: .normal)
     fastForwardButton.tintColor = .white
 
+    fireButton = UIButton(type: .system)
+    fireButton.translatesAutoresizingMaskIntoConstraints = false
+    fireButton.configuration = UIButton.Configuration.filled()
+    fireButton.setImage(UIImage(systemName: "flame"), for: .normal)
+    fireButton.tintColor = .red
+    fireButton.isHidden = true
+
     super.init(frame: frame)
 
     skView.ignoresSiblingOrder = true
@@ -63,6 +71,7 @@ class GameView: UIView {
     addSubview(settingsView)
     addSubview(zoomStackView)
     addSubview(fastForwardButton)
+    addSubview(fireButton)
 
     let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12)
 
@@ -77,6 +86,11 @@ class GameView: UIView {
       fastForwardButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
       fastForwardButton.widthAnchor.constraint(equalToConstant: 44),
       fastForwardButton.heightAnchor.constraint(equalTo: fastForwardButton.widthAnchor),
+
+      fireButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+      fireButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+      fireButton.widthAnchor.constraint(equalToConstant: 80),
+      fireButton.heightAnchor.constraint(equalToConstant: 60),
     ])
 
     self.leadingSettingsConstraint = leadingSettingsConstraint
