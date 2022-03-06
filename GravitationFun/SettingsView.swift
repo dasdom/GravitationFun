@@ -90,7 +90,7 @@ class SettingsView: UIView {
 
     canonSwitch = UISwitch()
     canonSwitch.isOn = false
-    canonSwitch.accessibilityLabel = "Show zoom buttons"
+    canonSwitch.accessibilityLabel = "Activate canon"
     canonSwitch.onTintColor = darkGray
 
     soundKeyLabel = UILabel()
