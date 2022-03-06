@@ -64,16 +64,16 @@ class GravityUITests: XCTestCase {
     app.switches["Show zoom buttons"].tap()
     backButton.tap()
 
-    app.buttons["Decrement"].tap()
-    app.buttons["Decrement"].tap()
-    app.buttons["Decrement"].tap()
-
-    takeScreenshot(named: "zoomed_out")
-
-    forwardButton.tap()
-    app.buttons["Share"].tap()
-
-    takeScreenshot(named: "share")
+//    app.buttons["Decrement"].tap()
+//    app.buttons["Decrement"].tap()
+//    app.buttons["Decrement"].tap()
+//
+//    takeScreenshot(named: "zoomed_out")
+//
+//    forwardButton.tap()
+//    app.buttons["Share"].tap()
+//
+//    takeScreenshot(named: "share")
   }
   
 }
