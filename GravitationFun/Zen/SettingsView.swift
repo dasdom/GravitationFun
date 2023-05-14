@@ -16,11 +16,14 @@ class SettingsView: UIView {
   let zoomKeyLabel: UILabel
   let zoomSwitch: UISwitch
 
-  let canonKeyLabel: UILabel
-  let canonSwitch: UISwitch
+//  let canonKeyLabel: UILabel
+//  let canonSwitch: UISwitch
 
   let soundKeyLabel: UILabel
   let soundSwitch: UISwitch
+
+  let realGravityKeyLabel: UILabel
+  let realGravitySwitch: UISwitch
 
   let trailKeyLabel: UILabel
   let trailLengthControl: UISegmentedControl
@@ -33,6 +36,9 @@ class SettingsView: UIView {
   let typeControl: UISegmentedControl
 
   let spawnControl: UISegmentedControl
+
+  let loadButton: UIButton
+  let saveButton: UIButton
 
   let shareImageButton: UIButton
 
@@ -83,15 +89,15 @@ class SettingsView: UIView {
     zoomSwitch.accessibilityLabel = "Show zoom buttons"
     zoomSwitch.onTintColor = darkGray
 
-    canonKeyLabel = UILabel()
-    canonKeyLabel.text = "Canon"
-    canonKeyLabel.textColor = .white
-    canonKeyLabel.font = .systemFont(ofSize: 13)
-
-    canonSwitch = UISwitch()
-    canonSwitch.isOn = false
-    canonSwitch.accessibilityLabel = "Activate canon"
-    canonSwitch.onTintColor = darkGray
+//    canonKeyLabel = UILabel()
+//    canonKeyLabel.text = "Canon"
+//    canonKeyLabel.textColor = .white
+//    canonKeyLabel.font = .systemFont(ofSize: 13)
+//
+//    canonSwitch = UISwitch()
+//    canonSwitch.isOn = false
+//    canonSwitch.accessibilityLabel = "Activate canon"
+//    canonSwitch.onTintColor = darkGray
 
     soundKeyLabel = UILabel()
     soundKeyLabel.text = "Sound"
@@ -101,6 +107,15 @@ class SettingsView: UIView {
     soundSwitch = UISwitch()
     soundSwitch.isOn = true
     soundSwitch.onTintColor = darkGray
+
+    realGravityKeyLabel = UILabel()
+    realGravityKeyLabel.text = "\"Real\" gravity"
+    realGravityKeyLabel.textColor = .white
+    realGravityKeyLabel.font = .systemFont(ofSize: 13)
+
+    realGravitySwitch = UISwitch()
+    realGravitySwitch.isOn = true
+    realGravitySwitch.onTintColor = darkGray
 
     trailKeyLabel = UILabel()
     trailKeyLabel.text = "Trail length"
@@ -144,6 +159,12 @@ class SettingsView: UIView {
     spawnControl.selectedSegmentTintColor = darkGray
     spawnControl.selectedSegmentIndex = 0
 
+    loadButton = UIButton(configuration: .filled())
+    loadButton.setTitle("Load", for: .normal)
+
+    saveButton = UIButton(configuration: .filled())
+    saveButton.setTitle("Save", for: .normal)
+
     randomButton = UIButton(type: .system)
     randomButton.configuration = UIButton.Configuration.filled()
     randomButton.setImage(UIImage(systemName: "dice"), for: .normal)
@@ -171,13 +192,15 @@ class SettingsView: UIView {
     let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomSwitch])
     zoomStackView.spacing = 20
 
-    let canonStackView = UIStackView(arrangedSubviews: [canonKeyLabel, canonSwitch])
-    canonStackView.spacing = 20
+//    let canonStackView = UIStackView(arrangedSubviews: [canonKeyLabel, canonSwitch])
+//    canonStackView.spacing = 20
 
     let starsStackView = UIStackView(arrangedSubviews: [starsKeyLabel, starsSwitch])
     starsStackView.spacing = 20
 
     let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
+
+    let realGravityStackView = UIStackView(arrangedSubviews: [realGravityKeyLabel, realGravitySwitch])
 
     let trailsStackView = UIStackView(arrangedSubviews: [trailKeyLabel, trailLengthControl])
     trailsStackView.axis = .vertical
@@ -187,11 +210,15 @@ class SettingsView: UIView {
     frictionStackView.axis = .vertical
     frictionStackView.spacing = 5
 
+    let loadSaveStackView = UIStackView(arrangedSubviews: [loadButton, saveButton])
+    loadSaveStackView.spacing = 5
+    loadSaveStackView.distribution = .fillEqually
+
     let buttonStackView = UIStackView(arrangedSubviews: [clearButton, randomButton, shareImageButton])
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, canonStackView, soundStackView, trailsStackView, frictionStackView, colorControl, typeControl, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, realGravityStackView, trailsStackView, frictionStackView, colorControl, typeControl, loadSaveStackView, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 
@@ -200,7 +227,7 @@ class SettingsView: UIView {
 
     let stackView = UIStackView(arrangedSubviews: [settingsStackView, showHideStackView])
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.spacing = 22
+    stackView.spacing = 10
 
     addSubview(stackView)
 

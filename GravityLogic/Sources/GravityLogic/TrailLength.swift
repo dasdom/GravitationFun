@@ -14,9 +14,9 @@ public enum TrailLength: Int {
       case .none:
         return 0
       case .short:
-        return 1
+        return 5
       case .long:
-        return 10
+        return 20
     }
   }
 }

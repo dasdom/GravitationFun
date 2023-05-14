@@ -5,6 +5,10 @@
 import SpriteKit
 
 class ExplosionEmitter: SKEmitterNode {
+  override class var supportsSecureCoding: Bool {
+    return true
+  }
+  
   override init() {
     super.init()
 
@@ -26,5 +30,7 @@ class ExplosionEmitter: SKEmitterNode {
     particleBlendMode = .add
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError() }
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 }

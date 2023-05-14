@@ -10,11 +10,13 @@ class RectangleEmitter: SKEmitterNode {
 
     particleTexture = SKTextureAtlas(named: "Particle Sprite Atlas").textureNamed("bokeh")
     particleBirthRate = 30
-    particleLifetime = 10
-    particleAlpha = 0.6
-    particleScale = 0.04
+    particleLifetime = TrailLength.long.lifetime()
+    particleAlpha = 0.7
+    particleScale = 0.03
     particleColorBlendFactor = 1
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError() }
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 }

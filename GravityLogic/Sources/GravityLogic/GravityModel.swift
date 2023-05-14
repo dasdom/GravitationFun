@@ -10,7 +10,7 @@ public enum SpawnMode: Int {
 }
 
 public class GravityModel {
-  var satelliteNodes: [Satellite] = []
+  public var satelliteNodes: [Satellite] = []
 //  var canon: SKSpriteNode
   var temporaryNodes: [Int:Satellite] = [:]
   var velocityNodes: [Int:SKShapeNode] = [:]
@@ -20,8 +20,17 @@ public class GravityModel {
   var explosionEmitter: SKEmitterNode?
   let gravityNode: SKFieldNode
   public var currentSatelliteType: SatelliteType = .box
-  private var musicAudioNode: SKAudioNode?
+  public var musicAudioNode: SKAudioNode?
   var soundEnabled = true
+  public var realGravity = true {
+    didSet {
+      if realGravity {
+        gravityNode.falloff = 2
+      } else {
+        gravityNode.falloff = 1.2
+      }
+    }
+  }
   public var spawnMode: SpawnMode = .maual {
     didSet {
       let linearDamping: CGFloat
@@ -89,9 +98,18 @@ public class GravityModel {
 
     scene.addChild(NodeFactory.center())
 
-    gravityNode.falloff = 1.2
+    gravityNode.falloff = 2.0
     scene.addChild(gravityNode)
 
+    for child in scene.children {
+      if let satellite = child as? Satellite {
+        satelliteNodes.append(satellite)
+      } else if let emitter = child as? SKEmitterNode, emitter.name == "background" {
+        backgroundEmitter = emitter
+      } else if let audio = child as? SKAudioNode {
+        musicAudioNode = audio
+      }
+    }
 //    let size = scene.size
 //    canon.position = CGPoint(x: 0, y: -floor(size.height/2)+30)
 //    scene.addChild(canon)

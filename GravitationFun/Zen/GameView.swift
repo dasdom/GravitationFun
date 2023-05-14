@@ -27,7 +27,7 @@ class GameView: UIView {
     settingsView.cutOffStepper.value = 1.0
 
     zoomStepper = UIStepper()
-    zoomStepper.minimumValue = 0.25
+    zoomStepper.minimumValue = 0.05
     zoomStepper.maximumValue = 1.25
     zoomStepper.stepValue = 0.25
     zoomStepper.value = 1.0
@@ -64,8 +64,8 @@ class GameView: UIView {
     skView.ignoresSiblingOrder = true
     skView.preferredFramesPerSecond = UIScreen.main.maximumFramesPerSecond
 
-//    skView.showsFPS = true
-//    skView.showsNodeCount = true
+    skView.showsFPS = true
+    skView.showsNodeCount = true
 
     addSubview(skView)
     addSubview(settingsView)

@@ -5,12 +5,17 @@
 import SpriteKit
 
 class BoxEmitter: RectangleEmitter {
+  override class var supportsSecureCoding: Bool {
+    return true
+  }
   override init() {
     super.init()
 
-    particleBirthRate = 50
-    particlePositionRange = CGVector(dx: 3, dy: 3)
+    particleBirthRate = 60
+    particlePositionRange = CGVector(dx: 1, dy: 1)
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError() }
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 }

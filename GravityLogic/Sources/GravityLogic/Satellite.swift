@@ -9,10 +9,13 @@ public enum SatelliteType: Int {
   case rectangle
 }
 
-class Satellite: SKSpriteNode {
+public class Satellite: SKSpriteNode {
 
   let type: SatelliteType
   var colorRatio: CGFloat = 0
+  public override class var supportsSecureCoding: Bool {
+    return true
+  }
 
   class func random(amount: Int = 10, sceneSize: CGSize, type: SatelliteType, colorSetting: ColorSetting) -> [Satellite] {
     var satellites: [Satellite] = []
@@ -58,7 +61,12 @@ class Satellite: SKSpriteNode {
     zPosition = 2
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError() }
+  required init?(coder aDecoder: NSCoder) {
+
+    type = .box
+
+    super.init(coder: aDecoder)
+  }
 
   func addColor(forInput input: CGPoint, colorSetting: ColorSetting) {
     let length = sqrt(pow(input.x - position.x, 2) + pow(input.y - position.y, 2))
@@ -79,7 +87,7 @@ class Satellite: SKSpriteNode {
     }
   }
 
-  func addPhysicsBody(with velecity: CGVector) {
+  func addPhysicsBody(with velocity: CGVector) {
     self.physicsBody = SKPhysicsBody(rectangleOf: size)
     physicsBody?.friction = 0
 //    physicsBody?.restitution = 0
@@ -87,7 +95,8 @@ class Satellite: SKSpriteNode {
     physicsBody?.angularDamping = 0
     physicsBody?.categoryBitMask = PhysicsCategory.satellite
     physicsBody?.contactTestBitMask = PhysicsCategory.center
-    physicsBody?.velocity = velecity
+    physicsBody?.velocity = velocity
+    physicsBody?.mass = 10
   }
 
   func addEmitter(emitterBox: SKEmitterNode?, emitterRectangle: SKEmitterNode?) {

@@ -28,6 +28,9 @@ class GameViewController: UIViewController {
     settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
     settingsView.starsSwitch.addTarget(self, action: #selector(toggleStars(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
+    settingsView.realGravitySwitch.addTarget(self, action: #selector(toggleRealGravity(_:)), for: .valueChanged)
+    settingsView.loadButton.addTarget(self, action: #selector(loadScene(_:)), for: .touchUpInside)
+    settingsView.saveButton.addTarget(self, action: #selector(saveScene(_:)), for: .touchUpInside)
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
     settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
@@ -36,7 +39,7 @@ class GameViewController: UIViewController {
     settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
     settingsView.frictionControl.addTarget(self, action: #selector(changeFriction(_:)), for: .valueChanged)
     settingsView.spawnControl.addTarget(self, action: #selector(changeSpawnMode(_:)), for: .valueChanged)
-    settingsView.canonSwitch.addTarget(self, action: #selector(toggleFireButton(_:)), for: .valueChanged)
+//    settingsView.canonSwitch.addTarget(self, action: #selector(toggleFireButton(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown(_:)), for: .touchDown)
@@ -103,6 +106,15 @@ class GameViewController: UIViewController {
 //  }
 
   @objc func zoomChanged(_ sender: UIStepper) {
+    if let zoomValue = gameScene?.zoomValue {
+      if abs(sender.value - 0.25) < 0.01 {
+        if zoomValue > 0.25 {
+          sender.stepValue = 0.05
+        } else {
+          sender.stepValue = 0.25
+        }
+      }
+    }
     contentView.zoomLabel.text = String(format: "%ld", Int(sender.value * 100)) + "%"
     gameScene?.zoom(to: sender.value)
   }
@@ -151,6 +163,10 @@ class GameViewController: UIViewController {
     gameScene?.setSound(enabled: sender.isOn)
   }
 
+  @objc func toggleRealGravity(_ sender: UISwitch) {
+    gameScene?.model.realGravity = sender.isOn
+  }
+
   @objc func changeType(_ sender: UISegmentedControl) {
     guard let type = SatelliteType(rawValue: sender.selectedSegmentIndex) else {
       return
@@ -184,6 +200,67 @@ class GameViewController: UIViewController {
 
   @objc func random(_ sender: UIButton) {
     gameScene?.random()
+  }
+
+  @objc func saveScene(_ sender: UIButton) {
+    guard let scene = self.gameScene else {
+      return
+    }
+    guard let image = self.getScreenshot(scene: scene) else {
+      return
+    }
+    guard let jpegData = image.jpegData(compressionQuality: 0.2) else {
+      return
+    }
+
+    DispatchQueue.global(qos: .background).async {
+      var sceneStates: [GravityZenState]
+      do {
+        let data = try Data(contentsOf: FileManager.default.sceneStatesURL)
+        sceneStates = try JSONDecoder().decode([GravityZenState].self, from: data)
+      } catch {
+        print("\(#file), \(#line): \(error)")
+        sceneStates = []
+      }
+
+      do {
+        let sceneData = try NSKeyedArchiver.archivedData(withRootObject: scene, requiringSecureCoding: true)
+        let gravityZenState = GravityZenState(date: .now, imageData: jpegData, gameState: sceneData, isRealGravity: scene.model.realGravity)
+        sceneStates.append(gravityZenState)
+      } catch {
+        print("\(#file), \(#line): \(error)")
+      }
+
+      if false == sceneStates.isEmpty {
+        do {
+          let data = try JSONEncoder().encode(sceneStates)
+          try data.write(to: FileManager.default.sceneStatesURL)
+        } catch {
+          print("\(#file), \(#line): \(error)")
+        }
+      }
+    }
+  }
+
+  @objc func loadScene(_ sender: UIButton) {
+    let next = ZenStatesViewController()
+    next.gravityZenStateSelectionHandler = { [weak self] gravityZenState in
+      if let scene = GameScene.loadScene(from: gravityZenState.gameState) {
+        scene.scaleMode = .aspectFill
+
+        scene.model.realGravity = gravityZenState.isRealGravity
+        self?.gameScene = scene
+
+        self?.contentView.settingsView.realGravitySwitch.isOn = gravityZenState.isRealGravity
+
+        let view = self?.contentView.skView
+        view?.presentScene(scene)
+        self?.dismiss(animated: true)
+      }
+    }
+
+    let navigationController = UINavigationController(rootViewController: next)
+    present(navigationController, animated: true)
   }
 
   @objc func shareImage(_ sender: UIButton) {

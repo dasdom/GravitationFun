@@ -9,6 +9,10 @@ import GravityLogic
 class GameScene: SKScene {
 
   let model = GravityModel()
+  var zoomValue: CGFloat = 1.0
+  override class var supportsSecureCoding: Bool {
+    return true
+  }
 
   override init() {
     super.init(size: CGSize(width: 750, height: 1334))
@@ -17,9 +21,13 @@ class GameScene: SKScene {
     physicsWorld.gravity = .zero
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError() }
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 
   override func didMove(to view: SKView) {
+
+//    NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
 
     physicsWorld.contactDelegate = self
 
@@ -29,14 +37,68 @@ class GameScene: SKScene {
     addChild(cameraNode)
     camera = cameraNode
 
-    let musicAudioNode = SKAudioNode(fileNamed: "gravity.m4a")
-    model.addSound(node: musicAudioNode)
+    if nil == model.musicAudioNode {
+      let musicAudioNode = SKAudioNode(fileNamed: "gravity.m4a")
+      model.addSound(node: musicAudioNode)
+    }
 
     backgroundColor = .black
   }
 
+//  @objc func applicationDidEnterBackground() {
+//    do {
+//      let sceneData = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: true)
+//      UserDefaults.standard.set(sceneData, forKey: "currentScene")
+//    } catch {
+//      print("\(#file), \(#line): \(error)")
+//    }
+//  }
+
+  class func loadScene(from data: Data) -> GameScene? {
+    let scene: GameScene?
+
+    do {
+      if let savedScene = try NSKeyedUnarchiver.unarchivedObject(ofClass: GameScene.self, from: data) {
+        scene = savedScene
+      } else {
+        scene = nil
+      }
+    } catch {
+      scene = nil
+    }
+
+    return scene
+  }
+
+  // https://stackoverflow.com/a/31502698/498796
+  override func update(_ currentTime: TimeInterval) {
+    if model.realGravity {
+      let strength: CGFloat = 10
+      let dt: CGFloat = 1.0/60.0
+      for node1 in model.satelliteNodes {
+        for node2 in model.satelliteNodes {
+          if nil == node1.physicsBody || nil == node2.physicsBody {
+            continue
+          }
+          let m1 = node1.physicsBody!.mass*strength
+          let m2 = node2.physicsBody!.mass*strength
+          let disp = CGVector(dx: node2.position.x-node1.position.x, dy: node2.position.y-node1.position.y)
+          let radius = sqrt(disp.dx*disp.dx+disp.dy*disp.dy)
+          if radius < node1.size.width*1.8 { //Radius lower-bound.
+            continue
+          }
+          let force = (m1*m2)/(radius*radius);
+          let normal = CGVector(dx: disp.dx/radius, dy: disp.dy/radius)
+          let impulse = CGVector(dx: normal.dx*force*dt, dy: normal.dy*force*dt)
+
+          node1.physicsBody!.velocity = CGVector(dx: node1.physicsBody!.velocity.dx + impulse.dx, dy: node1.physicsBody!.velocity.dy + impulse.dy)
+        }
+      }
+    }
+  }
+
   func touchDown(_ touch: UITouch) {
-    
+    print("\(touch)")
     let position = touch.location(in: self)
     let node = model.satellite(with: position, id: touch.hash)
     addChild(node)
@@ -87,10 +149,6 @@ class GameScene: SKScene {
     }
   }
 
-  override func update(_ currentTime: TimeInterval) {
-    // Called before each frame is rendered
-  }
-
   func setTrailLength(to length: TrailLength) {
     model.trailLength = length
   }
@@ -112,6 +170,7 @@ class GameScene: SKScene {
   }
 
   func zoom(to zoomValue: CGFloat) {
+    self.zoomValue = zoomValue
     let zoomInAction = SKAction.scale(to: 1-(zoomValue-1), duration: 0.3)
     camera?.run(zoomInAction)
   }
