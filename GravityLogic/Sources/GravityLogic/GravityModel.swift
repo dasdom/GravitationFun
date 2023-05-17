@@ -96,10 +96,12 @@ public class GravityModel {
       scene.addChild(backgroundEmitter)
     }
 
-    scene.addChild(NodeFactory.center())
+    if scene.children.filter({ $0 is Satellite }).count < 1 {
+      scene.addChild(NodeFactory.center())
+      gravityNode.falloff = 2.0
+      scene.addChild(gravityNode)
+    }
 
-    gravityNode.falloff = 2.0
-    scene.addChild(gravityNode)
 
     for child in scene.children {
       if let satellite = child as? Satellite {

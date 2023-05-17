@@ -64,9 +64,11 @@ class GameView: UIView {
     skView.ignoresSiblingOrder = true
     skView.preferredFramesPerSecond = UIScreen.main.maximumFramesPerSecond
 
+    #if DEBUG
     skView.showsFPS = true
     skView.showsNodeCount = true
-
+    #endif
+    
     addSubview(skView)
     addSubview(settingsView)
     addSubview(zoomStackView)

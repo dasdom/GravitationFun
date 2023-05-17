@@ -161,6 +161,10 @@ class GameViewController: UIViewController {
 
   @objc func toggleSound(_ sender: UISwitch) {
     gameScene?.setSound(enabled: sender.isOn)
+
+//    if false == sender.isOn {
+//      Synth.shared.play(carrierFrequency: 440.0, modulatorFrequency: 800, modulatorAmplitude: 1)
+//    }
   }
 
   @objc func toggleRealGravity(_ sender: UISwitch) {

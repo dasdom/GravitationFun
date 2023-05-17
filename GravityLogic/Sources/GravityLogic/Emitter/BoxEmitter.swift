@@ -12,7 +12,7 @@ class BoxEmitter: RectangleEmitter {
     super.init()
 
     particleBirthRate = 60
-    particlePositionRange = CGVector(dx: 1, dy: 1)
+    particlePositionRange = CGVector(dx: 0.8, dy: 0.8)
   }
 
   required init?(coder aDecoder: NSCoder) {

@@ -84,7 +84,7 @@ class GameScene: SKScene {
           let m2 = node2.physicsBody!.mass*strength
           let disp = CGVector(dx: node2.position.x-node1.position.x, dy: node2.position.y-node1.position.y)
           let radius = sqrt(disp.dx*disp.dx+disp.dy*disp.dy)
-          if radius < node1.size.width*1.8 { //Radius lower-bound.
+          if radius < node1.size.width*1.3 { //Radius lower-bound.
             continue
           }
           let force = (m1*m2)/(radius*radius);

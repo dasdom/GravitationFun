@@ -30,7 +30,7 @@ public class Satellite: SKSpriteNode {
       let position = CGPoint(x: randomX, y: 0)
 
       let satellite = Satellite(position: position, type: type)
-      let randomXVelocity = CGFloat.random(in: -20...20)
+      let randomXVelocity = CGFloat.random(in: -40...40)
       let length = sqrt(pow(randomXVelocity, 2) + pow(randomYVelocity, 2))
       satellite.colorRatio = min(length/150, 1)
       satellite.updateColor(for: colorSetting)
