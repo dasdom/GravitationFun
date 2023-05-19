@@ -14,7 +14,8 @@ class GameView: UIView {
   let zoomLabel: UILabel
   let zoomStackView: UIStackView
   let fastForwardButton: UIButton
-  let fireButton: UIButton
+  let satellitesCountLabel: UILabel
+//  let fireButton: UIButton
 
   override init(frame: CGRect) {
 
@@ -24,7 +25,7 @@ class GameView: UIView {
 
     settingsView = SettingsView()
     settingsView.translatesAutoresizingMaskIntoConstraints = false
-    settingsView.cutOffStepper.value = 1.0
+//    settingsView.cutOffStepper.value = 1.0
 
     zoomStepper = UIStepper()
     zoomStepper.minimumValue = 0.05
@@ -52,28 +53,34 @@ class GameView: UIView {
     fastForwardButton.setImage(UIImage(systemName: "forward"), for: .normal)
     fastForwardButton.tintColor = .white
 
-    fireButton = UIButton(type: .system)
-    fireButton.translatesAutoresizingMaskIntoConstraints = false
-    fireButton.configuration = UIButton.Configuration.filled()
-    fireButton.setImage(UIImage(systemName: "flame"), for: .normal)
-    fireButton.tintColor = .red
-    fireButton.isHidden = true
+//    fireButton = UIButton(type: .system)
+//    fireButton.translatesAutoresizingMaskIntoConstraints = false
+//    fireButton.configuration = UIButton.Configuration.filled()
+//    fireButton.setImage(UIImage(systemName: "flame"), for: .normal)
+//    fireButton.tintColor = .red
+//    fireButton.isHidden = true
+
+    satellitesCountLabel = UILabel()
+    satellitesCountLabel.translatesAutoresizingMaskIntoConstraints = false
+    satellitesCountLabel.text = "0"
+    satellitesCountLabel.textColor = .systemGray
 
     super.init(frame: frame)
 
     skView.ignoresSiblingOrder = true
     skView.preferredFramesPerSecond = UIScreen.main.maximumFramesPerSecond
 
-    #if DEBUG
-    skView.showsFPS = true
-    skView.showsNodeCount = true
-    #endif
+//    #if DEBUG
+//    skView.showsFPS = true
+//    skView.showsNodeCount = true
+//    #endif
     
     addSubview(skView)
     addSubview(settingsView)
     addSubview(zoomStackView)
     addSubview(fastForwardButton)
-    addSubview(fireButton)
+    addSubview(satellitesCountLabel)
+//    addSubview(fireButton)
 
     let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12)
 
@@ -89,10 +96,12 @@ class GameView: UIView {
       fastForwardButton.widthAnchor.constraint(equalToConstant: 44),
       fastForwardButton.heightAnchor.constraint(equalTo: fastForwardButton.widthAnchor),
 
-      fireButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
-      fireButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-      fireButton.widthAnchor.constraint(equalToConstant: 80),
-      fireButton.heightAnchor.constraint(equalToConstant: 60),
+      satellitesCountLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+      satellitesCountLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
+//      fireButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+//      fireButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+//      fireButton.widthAnchor.constraint(equalToConstant: 80),
+//      fireButton.heightAnchor.constraint(equalToConstant: 60),
     ])
 
     self.leadingSettingsConstraint = leadingSettingsConstraint

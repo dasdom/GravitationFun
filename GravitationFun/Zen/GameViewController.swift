@@ -28,17 +28,19 @@ class GameViewController: UIViewController {
     settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
     settingsView.starsSwitch.addTarget(self, action: #selector(toggleStars(_:)), for: .valueChanged)
     settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
-    settingsView.realGravitySwitch.addTarget(self, action: #selector(toggleRealGravity(_:)), for: .valueChanged)
+//    settingsView.realGravitySwitch.addTarget(self, action: #selector(toggleRealGravity(_:)), for: .valueChanged)
+    settingsView.gravityControl.addTarget(self, action: #selector(changeGravity(_:)), for: .valueChanged)
     settingsView.loadButton.addTarget(self, action: #selector(loadScene(_:)), for: .touchUpInside)
     settingsView.saveButton.addTarget(self, action: #selector(saveScene(_:)), for: .touchUpInside)
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
     settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
     settingsView.colorControl.addTarget(self, action: #selector(changeColor(_:)), for: .valueChanged)
-    settingsView.typeControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
+//    settingsView.typeControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
     settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
-    settingsView.frictionControl.addTarget(self, action: #selector(changeFriction(_:)), for: .valueChanged)
-    settingsView.spawnControl.addTarget(self, action: #selector(changeSpawnMode(_:)), for: .valueChanged)
+    settingsView.trailThicknessControl.addTarget(self, action: #selector(changeTrailThickness(_:)), for: .valueChanged)
+//    settingsView.frictionControl.addTarget(self, action: #selector(changeFriction(_:)), for: .valueChanged)
+//    settingsView.spawnControl.addTarget(self, action: #selector(changeSpawnMode(_:)), for: .valueChanged)
 //    settingsView.canonSwitch.addTarget(self, action: #selector(toggleFireButton(_:)), for: .valueChanged)
 
     contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
@@ -46,7 +48,7 @@ class GameViewController: UIViewController {
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpInside)
     contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpOutside)
 
-    contentView.fireButton.addTarget(self, action: #selector(fire(_:)), for: .touchUpInside)
+//    contentView.fireButton.addTarget(self, action: #selector(fire(_:)), for: .touchUpInside)
 
     view = contentView
   }
@@ -61,6 +63,10 @@ class GameViewController: UIViewController {
 
     let scene = GameScene()
       scene.scaleMode = .aspectFill
+
+    scene.updateSatellitesHandler = { [weak self] count in
+      self?.contentView.satellitesCountLabel.text = "\(count)"
+    }
 
       gameScene = scene
 
@@ -152,12 +158,19 @@ class GameViewController: UIViewController {
     gameScene?.setTrailLength(to: length)
   }
 
-  @objc func changeFriction(_ sender: UISegmentedControl) {
-    guard let friction = Friction(rawValue: sender.selectedSegmentIndex) else {
+  @objc func changeTrailThickness(_ sender: UISegmentedControl) {
+    guard let particleScale = ParticleScale(rawValue: sender.selectedSegmentIndex) else {
       return
     }
-    gameScene?.setFriction(to: friction)
+    gameScene?.model.particleScale = particleScale
   }
+
+//  @objc func changeFriction(_ sender: UISegmentedControl) {
+//    guard let friction = Friction(rawValue: sender.selectedSegmentIndex) else {
+//      return
+//    }
+//    gameScene?.setFriction(to: friction)
+//  }
 
   @objc func toggleSound(_ sender: UISwitch) {
     gameScene?.setSound(enabled: sender.isOn)
@@ -167,33 +180,52 @@ class GameViewController: UIViewController {
 //    }
   }
 
-  @objc func toggleRealGravity(_ sender: UISwitch) {
-    gameScene?.model.realGravity = sender.isOn
-  }
+//  @objc func toggleRealGravity(_ sender: UISwitch) {
+//    gameScene?.model.realGravity = sender.isOn
+//  }
 
-  @objc func changeType(_ sender: UISegmentedControl) {
-    guard let type = SatelliteType(rawValue: sender.selectedSegmentIndex) else {
+  @objc func changeGravity(_ sender: UISegmentedControl) {
+    guard let scene = gameScene else {
       return
     }
-    gameScene?.setSatelliteType(type)
-  }
-
-  @objc func changeSpawnMode(_ sender: UISegmentedControl) {
-    guard let mode = SpawnMode(rawValue: sender.selectedSegmentIndex) else {
+    guard let mode = GravityMode(rawValue: sender.selectedSegmentIndex) else {
       return
     }
-    gameScene?.setSpawnMode(mode)
-    if mode == .automatic {
-      gameScene?.random()
+
+    scene.model.mode = mode
+    switch mode {
+      case .gravity:
+        contentView.settingsView.trailLengthControl.isEnabled = true
+        contentView.settingsView.randomButton.isEnabled = true
+      case .spirograph:
+        contentView.settingsView.trailLengthControl.isEnabled = false
+        contentView.settingsView.randomButton.isEnabled = false
     }
   }
 
-  @objc func toggleFireButton(_ sender: UISwitch) {
-    contentView.fireButton.isHidden = !sender.isOn
-    if false == contentView.zoomStackView.isHidden {
-      contentView.zoomStackView.isHidden = sender.isOn
-    }
-  }
+//  @objc func changeType(_ sender: UISegmentedControl) {
+//    guard let type = SatelliteType(rawValue: sender.selectedSegmentIndex) else {
+//      return
+//    }
+//    gameScene?.setSatelliteType(type)
+//  }
+
+//  @objc func changeSpawnMode(_ sender: UISegmentedControl) {
+//    guard let mode = SpawnMode(rawValue: sender.selectedSegmentIndex) else {
+//      return
+//    }
+//    gameScene?.setSpawnMode(mode)
+//    if mode == .automatic {
+//      gameScene?.random()
+//    }
+//  }
+
+//  @objc func toggleFireButton(_ sender: UISwitch) {
+//    contentView.fireButton.isHidden = !sender.isOn
+//    if false == contentView.zoomStackView.isHidden {
+//      contentView.zoomStackView.isHidden = sender.isOn
+//    }
+//  }
 
   @objc func changeColor(_ sender: UISegmentedControl) {
     guard let colorSetting = ColorSetting(rawValue: sender.selectedSegmentIndex) else {
@@ -204,6 +236,9 @@ class GameViewController: UIViewController {
 
   @objc func random(_ sender: UIButton) {
     gameScene?.random()
+    if let count = gameScene?.model.satelliteNodes.count {
+      contentView.satellitesCountLabel.text = "\(count)"
+    }
   }
 
   @objc func saveScene(_ sender: UIButton) {
@@ -227,20 +262,29 @@ class GameViewController: UIViewController {
         sceneStates = []
       }
 
-      do {
-        let sceneData = try NSKeyedArchiver.archivedData(withRootObject: scene, requiringSecureCoding: true)
-        let gravityZenState = GravityZenState(date: .now, imageData: jpegData, gameState: sceneData, isRealGravity: scene.model.realGravity)
-        sceneStates.append(gravityZenState)
-      } catch {
-        print("\(#file), \(#line): \(error)")
-      }
+      if sceneStates.count > 10 {
+        DispatchQueue.main.async {
+          let alert = UIAlertController(title: "Too many saved", message: "You already have more than 10 states saved. Please delete states you do not want to keep before saving a new state.", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .default))
+          self.present(alert, animated: true)
+        }
+      } else {
 
-      if false == sceneStates.isEmpty {
         do {
-          let data = try JSONEncoder().encode(sceneStates)
-          try data.write(to: FileManager.default.sceneStatesURL)
+          let sceneData = try NSKeyedArchiver.archivedData(withRootObject: scene, requiringSecureCoding: true)
+          let gravityZenState = GravityZenState(date: .now, imageData: jpegData, gameState: sceneData, mode: scene.model.mode)
+          sceneStates.append(gravityZenState)
         } catch {
           print("\(#file), \(#line): \(error)")
+        }
+
+        if false == sceneStates.isEmpty {
+          do {
+            let data = try JSONEncoder().encode(sceneStates)
+            try data.write(to: FileManager.default.sceneStatesURL)
+          } catch {
+            print("\(#file), \(#line): \(error)")
+          }
         }
       }
     }
@@ -252,13 +296,19 @@ class GameViewController: UIViewController {
       if let scene = GameScene.loadScene(from: gravityZenState.gameState) {
         scene.scaleMode = .aspectFill
 
-        scene.model.realGravity = gravityZenState.isRealGravity
+
+        scene.model.mode = gravityZenState.mode
         self?.gameScene = scene
 
-        self?.contentView.settingsView.realGravitySwitch.isOn = gravityZenState.isRealGravity
+//        self?.contentView.settingsView.realGravitySwitch.isOn = gravityZenState.isRealGravity
 
         let view = self?.contentView.skView
         view?.presentScene(scene)
+
+        scene.updateSatellitesHandler = { [weak self] count in
+          self?.contentView.satellitesCountLabel.text = "\(count)"
+        }
+        
         self?.dismiss(animated: true)
       }
     }
@@ -287,9 +337,9 @@ class GameViewController: UIViewController {
     gameScene?.clear()
   }
 
-  @objc func fire(_ sender: UIButton) {
-    gameScene?.fire()
-  }
+//  @objc func fire(_ sender: UIButton) {
+//    gameScene?.fire()
+//  }
 
   override var prefersStatusBarHidden: Bool {
     return true

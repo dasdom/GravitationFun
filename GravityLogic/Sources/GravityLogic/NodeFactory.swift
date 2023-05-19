@@ -7,9 +7,9 @@ import SpriteKit
 
 enum NodeFactory {
   static func center() -> SKShapeNode {
-    let radius: CGFloat = 5
+    let radius: CGFloat = 4
     let node = SKShapeNode(circleOfRadius: radius)
-    node.lineWidth = 1
+    node.lineWidth = 2
     node.fillColor = .black
     node.physicsBody = SKPhysicsBody(circleOfRadius: radius)
     node.physicsBody?.isDynamic = false
@@ -31,7 +31,7 @@ enum NodeFactory {
     bezierPath.addLine(to: to)
     let node = SKShapeNode(path: bezierPath.cgPath)
     node.strokeColor = .white
-    node.lineWidth = 2
+    node.lineWidth = 1
     return node
   }
 }

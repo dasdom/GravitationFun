@@ -10,18 +10,33 @@ class GameScene: SKScene {
 
   let model = GravityModel()
   var zoomValue: CGFloat = 1.0
+//  let shapeNode: SKShapeNode
+//  let path: [CGMutablePath]
+//  var counter = 0
+  var numberOfSatellites = 0
+  var updateSatellitesHandler: ((Int) -> Void)?
   override class var supportsSecureCoding: Bool {
     return true
   }
 
   override init() {
+//    shapeNode = SKShapeNode()
+//    path = CGMutablePath()
+
     super.init(size: CGSize(width: 750, height: 1334))
 
     anchorPoint = CGPoint(x: 0.5, y: 0.5)
     physicsWorld.gravity = .zero
+
+//    path.move(to: .init(x: 0, y: 0))
+//    shapeNode.path = path
   }
 
   required init?(coder aDecoder: NSCoder) {
+
+//    shapeNode = SKShapeNode()
+//    path = CGMutablePath()
+
     super.init(coder: aDecoder)
   }
 
@@ -41,6 +56,8 @@ class GameScene: SKScene {
       let musicAudioNode = SKAudioNode(fileNamed: "gravity.m4a")
       model.addSound(node: musicAudioNode)
     }
+
+//    addChild(shapeNode)
 
     backgroundColor = .black
   }
@@ -72,7 +89,12 @@ class GameScene: SKScene {
 
   // https://stackoverflow.com/a/31502698/498796
   override func update(_ currentTime: TimeInterval) {
-    if model.realGravity {
+    if model.satelliteNodes.count != numberOfSatellites {
+      updateSatellitesHandler?(model.satelliteNodes.count)
+      numberOfSatellites = model.satelliteNodes.count
+    }
+
+    if model.mode == .gravity {
       let strength: CGFloat = 10
       let dt: CGFloat = 1.0/60.0
       for node1 in model.satelliteNodes {
@@ -84,7 +106,7 @@ class GameScene: SKScene {
           let m2 = node2.physicsBody!.mass*strength
           let disp = CGVector(dx: node2.position.x-node1.position.x, dy: node2.position.y-node1.position.y)
           let radius = sqrt(disp.dx*disp.dx+disp.dy*disp.dy)
-          if radius < node1.size.width*1.3 { //Radius lower-bound.
+          if radius < node1.radius*1.3 { //Radius lower-bound.
             continue
           }
           let force = (m1*m2)/(radius*radius);
@@ -95,13 +117,26 @@ class GameScene: SKScene {
         }
       }
     }
+
+//    counter += 1
+//
+//    if counter > 5, let node = model.satelliteNodes.first {
+//      path.addLine(to: node.position)
+//      shapeNode.path = path
+//      counter = 0
+//    }
   }
 
   func touchDown(_ touch: UITouch) {
     print("\(touch)")
+    if model.mode == .spirograph,
+       model.satelliteNodes.count > 10 {
+      return
+    }
     let position = touch.location(in: self)
     let node = model.satellite(with: position, id: touch.hash)
     addChild(node)
+//    updateSatellitesHandler?(model.satelliteNodes.count)
   }
 
   func touchMoved(_ touch: UITouch) {
@@ -153,13 +188,13 @@ class GameScene: SKScene {
     model.trailLength = length
   }
 
-  func setFriction(to friction: Friction) {
-    model.friction = friction
-  }
-
-  func setSpawnMode(_ mode: SpawnMode) {
-    model.spawnMode = mode
-  }
+//  func setFriction(to friction: Friction) {
+//    model.friction = friction
+//  }
+//
+//  func setSpawnMode(_ mode: SpawnMode) {
+//    model.spawnMode = mode
+//  }
 
   func setStars(enabled: Bool) {
     if enabled, let stars = model.stars() {
@@ -220,11 +255,11 @@ extension GameScene: SKPhysicsContactDelegate {
 
     if contact.bodyA.categoryBitMask == PhysicsCategory.satellite {
       if let node = contact.bodyA.node {
-        model.remove(node, moveEmitterTo: self)
+        model.remove(node, explosionIn: self)
       }
     } else if contact.bodyB.categoryBitMask == PhysicsCategory.satellite {
       if let node = contact.bodyB.node {
-        model.remove(node, moveEmitterTo: self)
+        model.remove(node, explosionIn: self)
       }
     }
     if contact.bodyA.categoryBitMask == PhysicsCategory.projectile {

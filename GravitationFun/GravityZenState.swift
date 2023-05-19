@@ -4,10 +4,11 @@
 
 
 import Foundation
+import GravityLogic
 
 struct GravityZenState: Codable {
   let date: Date
   let imageData: Data
   let gameState: Data
-  let isRealGravity: Bool
+  let mode: GravityMode
 }

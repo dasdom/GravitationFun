@@ -9,9 +9,10 @@ public enum SatelliteType: Int {
   case rectangle
 }
 
-public class Satellite: SKSpriteNode {
+public class Satellite: SKShapeNode {
 
-  let type: SatelliteType
+//  let type: SatelliteType
+  public let radius: CGFloat = 5
   var colorRatio: CGFloat = 0
   public override class var supportsSecureCoding: Bool {
     return true
@@ -29,7 +30,7 @@ public class Satellite: SKSpriteNode {
       }
       let position = CGPoint(x: randomX, y: 0)
 
-      let satellite = Satellite(position: position, type: type)
+      let satellite = Satellite(position: position)
       let randomXVelocity = CGFloat.random(in: -40...40)
       let length = sqrt(pow(randomXVelocity, 2) + pow(randomYVelocity, 2))
       satellite.colorRatio = min(length/150, 1)
@@ -42,28 +43,33 @@ public class Satellite: SKSpriteNode {
     return satellites
   }
 
-  init(position: CGPoint, type: SatelliteType) {
+  init(position: CGPoint) {
 
-    let size: CGSize
-    switch type {
-      case .box:
-        size = CGSize(width: 10, height: 10)
-      case .rectangle:
-        size = CGSize(width: 5, height: 20)
-    }
+//    let size: CGSize
+//    switch type {
+//      case .box:
+//        size = CGSize(width: 10, height: 10)
+//      case .rectangle:
+//        size = CGSize(width: 5, height: 20)
+//    }
+//
+//    self.type = type
 
-    self.type = type
+//    super.init(texture: nil, color: .white, size: size)
+    super.init()
+    path = CGPath(ellipseIn: .init(x: 0, y: 0, width: radius*2, height: radius*2), transform: nil)
 
-    super.init(texture: nil, color: .white, size: size)
+    lineWidth = 0
+    fillColor = .white
 
     self.position = position
-    anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//    anchorPoint = CGPoint(x: 0.5, y: 0.5)
     zPosition = 2
   }
 
   required init?(coder aDecoder: NSCoder) {
 
-    type = .box
+//    type = .box
 
     super.init(coder: aDecoder)
   }
@@ -77,18 +83,18 @@ public class Satellite: SKSpriteNode {
   func updateColor(for colorSetting: ColorSetting) {
     switch colorSetting {
       case .multiColor:
-        color = UIColor(hue: colorRatio, saturation: 0.8, brightness: 0.9, alpha: 1)
+        fillColor = UIColor(hue: colorRatio, saturation: 0.8, brightness: 0.9, alpha: 1)
       case .blackAndWhite:
-        color = UIColor(white: colorRatio, alpha: 1)
+        fillColor = UIColor(white: colorRatio, alpha: 1)
     }
     let emitters = children.filter({ $0 is SKEmitterNode }) as! [SKEmitterNode]
     for emitter in emitters {
-      emitter.particleColor = color
+      emitter.particleColor = fillColor
     }
   }
 
   func addPhysicsBody(with velocity: CGVector) {
-    self.physicsBody = SKPhysicsBody(rectangleOf: size)
+    self.physicsBody = SKPhysicsBody(circleOfRadius: radius)
     physicsBody?.friction = 0
 //    physicsBody?.restitution = 0
     physicsBody?.linearDamping = 0
@@ -101,32 +107,34 @@ public class Satellite: SKSpriteNode {
 
   func addEmitter(emitterBox: SKEmitterNode?, emitterRectangle: SKEmitterNode?) {
 
-    switch type {
-      case .box:
+//    switch type {
+//      case .box:
         guard let emitterCopy = emitterBox?.copy() as? SKEmitterNode else {
           return
         }
 
-        emitterCopy.particleColor = color
+    emitterBox?.position = .init(x: radius, y: radius)
+
+        emitterCopy.particleColor = fillColor
         addChild(emitterCopy)
 
-      case .rectangle:
-        guard let emitterCopy = emitterRectangle?.copy() as? SKEmitterNode else {
-          return
-        }
-
-        emitterCopy.particleColor = color
-        emitterCopy.position = CGPoint(x: 0, y: -10)
-        addChild(emitterCopy)
-
-        guard let emitterCopy2 = emitterRectangle?.copy() as? SKEmitterNode else {
-          return
-        }
-
-        emitterCopy2.particleColor = color
-        addChild(emitterCopy2)
-
-        emitterCopy2.position = CGPoint(x: 0, y: 10)
-    }
+//      case .rectangle:
+//        guard let emitterCopy = emitterRectangle?.copy() as? SKEmitterNode else {
+//          return
+//        }
+//
+//        emitterCopy.particleColor = fillColor
+//        emitterCopy.position = CGPoint(x: 0, y: -10)
+//        addChild(emitterCopy)
+//
+//        guard let emitterCopy2 = emitterRectangle?.copy() as? SKEmitterNode else {
+//          return
+//        }
+//
+//        emitterCopy2.particleColor = fillColor
+//        addChild(emitterCopy2)
+//
+//        emitterCopy2.position = CGPoint(x: 0, y: 10)
+//    }
   }
 }
