@@ -28,52 +28,90 @@ class GravityUITests: XCTestCase {
     // Use XCTAssert and related functions to verify your tests produce the correct results.
 
     let forwardButton = app.buttons["Forward"]
-    forwardButton.tap()
-
     let backButton = app.buttons["Back"]
-
     let diceButton = app.buttons["dice"]
+    let trashButton = app.buttons["trash"]
+    let saveButton = app.buttons["Save"]
+    let loadButton = app.buttons["Load"]
+    let shareButton = app.buttons["Share"]
+    let doneButton = app.buttons["Done"]
+    let thickButton = app.buttons["thick"]
+    let normalButton = app.buttons["normal"]
+
+    forwardButton.tap()
     for _ in 0..<5 {
       sleep(2)
       diceButton.tap()
     }
 
+    thickButton.tap()
     backButton.tap()
 
-    sleep(20)
+    sleep(40)
 
-    takeScreenshot(named: "boxes")
+    takeScreenshot(named: "circles_1")
 
     forwardButton.tap()
-    app.buttons["rectangle"].tap()
+    saveButton.tap()
+
+    trashButton.tap()
 
     for _ in 0..<5 {
       sleep(2)
       diceButton.tap()
     }
+
+    thickButton.tap()
     backButton.tap()
 
-    sleep(20)
+    sleep(50)
 
-    takeScreenshot(named: "rectangles")
+    takeScreenshot(named: "circles_2")
 
     forwardButton.tap()
+    normalButton.tap()
+    backButton.tap()
+
+    sleep(50)
+
+    takeScreenshot(named: "circles_3")
+
+    forwardButton.tap()
+    saveButton.tap()
+
+//    app.buttons["rectangle"].tap()
+//
+//    for _ in 0..<5 {
+//      sleep(2)
+//      diceButton.tap()
+//    }
+//    backButton.tap()
+//
+//    sleep(20)
+//
+//    takeScreenshot(named: "rectangles")
 
     takeScreenshot(named: "settings")
+
+    loadButton.tap()
+
+    takeScreenshot(named: "saved")
+
+    doneButton.tap()
 
     app.switches["Show zoom buttons"].tap()
     backButton.tap()
 
-//    app.buttons["Decrement"].tap()
-//    app.buttons["Decrement"].tap()
-//    app.buttons["Decrement"].tap()
-//
-//    takeScreenshot(named: "zoomed_out")
-//
-//    forwardButton.tap()
-//    app.buttons["Share"].tap()
-//
-//    takeScreenshot(named: "share")
+    app.buttons["Decrement"].tap()
+    app.buttons["Decrement"].tap()
+    app.buttons["Decrement"].tap()
+
+    takeScreenshot(named: "zoomed_out")
+
+    forwardButton.tap()
+    shareButton.tap()
+
+    takeScreenshot(named: "share")
   }
   
 }

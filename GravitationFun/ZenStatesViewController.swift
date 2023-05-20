@@ -24,6 +24,9 @@ class ZenStatesViewController: UITableViewController {
     let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBackground]
     navigationController?.navigationBar.titleTextAttributes = textAttributes
 
+    let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(done))
+    navigationItem.rightBarButtonItem = doneButton
+
     do {
       let data = try Data(contentsOf: FileManager.default.sceneStatesURL)
       let gravityZenStates = try JSONDecoder().decode([GravityZenState].self, from: data)
@@ -81,5 +84,12 @@ class ZenStatesViewController: UITableViewController {
         print("\(#file), \(#line): \(error)")
       }
     }
+  }
+}
+
+// MARK: - Actions
+extension ZenStatesViewController {
+  @objc func done(_ sender: UIBarButtonItem) {
+    dismiss(animated: true)
   }
 }
