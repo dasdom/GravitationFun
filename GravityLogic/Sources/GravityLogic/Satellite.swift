@@ -33,7 +33,7 @@ public class Satellite: SKShapeNode {
       let satellite = Satellite(position: position)
       let randomXVelocity = CGFloat.random(in: -40...40)
       let length = sqrt(pow(randomXVelocity, 2) + pow(randomYVelocity, 2))
-      satellite.colorRatio = min(length/150, 1)
+      satellite.colorRatio = min(length/150, 0.9)
       satellite.updateColor(for: colorSetting)
       let velocity = CGVector(dx: randomXVelocity, dy: randomYVelocity)
       satellite.addPhysicsBody(with: velocity)
@@ -76,14 +76,14 @@ public class Satellite: SKShapeNode {
 
   func addColor(forInput input: CGPoint, colorSetting: ColorSetting) {
     let length = sqrt(pow(input.x - position.x, 2) + pow(input.y - position.y, 2))
-    colorRatio = min(length/150, 1)
+    colorRatio = min(length/150, 0.9)
     updateColor(for: colorSetting)
   }
 
   func updateColor(for colorSetting: ColorSetting) {
     switch colorSetting {
       case .multiColor:
-        fillColor = UIColor(hue: colorRatio, saturation: 0.8, brightness: 0.9, alpha: 1)
+        fillColor = UIColor(hue: colorRatio, saturation: 0.7, brightness: 1.0, alpha: 1)
       case .blackAndWhite:
         fillColor = UIColor(white: colorRatio, alpha: 1)
     }
@@ -105,7 +105,7 @@ public class Satellite: SKShapeNode {
     physicsBody?.mass = 10
   }
 
-  func addEmitter(emitterBox: SKEmitterNode?, emitterRectangle: SKEmitterNode?) {
+  func addEmitter(emitterBox: SKEmitterNode?) {
 
 //    switch type {
 //      case .box:

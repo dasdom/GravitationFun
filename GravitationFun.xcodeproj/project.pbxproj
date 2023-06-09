@@ -12,8 +12,13 @@
 		F272AE212A110E59003B5178 /* ZenStatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F272AE202A110E59003B5178 /* ZenStatesViewController.swift */; };
 		F272AE232A117684003B5178 /* Synth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F272AE222A117684003B5178 /* Synth.swift */; };
 		F272AE272A12C149003B5178 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F272AE262A12C149003B5178 /* StoreKit.framework */; };
+		F27F9C5C2A19E590009D32D3 /* TipJarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27F9C5B2A19E590009D32D3 /* TipJarViewController.swift */; };
+		F27F9C5E2A19E837009D32D3 /* GravityZen.storekit in Resources */ = {isa = PBXBuildFile; fileRef = F27F9C5D2A19E837009D32D3 /* GravityZen.storekit */; };
+		F27F9C602A19E907009D32D3 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = F27F9C5F2A19E907009D32D3 /* StoreKitTestCertificate.cer */; };
+		F27F9C632A19EC1B009D32D3 /* TipJarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27F9C622A19EC1B009D32D3 /* TipJarCell.swift */; };
 		F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E3B277B0F7C00EA5825 /* GameView.swift */; };
 		F2A21E50277F0F8D00EA5825 /* GravityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */; };
+		F2B5FF0B2A194D11005C53A1 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F2B5FF0A2A194D11005C53A1 /* RevenueCat */; };
 		F2B6164D27787F3A00BCE6C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */; };
 		F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */; };
 		F2BD5C612773C4DC00136C85 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD5C602773C4DC00136C85 /* GameScene.swift */; };
@@ -49,9 +54,14 @@
 		F272AE202A110E59003B5178 /* ZenStatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenStatesViewController.swift; sourceTree = "<group>"; };
 		F272AE222A117684003B5178 /* Synth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synth.swift; sourceTree = "<group>"; };
 		F272AE262A12C149003B5178 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		F27F9C5B2A19E590009D32D3 /* TipJarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarViewController.swift; sourceTree = "<group>"; };
+		F27F9C5D2A19E837009D32D3 /* GravityZen.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravityZen.storekit; sourceTree = "<group>"; };
+		F27F9C5F2A19E907009D32D3 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
+		F27F9C622A19EC1B009D32D3 /* TipJarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarCell.swift; sourceTree = "<group>"; };
 		F2A21E3B277B0F7C00EA5825 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		F2A21E4D277F0F8D00EA5825 /* GravityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GravityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityUITests.swift; sourceTree = "<group>"; };
+		F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		F2B6164B2777998200BCE6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F2B6164C27787F3A00BCE6C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F2BD5C572773C4DC00136C85 /* Gravity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +91,7 @@
 			files = (
 				F2D6041A2781B597003958A2 /* GravityLogic in Frameworks */,
 				F272AE272A12C149003B5178 /* StoreKit.framework in Frameworks */,
+				F2B5FF0B2A194D11005C53A1 /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,12 +116,55 @@
 			path = Zen;
 			sourceTree = "<group>";
 		};
+		F27F9C612A19EBE0009D32D3 /* TipJar */ = {
+			isa = PBXGroup;
+			children = (
+				F27F9C5B2A19E590009D32D3 /* TipJarViewController.swift */,
+				F27F9C622A19EC1B009D32D3 /* TipJarCell.swift */,
+				F27F9C5D2A19E837009D32D3 /* GravityZen.storekit */,
+				F27F9C5F2A19E907009D32D3 /* StoreKitTestCertificate.cer */,
+			);
+			path = TipJar;
+			sourceTree = "<group>";
+		};
 		F2A21E4E277F0F8D00EA5825 /* GravityUITests */ = {
 			isa = PBXGroup;
 			children = (
 				F2A21E4F277F0F8D00EA5825 /* GravityUITests.swift */,
 			);
 			path = GravityUITests;
+			sourceTree = "<group>";
+		};
+		F2B5FF0D2A19E26F005C53A1 /* ZenStates */ = {
+			isa = PBXGroup;
+			children = (
+				F272AE202A110E59003B5178 /* ZenStatesViewController.swift */,
+			);
+			path = ZenStates;
+			sourceTree = "<group>";
+		};
+		F2B5FF0E2A19E2A0005C53A1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F272AE1B2A10F014003B5178 /* GravityZenState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F2B5FF0F2A19E2AE005C53A1 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F272AE1D2A110B38003B5178 /* FileManager+Extension.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F2B5FF102A19E2C1005C53A1 /* Experiments */ = {
+			isa = PBXGroup;
+			children = (
+				F272AE222A117684003B5178 /* Synth.swift */,
+			);
+			path = Experiments;
 			sourceTree = "<group>";
 		};
 		F2BD5C4E2773C4DC00136C85 = {
@@ -139,12 +193,14 @@
 			isa = PBXGroup;
 			children = (
 				F2B6164B2777998200BCE6C4 /* Info.plist */,
+				F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */,
 				F2BD5C5A2773C4DC00136C85 /* AppDelegate.swift */,
 				F272AE1F2A110E32003B5178 /* Zen */,
-				F272AE202A110E59003B5178 /* ZenStatesViewController.swift */,
-				F272AE1B2A10F014003B5178 /* GravityZenState.swift */,
-				F272AE1D2A110B38003B5178 /* FileManager+Extension.swift */,
-				F272AE222A117684003B5178 /* Synth.swift */,
+				F2B5FF0D2A19E26F005C53A1 /* ZenStates */,
+				F2B5FF0E2A19E2A0005C53A1 /* Model */,
+				F2B5FF0F2A19E2AE005C53A1 /* Helper */,
+				F2B5FF102A19E2C1005C53A1 /* Experiments */,
+				F27F9C612A19EBE0009D32D3 /* TipJar */,
 				F2BD5C672773C4DE00136C85 /* Assets.xcassets */,
 				F2BD5C692773C4DE00136C85 /* LaunchScreen.storyboard */,
 				F2D6041D2781D927003958A2 /* background.sks */,
@@ -205,6 +261,7 @@
 			name = GravitationFun;
 			packageProductDependencies = (
 				F2D604192781B597003958A2 /* GravityLogic */,
+				F2B5FF0A2A194D11005C53A1 /* RevenueCat */,
 			);
 			productName = GravitationFun;
 			productReference = F2BD5C572773C4DC00136C85 /* Gravity.app */;
@@ -261,6 +318,9 @@
 				Base,
 			);
 			mainGroup = F2BD5C4E2773C4DC00136C85;
+			packageReferences = (
+				F2B5FF092A194D11005C53A1 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+			);
 			productRefGroup = F2BD5C582773C4DC00136C85 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -285,9 +345,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D6041C2781D885003958A2 /* gravity.m4a in Resources */,
+				F27F9C5E2A19E837009D32D3 /* GravityZen.storekit in Resources */,
 				F2BD5C682773C4DE00136C85 /* Assets.xcassets in Resources */,
 				F2D604242781D92E003958A2 /* background.sks in Resources */,
 				F2BD5C6B2773C4DE00136C85 /* LaunchScreen.storyboard in Resources */,
+				F27F9C602A19E907009D32D3 /* StoreKitTestCertificate.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +381,8 @@
 				F2BD5C632773C4DC00136C85 /* GameViewController.swift in Sources */,
 				F2BD5C5B2773C4DC00136C85 /* AppDelegate.swift in Sources */,
 				F272AE1C2A10F014003B5178 /* GravityZenState.swift in Sources */,
+				F27F9C632A19EC1B009D32D3 /* TipJarCell.swift in Sources */,
+				F27F9C5C2A19E590009D32D3 /* TipJarViewController.swift in Sources */,
 				F272AE232A117684003B5178 /* Synth.swift in Sources */,
 				F272AE1E2A110B38003B5178 /* FileManager+Extension.swift in Sources */,
 				F2A21E3C277B0F7C00EA5825 /* GameView.swift in Sources */,
@@ -362,6 +426,7 @@
 /* Begin XCBuildConfiguration section */
 		F2A21E55277F0F8D00EA5825 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -384,6 +449,7 @@
 		};
 		F2A21E56277F0F8D00EA5825 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -406,6 +472,7 @@
 		};
 		F2BD5C6C2773C4DE00136C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -467,6 +534,7 @@
 		};
 		F2BD5C6D2773C4DE00136C85 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -522,12 +590,13 @@
 		};
 		F2BD5C6F2773C4DE00136C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 97;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GravitationFun/Info.plist;
@@ -554,12 +623,13 @@
 		};
 		F2BD5C702773C4DE00136C85 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 97;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GravitationFun/Info.plist;
@@ -586,6 +656,7 @@
 		};
 		F2D604132781AAC9003958A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -609,6 +680,7 @@
 		};
 		F2D604142781AAC9003958A2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FF0C2A194DF9005C53A1 /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -671,7 +743,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F2B5FF092A194D11005C53A1 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		F2B5FF0A2A194D11005C53A1 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2B5FF092A194D11005C53A1 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
 		F2D604192781B597003958A2 /* GravityLogic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GravityLogic;

@@ -1,0 +1,50 @@
+{
+  "identifier" : "93ED4584",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "6449398864",
+      "localizations" : [
+        {
+          "description" : "Two cups of coffee for the developer",
+          "displayName" : "Large tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.dasdom.GravitationFun.large_tip",
+      "referenceName" : "Large Tip",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6449193182",
+      "localizations" : [
+        {
+          "description" : "Half a cup of coffee for the developer.",
+          "displayName" : "Small Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.dasdom.GravitationFun.small_tip",
+      "referenceName" : "Small Tip",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1602081846",
+    "_developerTeamID" : "Q6PD97MRX4",
+    "_lastSynchronizedDate" : 706554033.756302
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

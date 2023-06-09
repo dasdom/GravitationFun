@@ -8,6 +8,7 @@ import GameplayKit
 import Combine
 import StoreKit
 import GravityLogic
+import RevenueCat
 
 let closeSettingsNotificationName = Notification.Name(rawValue: "closeSettingsNotification")
 
@@ -23,32 +24,25 @@ class GameViewController: UIViewController {
     let contentView = GameView(frame: UIScreen.main.bounds)
 
     let settingsView = contentView.settingsView
-    settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings(_:)), for: .touchUpInside)
-//    settingsView.cutOffStepper.addTarget(self, action: #selector(falloffChanged(_:)), for: .valueChanged)
-    settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons(_:)), for: .valueChanged)
-    settingsView.starsSwitch.addTarget(self, action: #selector(toggleStars(_:)), for: .valueChanged)
-    settingsView.soundSwitch.addTarget(self, action: #selector(toggleSound(_:)), for: .valueChanged)
-//    settingsView.realGravitySwitch.addTarget(self, action: #selector(toggleRealGravity(_:)), for: .valueChanged)
-    settingsView.gravityControl.addTarget(self, action: #selector(changeGravity(_:)), for: .valueChanged)
-    settingsView.loadButton.addTarget(self, action: #selector(loadScene(_:)), for: .touchUpInside)
-    settingsView.saveButton.addTarget(self, action: #selector(saveScene(_:)), for: .touchUpInside)
-    settingsView.shareImageButton.addTarget(self, action: #selector(shareImage(_:)), for: .touchUpInside)
-    settingsView.randomButton.addTarget(self, action: #selector(random(_:)), for: .touchUpInside)
-    settingsView.clearButton.addTarget(self, action: #selector(clear(_:)), for: .touchUpInside)
-    settingsView.colorControl.addTarget(self, action: #selector(changeColor(_:)), for: .valueChanged)
-//    settingsView.typeControl.addTarget(self, action: #selector(changeType(_:)), for: .valueChanged)
-    settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength(_:)), for: .valueChanged)
-    settingsView.trailThicknessControl.addTarget(self, action: #selector(changeTrailThickness(_:)), for: .valueChanged)
-//    settingsView.frictionControl.addTarget(self, action: #selector(changeFriction(_:)), for: .valueChanged)
-//    settingsView.spawnControl.addTarget(self, action: #selector(changeSpawnMode(_:)), for: .valueChanged)
-//    settingsView.canonSwitch.addTarget(self, action: #selector(toggleFireButton(_:)), for: .valueChanged)
+    settingsView.showHideButton.addTarget(self, action: #selector(toggleSettings), for: .touchUpInside)
+    settingsView.zoomSwitch.addTarget(self, action: #selector(toggleZoomButtons), for: .valueChanged)
+    settingsView.starsSwitch.addTarget(self, action: #selector(toggleStars), for: .valueChanged)
+    settingsView.gravityControl.addTarget(self, action: #selector(changeGravity), for: .valueChanged)
+    settingsView.loadButton.addTarget(self, action: #selector(loadScene), for: .touchUpInside)
+    settingsView.saveButton.addTarget(self, action: #selector(saveScene), for: .touchUpInside)
+    settingsView.tipJarButton.addTarget(self, action: #selector(showTipJar), for: .touchUpInside)
+    settingsView.shareImageButton.addTarget(self, action: #selector(shareImage), for: .touchUpInside)
+    settingsView.randomButton.addTarget(self, action: #selector(random), for: .touchUpInside)
+    settingsView.clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+    settingsView.colorControl.addTarget(self, action: #selector(changeColor), for: .valueChanged)
+    settingsView.backgroundColorControl.addTarget(self, action: #selector(changeBackgroundColor), for: .valueChanged)
+    settingsView.trailLengthControl.addTarget(self, action: #selector(changeTrailLength), for: .valueChanged)
+    settingsView.trailThicknessControl.addTarget(self, action: #selector(changeTrailThickness), for: .valueChanged)
 
-    contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged(_:)), for: .valueChanged)
-    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown(_:)), for: .touchDown)
-    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpInside)
-    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp(_:)), for: .touchUpOutside)
-
-//    contentView.fireButton.addTarget(self, action: #selector(fire(_:)), for: .touchUpInside)
+    contentView.zoomStepper.addTarget(self, action: #selector(zoomChanged), for: .valueChanged)
+    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchDown), for: .touchDown)
+    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp), for: .touchUpInside)
+    contentView.fastForwardButton.addTarget(self, action: #selector(fastForwardTouchUp), for: .touchUpOutside)
 
     view = contentView
   }
@@ -57,26 +51,16 @@ class GameViewController: UIViewController {
     super.viewDidLoad()
 
     let view = self.contentView.skView
-    // Load the SKScene from 'GameScene.sks'
-//    if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
-      // Set the scale mode to scale to fit the window
-
     let scene = GameScene()
-      scene.scaleMode = .aspectFill
+    scene.scaleMode = .aspectFill
 
-    scene.updateSatellitesHandler = { [weak self] count in
-      self?.contentView.satellitesCountLabel.text = "\(count)"
+    scene.updateSatellitesHandler = { [weak self] _ in
+      self?.updateCountLabel()
     }
 
-      gameScene = scene
+    gameScene = scene
 
-      // Present the scene
-      view.presentScene(scene)
-//    }
-
-//    if let fieldNode = gameScene?.gravityNode {
-//      contentView.settingsView.cutOffValueLabel.text = "\(fieldNode.falloff)"
-//    }
+    view.presentScene(scene)
 
     if let cameraNode = gameScene?.camera {
       contentView.zoomLabel.text = String(format: "%ld", Int(cameraNode.xScale * 100)) + "%"
@@ -86,12 +70,20 @@ class GameViewController: UIViewController {
       .publisher(for: closeSettingsNotificationName, object: nil)
       .sink { [weak self] _ in
         self?.contentView.hideSettingsIfNeeded()
-    }
+      }
   }
 
   deinit {
     token?.cancel()
     token = nil
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    random(contentView.settingsView.randomButton)
+
+    updateForPurchases()
   }
 
   override var shouldAutorotate: Bool {
@@ -106,11 +98,26 @@ class GameViewController: UIViewController {
     }
   }
 
-//  @objc func falloffChanged(_ sender: UIStepper) {
-//    contentView.settingsView.cutOffValueLabel.text = String(format: "%.1lf", sender.value)
-//    gameScene?.gravityNode?.falloff = Float(sender.value)
-//  }
+  func updateForPurchases() {
+    Task {
+      do {
+        let customerInfo = try await Purchases.shared.customerInfo()
+        print("ids: \(customerInfo.allPurchasedProductIdentifiers)")
+        await MainActor.run {
+          if false == customerInfo.allPurchasedProductIdentifiers.isEmpty {
+            contentView.settingsView.backgroundColorControl.isEnabled = true
+            contentView.settingsView.backgroundColorDescriptionLabel.isHidden = true
+          }
+        }
+      } catch {
+        print("\(#file), \(#line): \(error)")
+      }
+    }
+  }
+}
 
+// MARK: - Actions
+extension GameViewController {
   @objc func zoomChanged(_ sender: UIStepper) {
     if let zoomValue = gameScene?.zoomValue {
       if abs(sender.value - 0.25) < 0.01 {
@@ -126,17 +133,39 @@ class GameViewController: UIViewController {
   }
 
   @objc func fastForwardTouchDown(_ sender: UIButton) {
-    gameScene?.physicsWorld.speed = 4
-    gameScene?.setTrailLength(to: .none)
+    guard let gameScene = gameScene else {
+      return
+    }
+    gameScene.physicsWorld.speed = 3
+//    gameScene?.setTrailLength(to: .none)
+    for satellite in gameScene.children.filter({ $0 is Satellite }) {
+      for emitter in satellite.children where emitter is SKEmitterNode {
+        guard let emitter = emitter as? SKEmitterNode else {
+          return
+        }
+        emitter.particleBirthRate *= 3
+      }
+    }
   }
 
   @objc func fastForwardTouchUp(_ sender: UIButton) {
-    gameScene?.physicsWorld.speed = 1
-    let selectedTrailLengthIndex = contentView.settingsView.trailLengthControl.selectedSegmentIndex
-    guard let length = TrailLength(rawValue: selectedTrailLengthIndex) else {
+    guard let gameScene = gameScene else {
       return
     }
-    gameScene?.setTrailLength(to: length)
+    gameScene.physicsWorld.speed = 1
+//    let selectedTrailLengthIndex = contentView.settingsView.trailLengthControl.selectedSegmentIndex
+//    guard let length = TrailLength(rawValue: selectedTrailLengthIndex) else {
+//      return
+//    }
+//    gameScene?.setTrailLength(to: length)
+    for satellite in gameScene.children.filter({ $0 is Satellite }) {
+      for emitter in satellite.children where emitter is SKEmitterNode {
+        guard let emitter = emitter as? SKEmitterNode else {
+          return
+        }
+        emitter.particleBirthRate /= 3
+      }
+    }
   }
 
   @objc func toggleSettings(_ sender: UIButton) {
@@ -165,24 +194,10 @@ class GameViewController: UIViewController {
     gameScene?.model.particleScale = particleScale
   }
 
-//  @objc func changeFriction(_ sender: UISegmentedControl) {
-//    guard let friction = Friction(rawValue: sender.selectedSegmentIndex) else {
-//      return
-//    }
-//    gameScene?.setFriction(to: friction)
-//  }
-
   @objc func toggleSound(_ sender: UISwitch) {
     gameScene?.setSound(enabled: sender.isOn)
 
-//    if false == sender.isOn {
-//      Synth.shared.play(carrierFrequency: 440.0, modulatorFrequency: 800, modulatorAmplitude: 1)
-//    }
   }
-
-//  @objc func toggleRealGravity(_ sender: UISwitch) {
-//    gameScene?.model.realGravity = sender.isOn
-//  }
 
   @objc func changeGravity(_ sender: UISegmentedControl) {
     guard let scene = gameScene else {
@@ -200,32 +215,14 @@ class GameViewController: UIViewController {
       case .spirograph:
         contentView.settingsView.trailLengthControl.isEnabled = false
         contentView.settingsView.randomButton.isEnabled = false
+        if scene.model.satelliteNodes.count > 10 {
+          for satellite in scene.model.satelliteNodes.sorted(by: { abs(pow($0.position.y, 2) + pow($0.position.x, 2)) < abs(pow($1.position.y, 2) + pow($1.position.x, 2)) })[10...] {
+            scene.model.remove(satellite, explosionIn: scene)
+          }
+        }
     }
+    updateCountLabel()
   }
-
-//  @objc func changeType(_ sender: UISegmentedControl) {
-//    guard let type = SatelliteType(rawValue: sender.selectedSegmentIndex) else {
-//      return
-//    }
-//    gameScene?.setSatelliteType(type)
-//  }
-
-//  @objc func changeSpawnMode(_ sender: UISegmentedControl) {
-//    guard let mode = SpawnMode(rawValue: sender.selectedSegmentIndex) else {
-//      return
-//    }
-//    gameScene?.setSpawnMode(mode)
-//    if mode == .automatic {
-//      gameScene?.random()
-//    }
-//  }
-
-//  @objc func toggleFireButton(_ sender: UISwitch) {
-//    contentView.fireButton.isHidden = !sender.isOn
-//    if false == contentView.zoomStackView.isHidden {
-//      contentView.zoomStackView.isHidden = sender.isOn
-//    }
-//  }
 
   @objc func changeColor(_ sender: UISegmentedControl) {
     guard let colorSetting = ColorSetting(rawValue: sender.selectedSegmentIndex) else {
@@ -235,9 +232,37 @@ class GameViewController: UIViewController {
   }
 
   @objc func random(_ sender: UIButton) {
-    gameScene?.random()
-    if let count = gameScene?.model.satelliteNodes.count {
-      contentView.satellitesCountLabel.text = "\(count)"
+    guard let gameScene = gameScene else {
+      return
+    }
+    gameScene.random()
+  }
+
+  func updateCountLabel() {
+    guard let gameScene = gameScene else {
+      return
+    }
+    let text: String
+    let count = gameScene.model.satelliteNodes.count
+    switch gameScene.model.mode {
+      case .gravity:
+        text = "\(count)"
+      case .spirograph:
+        text = "\(count)/10"
+    }
+    contentView.satellitesCountLabel.text = text
+  }
+
+  @objc func changeBackgroundColor(_ sender: UISegmentedControl) {
+    switch sender.selectedSegmentIndex {
+      case 0:
+        contentView.skView.scene?.backgroundColor = .black
+      case 1:
+        contentView.skView.scene?.backgroundColor = .init(white: 0.1, alpha: 1)
+      case 2:
+        contentView.skView.scene?.backgroundColor = .white
+      default:
+        break
     }
   }
 
@@ -300,19 +325,23 @@ class GameViewController: UIViewController {
         scene.model.mode = gravityZenState.mode
         self?.gameScene = scene
 
-//        self?.contentView.settingsView.realGravitySwitch.isOn = gravityZenState.isRealGravity
-
         let view = self?.contentView.skView
         view?.presentScene(scene)
 
-        scene.updateSatellitesHandler = { [weak self] count in
-          self?.contentView.satellitesCountLabel.text = "\(count)"
+        scene.updateSatellitesHandler = { [weak self] _ in
+          self?.updateCountLabel()
         }
         
         self?.dismiss(animated: true)
       }
     }
 
+    let navigationController = UINavigationController(rootViewController: next)
+    present(navigationController, animated: true)
+  }
+
+  @objc func showTipJar(_ sender: UIButton) {
+    let next = TipJarViewController()
     let navigationController = UINavigationController(rootViewController: next)
     present(navigationController, animated: true)
   }
@@ -334,12 +363,16 @@ class GameViewController: UIViewController {
   }
 
   @objc func clear(_ sender: UIButton) {
-    gameScene?.clear()
+    guard let scene = gameScene else {
+      return
+    }
+    for (index, satellite) in scene.model.satelliteNodes.enumerated() {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.03 * Double(index)) {
+        scene.model.remove(satellite, explosionIn: scene)
+      }
+    }
+//    gameScene?.clear()
   }
-
-//  @objc func fire(_ sender: UIButton) {
-//    gameScene?.fire()
-//  }
 
   override var prefersStatusBarHidden: Bool {
     return true
@@ -350,7 +383,6 @@ class GameViewController: UIViewController {
       return nil
     }
 
-//    let snapshotView = view.snapshotView(afterScreenUpdates: true)
     let bounds = view.bounds
 
     UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)

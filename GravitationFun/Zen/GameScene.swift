@@ -10,9 +10,6 @@ class GameScene: SKScene {
 
   let model = GravityModel()
   var zoomValue: CGFloat = 1.0
-//  let shapeNode: SKShapeNode
-//  let path: [CGMutablePath]
-//  var counter = 0
   var numberOfSatellites = 0
   var updateSatellitesHandler: ((Int) -> Void)?
   override class var supportsSecureCoding: Bool {
@@ -20,30 +17,17 @@ class GameScene: SKScene {
   }
 
   override init() {
-//    shapeNode = SKShapeNode()
-//    path = CGMutablePath()
-
     super.init(size: CGSize(width: 750, height: 1334))
 
     anchorPoint = CGPoint(x: 0.5, y: 0.5)
     physicsWorld.gravity = .zero
-
-//    path.move(to: .init(x: 0, y: 0))
-//    shapeNode.path = path
   }
 
   required init?(coder aDecoder: NSCoder) {
-
-//    shapeNode = SKShapeNode()
-//    path = CGMutablePath()
-
     super.init(coder: aDecoder)
   }
 
   override func didMove(to view: SKView) {
-
-//    NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-
     physicsWorld.contactDelegate = self
 
     model.setup(scene: self)
@@ -57,19 +41,8 @@ class GameScene: SKScene {
       model.addSound(node: musicAudioNode)
     }
 
-//    addChild(shapeNode)
-
     backgroundColor = .black
   }
-
-//  @objc func applicationDidEnterBackground() {
-//    do {
-//      let sceneData = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: true)
-//      UserDefaults.standard.set(sceneData, forKey: "currentScene")
-//    } catch {
-//      print("\(#file), \(#line): \(error)")
-//    }
-//  }
 
   class func loadScene(from data: Data) -> GameScene? {
     let scene: GameScene?
@@ -117,26 +90,17 @@ class GameScene: SKScene {
         }
       }
     }
-
-//    counter += 1
-//
-//    if counter > 5, let node = model.satelliteNodes.first {
-//      path.addLine(to: node.position)
-//      shapeNode.path = path
-//      counter = 0
-//    }
   }
 
   func touchDown(_ touch: UITouch) {
     print("\(touch)")
     if model.mode == .spirograph,
-       model.satelliteNodes.count > 10 {
+       model.satelliteNodes.count > 9 {
       return
     }
     let position = touch.location(in: self)
     let node = model.satellite(with: position, id: touch.hash)
     addChild(node)
-//    updateSatellitesHandler?(model.satelliteNodes.count)
   }
 
   func touchMoved(_ touch: UITouch) {
@@ -151,10 +115,6 @@ class GameScene: SKScene {
   func touchUp(_ touch: UITouch) {
 
     let endPosition = touch.location(in: self)
-
-    if let sound = model.sound() {
-      addChild(sound)
-    }
 
     model.addVelocityToSatellite(id: touch.hash, input: endPosition)
   }
@@ -187,14 +147,6 @@ class GameScene: SKScene {
   func setTrailLength(to length: TrailLength) {
     model.trailLength = length
   }
-
-//  func setFriction(to friction: Friction) {
-//    model.friction = friction
-//  }
-//
-//  func setSpawnMode(_ mode: SpawnMode) {
-//    model.spawnMode = mode
-//  }
 
   func setStars(enabled: Bool) {
     if enabled, let stars = model.stars() {
@@ -230,13 +182,9 @@ class GameScene: SKScene {
   }
 
   func random() {
-    let (nodes, sound) = model.random(size: size)
+    let (nodes, _) = model.random(size: size)
     for node in nodes {
       addChild(node)
-    }
-
-    if let sound = sound {
-      addChild(sound)
     }
   }
 

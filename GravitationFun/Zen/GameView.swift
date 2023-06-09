@@ -15,7 +15,6 @@ class GameView: UIView {
   let zoomStackView: UIStackView
   let fastForwardButton: UIButton
   let satellitesCountLabel: UILabel
-//  let fireButton: UIButton
 
   override init(frame: CGRect) {
 
@@ -25,7 +24,6 @@ class GameView: UIView {
 
     settingsView = SettingsView()
     settingsView.translatesAutoresizingMaskIntoConstraints = false
-//    settingsView.cutOffStepper.value = 1.0
 
     zoomStepper = UIStepper()
     zoomStepper.minimumValue = 0.05
@@ -51,14 +49,7 @@ class GameView: UIView {
     fastForwardButton = UIButton(type: .system)
     fastForwardButton.translatesAutoresizingMaskIntoConstraints = false
     fastForwardButton.setImage(UIImage(systemName: "forward"), for: .normal)
-    fastForwardButton.tintColor = .white
-
-//    fireButton = UIButton(type: .system)
-//    fireButton.translatesAutoresizingMaskIntoConstraints = false
-//    fireButton.configuration = UIButton.Configuration.filled()
-//    fireButton.setImage(UIImage(systemName: "flame"), for: .normal)
-//    fireButton.tintColor = .red
-//    fireButton.isHidden = true
+    fastForwardButton.tintColor = .systemGray
 
     satellitesCountLabel = UILabel()
     satellitesCountLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +71,6 @@ class GameView: UIView {
     addSubview(zoomStackView)
     addSubview(fastForwardButton)
     addSubview(satellitesCountLabel)
-//    addSubview(fireButton)
 
     let leadingSettingsConstraint = settingsView.showHideButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12)
 
@@ -98,10 +88,6 @@ class GameView: UIView {
 
       satellitesCountLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
       satellitesCountLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
-//      fireButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
-//      fireButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-//      fireButton.widthAnchor.constraint(equalToConstant: 80),
-//      fireButton.heightAnchor.constraint(equalToConstant: 60),
     ])
 
     self.leadingSettingsConstraint = leadingSettingsConstraint

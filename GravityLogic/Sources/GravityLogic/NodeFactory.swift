@@ -30,7 +30,7 @@ enum NodeFactory {
     bezierPath.move(to: from)
     bezierPath.addLine(to: to)
     let node = SKShapeNode(path: bezierPath.cgPath)
-    node.strokeColor = .white
+    node.strokeColor = .systemGray
     node.lineWidth = 1
     return node
   }

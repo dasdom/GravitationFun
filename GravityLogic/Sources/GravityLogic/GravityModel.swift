@@ -15,8 +15,8 @@ public class GravityModel {
   var temporaryNodes: [Int:Satellite] = [:]
   var velocityNodes: [Int:SKShapeNode] = [:]
   let emitterForBox: SKEmitterNode
-  let emitterForRectangle: SKEmitterNode
-  var backgroundEmitter: SKEmitterNode?
+//  let emitterForRectangle: SKEmitterNode
+  public var backgroundEmitter: SKEmitterNode?
   var explosionEmitter: SKEmitterNode?
   private(set) var gravityNode: SKFieldNode
   public var currentSatelliteType: SatelliteType = .box
@@ -57,7 +57,7 @@ public class GravityModel {
       setEmitter(enabled: false)
 
       emitterForBox.particleLifetime = trailLength.lifetime()
-      emitterForRectangle.particleLifetime = trailLength.lifetime()
+//      emitterForRectangle.particleLifetime = trailLength.lifetime()
 
       switch trailLength {
         case .none:
@@ -85,7 +85,7 @@ public class GravityModel {
   // MARK: - Setup
   public init() {
     emitterForBox = BoxEmitter()
-    emitterForRectangle = RectangleEmitter()
+//    emitterForRectangle = RectangleEmitter()
     explosionEmitter = ExplosionEmitter()
     gravityNode = SKFieldNode.radialGravityField()
 //    canon = SKSpriteNode(color: .white, size: CGSize(width: 5, height: 20))
@@ -93,15 +93,16 @@ public class GravityModel {
 
   public func setup(scene: SKScene) {
     emitterForBox.targetNode = scene
-    emitterForRectangle.targetNode = scene
-
-    backgroundEmitter = NodeFactory.backgroundEmitter(size: scene.size)
-    if let backgroundEmitter = backgroundEmitter {
-      scene.addChild(backgroundEmitter)
-    }
+//    emitterForRectangle.targetNode = scene
 
     if scene.children.filter({ $0 is Satellite }).count < 1 {
-      scene.addChild(NodeFactory.center())
+      backgroundEmitter = NodeFactory.backgroundEmitter(size: scene.size)
+      if let backgroundEmitter = backgroundEmitter {
+        scene.addChild(backgroundEmitter)
+      }
+      let center = NodeFactory.center()
+      center.position = .init(x: 4, y: 4)
+      scene.addChild(center)
       gravityNode.falloff = 2.0
       scene.addChild(gravityNode)
 //      let secondGravityNode = SKFieldNode.radialGravityField()
@@ -133,7 +134,6 @@ public class GravityModel {
   }
 
   // MARK: - Satellites
-
   public func satellite(with position: CGPoint, id: Int) -> SKNode {
     let node = Satellite(position: position)
     satelliteNodes.append(node)
@@ -228,7 +228,7 @@ public class GravityModel {
 //    satellite.physicsBody?.linearDamping = friction.linearDamping
 
     if trailLength != .none {
-      satellite.addEmitter(emitterBox: emitterForBox, emitterRectangle: emitterForRectangle)
+      satellite.addEmitter(emitterBox: emitterForBox)
     }
   }
 
@@ -238,7 +238,7 @@ public class GravityModel {
 
     for node in satelliteNodes {
       if enabled {
-        node.addEmitter(emitterBox: emitterForBox, emitterRectangle: emitterForRectangle)
+        node.addEmitter(emitterBox: emitterForBox)
       } else {
         let allEmitter = node.children.filter { $0 is SKEmitterNode }
         for emitter in allEmitter {
@@ -305,7 +305,7 @@ public class GravityModel {
     let satellites = Satellite.random(sceneSize: size, type: currentSatelliteType, colorSetting: colorSetting)
     for satellite in satellites {
       if trailLength != .none {
-        satellite.addEmitter(emitterBox: emitterForBox, emitterRectangle: emitterForRectangle)
+        satellite.addEmitter(emitterBox: emitterForBox)
       }
 //      switch spawnMode {
 //        case .maual:

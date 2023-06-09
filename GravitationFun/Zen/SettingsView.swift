@@ -6,44 +6,30 @@ import UIKit
 
 class SettingsView: UIView {
 
-//  let cutOffKeyLabel: UILabel
-//  let cutOffValueLabel: UILabel
-//  let cutOffStepper: UIStepper
-
   let starsKeyLabel: UILabel
   let starsSwitch: UISwitch
 
   let zoomKeyLabel: UILabel
   let zoomSwitch: UISwitch
 
-//  let canonKeyLabel: UILabel
-//  let canonSwitch: UISwitch
-
-  let soundKeyLabel: UILabel
-  let soundSwitch: UISwitch
-
-//  let realGravityKeyLabel: UILabel
-//  let realGravitySwitch: UISwitch
-
   let gravityControl: UISegmentedControl
 
-  let trailLengthKeyLabel: UILabel
+  let trailKeyLabel: UILabel
   let trailLengthControl: UISegmentedControl
 
-  let trailThicknessKeyLabel: UILabel
   let trailThicknessControl: UISegmentedControl
 
   let colorControl: UISegmentedControl
 
-//  let frictionKeyLabel: UILabel
-//  let frictionControl: UISegmentedControl
-
-//  let typeControl: UISegmentedControl
-
-  let spawnControl: UISegmentedControl
+//  let spawnControl: UISegmentedControl
+  let backgroundColorKeyLabel: UILabel
+  let backgroundColorControl: UISegmentedControl
+  let backgroundColorDescriptionLabel: UILabel
 
   let loadButton: UIButton
   let saveButton: UIButton
+
+  let tipJarButton: UIButton
 
   let shareImageButton: UIButton
 
@@ -55,29 +41,11 @@ class SettingsView: UIView {
 
   override init(frame: CGRect) {
 
-    let darkGray = UIColor(white: 0.3, alpha: 1)
-
-//    cutOffKeyLabel = UILabel()
-//    cutOffKeyLabel.text = "Gravity falloff:"
-//    cutOffKeyLabel.textColor = .white
-//    cutOffKeyLabel.font = .systemFont(ofSize: 13)
-//
-//    cutOffValueLabel = UILabel()
-//    cutOffValueLabel.text = "-"
-//    cutOffValueLabel.textAlignment = .right
-//    cutOffValueLabel.textColor = .white
-//    cutOffValueLabel.font = .systemFont(ofSize: 13)
-//
-//    cutOffStepper = UIStepper()
-//    cutOffStepper.minimumValue = 0.1
-//    cutOffStepper.maximumValue = 3.0
-//    cutOffStepper.stepValue = 0.1
-//    cutOffStepper.value = 1.0
-//    cutOffStepper.backgroundColor = .gray
+    let darkGray = UIColor(named: "darkGray")
 
     starsKeyLabel = UILabel()
     starsKeyLabel.text = "Stars"
-    starsKeyLabel.textColor = .white
+    starsKeyLabel.textColor = .systemGray
     starsKeyLabel.font = .systemFont(ofSize: 13)
 
     starsSwitch = UISwitch()
@@ -86,7 +54,7 @@ class SettingsView: UIView {
 
     zoomKeyLabel = UILabel()
     zoomKeyLabel.text = "Zoom buttons"
-    zoomKeyLabel.textColor = .white
+    zoomKeyLabel.textColor = .systemGray
     zoomKeyLabel.font = .systemFont(ofSize: 13)
 
     zoomSwitch = UISwitch()
@@ -94,44 +62,16 @@ class SettingsView: UIView {
     zoomSwitch.accessibilityLabel = "Show zoom buttons"
     zoomSwitch.onTintColor = darkGray
 
-//    canonKeyLabel = UILabel()
-//    canonKeyLabel.text = "Canon"
-//    canonKeyLabel.textColor = .white
-//    canonKeyLabel.font = .systemFont(ofSize: 13)
-//
-//    canonSwitch = UISwitch()
-//    canonSwitch.isOn = false
-//    canonSwitch.accessibilityLabel = "Activate canon"
-//    canonSwitch.onTintColor = darkGray
-
-    soundKeyLabel = UILabel()
-    soundKeyLabel.text = "Sound"
-    soundKeyLabel.textColor = .white
-    soundKeyLabel.font = .systemFont(ofSize: 13)
-    
-    soundSwitch = UISwitch()
-    soundSwitch.isOn = true
-    soundSwitch.onTintColor = darkGray
-
-//    realGravityKeyLabel = UILabel()
-//    realGravityKeyLabel.text = "\"Real\" gravity"
-//    realGravityKeyLabel.textColor = .white
-//    realGravityKeyLabel.font = .systemFont(ofSize: 13)
-//
-//    realGravitySwitch = UISwitch()
-//    realGravitySwitch.isOn = true
-//    realGravitySwitch.onTintColor = darkGray
-
     gravityControl = UISegmentedControl(items: ["Gravity", "Spirograph"])
     gravityControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
     gravityControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
     gravityControl.selectedSegmentTintColor = darkGray
     gravityControl.selectedSegmentIndex = 0
 
-    trailLengthKeyLabel = UILabel()
-    trailLengthKeyLabel.text = "Trail length"
-    trailLengthKeyLabel.textColor = .white
-    trailLengthKeyLabel.font = .systemFont(ofSize: 13)
+    trailKeyLabel = UILabel()
+    trailKeyLabel.text = "Trail"
+    trailKeyLabel.textColor = .systemGray
+    trailKeyLabel.font = .systemFont(ofSize: 13)
 
     trailLengthControl = UISegmentedControl(items: ["none", "short", "long"])
     trailLengthControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
@@ -139,28 +79,11 @@ class SettingsView: UIView {
     trailLengthControl.selectedSegmentTintColor = darkGray
     trailLengthControl.selectedSegmentIndex = 2
 
-    trailThicknessKeyLabel = UILabel()
-    trailThicknessKeyLabel.text = "Trail thickness"
-    trailThicknessKeyLabel.textColor = .white
-    trailThicknessKeyLabel.font = .systemFont(ofSize: 13)
-
     trailThicknessControl = UISegmentedControl(items: ["thin", "normal", "thick"])
     trailThicknessControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
     trailThicknessControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
     trailThicknessControl.selectedSegmentTintColor = darkGray
     trailThicknessControl.selectedSegmentIndex = 1
-
-
-//    frictionKeyLabel = UILabel()
-//    frictionKeyLabel.text = "Friction"
-//    frictionKeyLabel.textColor = .white
-//    frictionKeyLabel.font = .systemFont(ofSize: 13)
-//
-//    frictionControl = UISegmentedControl(items: ["none", "weak", "strong"])
-//    frictionControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
-//    frictionControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
-//    frictionControl.selectedSegmentTintColor = darkGray
-//    frictionControl.selectedSegmentIndex = 0
 
     colorControl = UISegmentedControl(items: [UIImage(systemName: "paintpalette")!.withRenderingMode(.alwaysOriginal), UIImage(systemName: "paintpalette")!])
     colorControl.selectedSegmentTintColor = darkGray
@@ -168,25 +91,38 @@ class SettingsView: UIView {
     colorControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
     colorControl.selectedSegmentIndex = 0
 
+    backgroundColorKeyLabel = UILabel()
+    backgroundColorKeyLabel.text = "Background"
+    backgroundColorKeyLabel.textColor = .systemGray
+    backgroundColorKeyLabel.font = .systemFont(ofSize: 13)
 
-//    typeControl = UISegmentedControl(items: [UIImage(systemName: "square")!, UIImage(systemName: "rectangle")!])
-////    typeControl.backgroundColor = .gray
-//    typeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
-//    typeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
-//    typeControl.selectedSegmentTintColor = darkGray
-//    typeControl.selectedSegmentIndex = 0
+    backgroundColorControl = UISegmentedControl(items: ["black", "gray", "white"])
+    backgroundColorControl.selectedSegmentTintColor = darkGray
+    backgroundColorControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+    backgroundColorControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+    backgroundColorControl.selectedSegmentIndex = 0
+    backgroundColorControl.isEnabled = false
 
-    spawnControl = UISegmentedControl(items: ["manual", "automatic"])
-    spawnControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
-    spawnControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
-    spawnControl.selectedSegmentTintColor = darkGray
-    spawnControl.selectedSegmentIndex = 0
+    backgroundColorDescriptionLabel = UILabel()
+    backgroundColorDescriptionLabel.text = "Enabled after tip"
+    backgroundColorDescriptionLabel.textColor = .systemGray
+    backgroundColorDescriptionLabel.font = .systemFont(ofSize: 11)
+    backgroundColorDescriptionLabel.textAlignment = .center
+
+//    spawnControl = UISegmentedControl(items: ["manual", "automatic"])
+//    spawnControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+//    spawnControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+//    spawnControl.selectedSegmentTintColor = darkGray
+//    spawnControl.selectedSegmentIndex = 0
 
     loadButton = UIButton(configuration: .filled())
     loadButton.setTitle("Load", for: .normal)
 
     saveButton = UIButton(configuration: .filled())
     saveButton.setTitle("Save", for: .normal)
+
+    tipJarButton = UIButton(configuration: .filled())
+    tipJarButton.setTitle("Tip Jar", for: .normal)
 
     randomButton = UIButton(type: .system)
     randomButton.configuration = UIButton.Configuration.filled()
@@ -202,41 +138,26 @@ class SettingsView: UIView {
 
     showHideButton = UIButton(type: .system)
     showHideButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-    showHideButton.tintColor = .white
+    showHideButton.tintColor = .systemGray
 
     super.init(frame: frame)
 
     backgroundColor = .clear
     tintColor = darkGray
 
-//    let cutOffStackView = UIStackView(arrangedSubviews: [cutOffKeyLabel, cutOffValueLabel, cutOffStepper])
-//    cutOffStackView.spacing = 20
-
     let zoomStackView = UIStackView(arrangedSubviews: [zoomKeyLabel, zoomSwitch])
     zoomStackView.spacing = 20
-
-//    let canonStackView = UIStackView(arrangedSubviews: [canonKeyLabel, canonSwitch])
-//    canonStackView.spacing = 20
 
     let starsStackView = UIStackView(arrangedSubviews: [starsKeyLabel, starsSwitch])
     starsStackView.spacing = 20
 
-    let soundStackView = UIStackView(arrangedSubviews: [soundKeyLabel, soundSwitch])
+    let trailsStackView = UIStackView(arrangedSubviews: [trailKeyLabel, trailLengthControl, trailThicknessControl])
+    trailsStackView.axis = .vertical
+    trailsStackView.spacing = 5
 
-//    let realGravityStackView = UIStackView(arrangedSubviews: [realGravityKeyLabel, realGravitySwitch])
-
-    let trailsLengthStackView = UIStackView(arrangedSubviews: [trailLengthKeyLabel, trailLengthControl])
-    trailsLengthStackView.axis = .vertical
-    trailsLengthStackView.spacing = 5
-
-
-    let trailsThicknessStackView = UIStackView(arrangedSubviews: [trailThicknessKeyLabel, trailThicknessControl])
-    trailsThicknessStackView.axis = .vertical
-    trailsThicknessStackView.spacing = 5
-
-//    let frictionStackView = UIStackView(arrangedSubviews: [frictionKeyLabel, frictionControl])
-//    frictionStackView.axis = .vertical
-//    frictionStackView.spacing = 5
+    let backgroundColorStackView = UIStackView(arrangedSubviews: [backgroundColorKeyLabel, backgroundColorControl, backgroundColorDescriptionLabel])
+    backgroundColorStackView.axis = .vertical
+    backgroundColorStackView.spacing = 5
 
     let loadSaveStackView = UIStackView(arrangedSubviews: [loadButton, saveButton])
     loadSaveStackView.spacing = 5
@@ -246,7 +167,7 @@ class SettingsView: UIView {
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
 
-    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, soundStackView, gravityControl, trailsLengthStackView, trailsThicknessStackView, colorControl, loadSaveStackView, buttonStackView])
+    let settingsStackView = UIStackView(arrangedSubviews: [zoomStackView, starsStackView, gravityControl, trailsStackView, colorControl, backgroundColorStackView, loadSaveStackView, tipJarButton, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 
@@ -267,8 +188,6 @@ class SettingsView: UIView {
 
       showHideButton.widthAnchor.constraint(equalToConstant: 44),
       showHideButton.heightAnchor.constraint(equalToConstant: 44),
-
-//      cutOffValueLabel.widthAnchor.constraint(equalToConstant: 20),
     ])
   }
 
