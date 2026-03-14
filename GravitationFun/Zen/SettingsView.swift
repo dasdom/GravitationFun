@@ -38,6 +38,8 @@ class SettingsView: UIView {
 
   let shareImageButton: UIButton
 
+  let radiusControl: UISegmentedControl
+
   let clockWiseButton: UIButton
   let randomButton: UIButton
   let counterClockWiseButton: UIButton
@@ -152,6 +154,12 @@ class SettingsView: UIView {
     tipJarButton = UIButton(configuration: .filled())
     tipJarButton.setTitle("Tip Jar", for: .normal)
 
+    radiusControl = UISegmentedControl(items: [UIImage(systemName: "circlebadge.fill")!, UIImage(systemName: "circle.fill")!])
+    radiusControl.selectedSegmentTintColor = darkGray
+    radiusControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.gray], for: .normal)
+    radiusControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+    radiusControl.selectedSegmentIndex = 0
+
     var buttonConfig = UIButton.Configuration.filled()
     buttonConfig.image = UIImage(systemName: "arrow.clockwise")
     clockWiseButton = UIButton(configuration: buttonConfig)
@@ -217,7 +225,7 @@ class SettingsView: UIView {
                                                            gravityControl,
                                                            blackHolesStackView,
 //                                                           trailsStackView,
-                                                           colorControl, backgroundColorStackView, loadSaveStackView, tipJarButton, randomButtonStackView, buttonStackView])
+                                                           colorControl, backgroundColorStackView, loadSaveStackView, tipJarButton, radiusControl, randomButtonStackView, buttonStackView])
     settingsStackView.axis = .vertical
     settingsStackView.spacing = 20
 

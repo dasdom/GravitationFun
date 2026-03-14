@@ -26,9 +26,9 @@ public class GravityModel {
   public private(set) var secondCenter: SKShapeNode
   public private(set) var thirdCenter: SKShapeNode
 
-  public var currentSatelliteType: SatelliteType = .box
   public var musicAudioNode: SKAudioNode?
   var soundEnabled = true
+  var radius: CGFloat = 5
   public var mode: GravityMode = .gravity {
     didSet {
       gravityNode.falloff = mode.falloff
@@ -215,8 +215,8 @@ public class GravityModel {
   }
 
   // MARK: - Satellites
-  public func satellite(with position: CGPoint, id: Int) -> SKNode {
-    let node = Satellite(position: position)
+  public func satellite(with position: CGPoint, radius: CGFloat, id: Int) -> SKNode {
+    let node = Satellite(position: position, radius: radius)
     satelliteNodes.append(node)
     temporaryNodes[id] = node
     return node
@@ -382,8 +382,8 @@ public class GravityModel {
 
   // MARK: - Misc
 
-  public func random(size: CGSize, direction: Direction) -> (nodes: [SKNode], sound: SKAudioNode?) {
-    let satellites = Satellite.random(sceneSize: size, type: currentSatelliteType, colorSetting: colorSetting, direction: direction)
+  public func random(sceneSize: CGSize, radius: CGFloat, direction: Direction) -> (nodes: [SKNode], sound: SKAudioNode?) {
+    let satellites = Satellite.random(sceneSize: sceneSize, radius: radius, colorSetting: colorSetting, direction: direction)
     for satellite in satellites {
       if trailLength != .none {
         satellite.addEmitter(emitterBox: emitterForBox)

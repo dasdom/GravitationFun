@@ -33,6 +33,7 @@ class GameViewController: UIViewController {
     settingsView.saveButton.addTarget(self, action: #selector(saveScene), for: .touchUpInside)
     settingsView.tipJarButton.addTarget(self, action: #selector(showTipJar), for: .touchUpInside)
     settingsView.shareImageButton.addTarget(self, action: #selector(shareImage), for: .touchUpInside)
+    settingsView.radiusControl.addTarget(self, action: #selector(changeRadius), for: .valueChanged)
     settingsView.clockWiseButton.addTarget(self, action: #selector(clockWiseRandom), for: .touchUpInside)
     settingsView.randomButton.addTarget(self, action: #selector(random), for: .touchUpInside)
     settingsView.counterClockWiseButton.addTarget(self, action: #selector(counterClockWiseRandom), for: .touchUpInside)
@@ -255,6 +256,15 @@ extension GameViewController {
       return
     }
     gameScene.random(direction: .random)
+  }
+
+  @objc func changeRadius(_ sender: UISegmentedControl) {
+    switch sender.selectedSegmentIndex {
+      case 1:
+        gameScene?.model.radius = 10
+      default:
+        gameScene?.model.radius = 5
+    }
   }
 
   @objc func clockWiseRandom(_ sender: UIButton) {

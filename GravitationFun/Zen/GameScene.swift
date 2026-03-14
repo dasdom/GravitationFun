@@ -81,6 +81,9 @@ class GameScene: SKScene {
           if nil == node1.physicsBody || nil == node2.physicsBody {
             continue
           }
+          if node1 == node2 {
+            continue
+          }
           let m1 = node1.physicsBody!.mass*strength
           let m2 = node2.physicsBody!.mass*strength
           let disp = CGVector(dx: node2.position.x-node1.position.x, dy: node2.position.y-node1.position.y)
@@ -107,7 +110,7 @@ class GameScene: SKScene {
       return
     }
     let position = touch.location(in: self)
-    let node = model.satellite(with: position, id: touch.hash)
+    let node = model.satellite(with: position, radius: model.radius, id: touch.hash)
     addChild(node)
   }
 
@@ -181,16 +184,12 @@ class GameScene: SKScene {
     }
   }
 
-  func setSatelliteType(_ type: SatelliteType) {
-    model.currentSatelliteType = type
-  }
-
   func setColorSetting(_ setting: ColorSetting) {
     model.colorSetting = setting
   }
 
   func random(direction: Direction) {
-    let (nodes, _) = model.random(size: size, direction: direction)
+    let (nodes, _) = model.random(sceneSize: size, radius: model.radius, direction: direction)
     for node in nodes {
       addChild(node)
     }

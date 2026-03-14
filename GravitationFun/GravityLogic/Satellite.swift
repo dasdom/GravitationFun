@@ -4,10 +4,10 @@
 
 import SpriteKit
 
-public enum SatelliteType: Int {
-  case box
-  case rectangle
-}
+//public enum SatelliteType: Int {
+//  case box
+//  case rectangle
+//}
 
 public enum Direction {
   case random
@@ -18,13 +18,13 @@ public enum Direction {
 public class Satellite: SKShapeNode {
 
 //  let type: SatelliteType
-  public let radius: CGFloat = 5
+  public let radius: CGFloat
   var colorRatio: CGFloat = 0
   public override class var supportsSecureCoding: Bool {
     return true
   }
 
-  class func random(amount: Int = 10, sceneSize: CGSize, type: SatelliteType, colorSetting: ColorSetting, direction: Direction) -> [Satellite] {
+  class func random(amount: Int = 10, sceneSize: CGSize, radius: CGFloat = 5, colorSetting: ColorSetting, direction: Direction) -> [Satellite] {
     var satellites: [Satellite] = []
     let clockWise: Bool
     switch direction {
@@ -45,7 +45,7 @@ public class Satellite: SKShapeNode {
       }
       let position = CGPoint(x: randomX, y: 0)
 
-      let satellite = Satellite(position: position)
+      let satellite = Satellite(position: position, radius: radius)
       let randomXVelocity = CGFloat.random(in: -40...40)
       let length = sqrt(pow(randomXVelocity, 2) + pow(randomYVelocity, 2))
       satellite.colorRatio = min(length/150, 0.9)
@@ -58,19 +58,10 @@ public class Satellite: SKShapeNode {
     return satellites
   }
 
-  init(position: CGPoint) {
+  init(position: CGPoint, radius: CGFloat) {
 
-//    let size: CGSize
-//    switch type {
-//      case .box:
-//        size = CGSize(width: 10, height: 10)
-//      case .rectangle:
-//        size = CGSize(width: 5, height: 20)
-//    }
-//
-//    self.type = type
+    self.radius = radius
 
-//    super.init(texture: nil, color: .white, size: size)
     super.init()
     path = CGPath(ellipseIn: .init(x: 0, y: 0, width: radius*2, height: radius*2), transform: nil)
 
@@ -84,7 +75,7 @@ public class Satellite: SKShapeNode {
 
   required init?(coder aDecoder: NSCoder) {
 
-//    type = .box
+    radius = 5
 
     super.init(coder: aDecoder)
   }
@@ -109,7 +100,7 @@ public class Satellite: SKShapeNode {
   }
 
   func addPhysicsBody(with velocity: CGVector) {
-    self.physicsBody = SKPhysicsBody(circleOfRadius: radius)
+    self.physicsBody = SKPhysicsBody(circleOfRadius: radius, center: .init(x: radius, y: radius))
     physicsBody?.friction = 0
 //    physicsBody?.restitution = 0
     physicsBody?.linearDamping = 0
@@ -117,7 +108,8 @@ public class Satellite: SKShapeNode {
     physicsBody?.categoryBitMask = PhysicsCategory.satellite
     physicsBody?.contactTestBitMask = PhysicsCategory.center
     physicsBody?.velocity = velocity
-    physicsBody?.mass = 10
+    physicsBody?.mass = radius * radius / 2.5
+//    physicsBody?.mass = 10
   }
 
   func addEmitter(emitterBox: SKEmitterNode?) {
